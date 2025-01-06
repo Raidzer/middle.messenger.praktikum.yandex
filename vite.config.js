@@ -20,9 +20,15 @@ export default defineConfig({
     port: 3000,
   },
   css: {
-    postcss: "./postcss.config.js",
+    postcss: "./postcss.config.сjs",
   },
   build: {
+    rollupOptions: {
+      input: {
+        index: path.resolve(__dirname, "index.html"),
+        login: path.resolve(__dirname, "src/pages/login/login.html"),
+      },
+    },
     outDir: "./build",
   },
   publicDir: "./static",
