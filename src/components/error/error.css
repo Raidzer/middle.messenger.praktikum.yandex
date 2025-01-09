@@ -25,10 +25,8 @@
       }
     }
 
-    .primaryText {
-      font-size: 18px;
-      color: var(--primary-color);
-      cursor: pointer;
+    .buttonContainer {
+      text-align: center;
     }
   }
 }

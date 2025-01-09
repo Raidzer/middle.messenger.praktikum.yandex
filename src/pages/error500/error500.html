@@ -1,12 +1,4 @@
-{{#> layout/layout }}
+{{#> layout/layout title="Ошибка 500" }}
 <link rel="stylesheet" href="error.css" />
-<div class="container">
-  <div class="dataContainer">
-    <div class="textContainer">
-      <h1>500</h1>
-      <h4>Мы уже фиксим</h4>
-    </div>
-    <div class="textContainer primaryText">Назад к чатам</div>
-  </div>
-</div>
-{{/ layout/layout}}
+{{> error/error codeError="500" description="Мы уже фиксим"}} {{/
+layout/layout}}

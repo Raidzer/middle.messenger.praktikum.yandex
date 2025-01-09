@@ -10,7 +10,10 @@ const contextData = {
 export default defineConfig({
   plugins: [
     handlebars({
-      partialDirectory: path.resolve(__dirname, "src/partials"),
+      partialDirectory: [
+        path.resolve(__dirname, "src/partials"),
+        path.resolve(__dirname, "src/components"),
+      ],
       context: contextData,
     }),
   ],

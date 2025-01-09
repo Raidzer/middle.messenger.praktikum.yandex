@@ -1,26 +1,13 @@
-{{#> layout/layout }}
+{{#> layout/layout title="Вход"}}
 <link rel="stylesheet" href="login.css" />
 <div class="container">
   <form class="loginForm">
     <h1>Вход</h1>
-    <div class="inputContainer">
-      <input class="loginInput" name="login" type="text" placeholder=" " />
-      <label class="inputLabel">Логин</label>
-    </div>
-    <div class="inputContainer">
-      <input
-        class="loginInput"
-        name="password"
-        type="password"
-        placeholder=" "
-      />
-      <label class="inputLabel">Пароль</label>
-    </div>
+    {{> formInput/formInput name="login" type="text" placeholder="Логин" }}
+    {{> formInput/formInput name="password" type="password" placeholder="Пароль" }}
     <div class="buttonContainer">
-      <button type="submit" class="btnLogin">Войти</button>
-      <p class="noAccount">
-        <a href="#" class="btnSignUp">Нет профиля?</a>
-      </p>
+      {{> button/button type="submit" label="Войти" class="primary"}}
+      {{> button/button type="button" label="Нет аккаунта?" class="secondary"}}
     </div>
   </form>
 </div>

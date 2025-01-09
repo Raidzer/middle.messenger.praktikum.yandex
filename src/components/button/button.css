@@ -1,0 +1,27 @@
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.primary {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+
+  &:hover {
+    background-color: var(--secondary-color);
+  }
+}
+
+.secondary {
+  background-color: var(--background-color-transparent);
+
+  &:hover {
+    background-color: var(--secondaryButtonHover-color);
+  }
+}

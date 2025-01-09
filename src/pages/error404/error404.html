@@ -1,12 +1,4 @@
-{{#> layout/layout }}
+{{#> layout/layout title="Ошибка 404" }}
 <link rel="stylesheet" href="error.css" />
-<div class="container">
-  <div class="dataContainer">
-    <div class="textContainer">
-      <h1>404</h1>
-      <h4>Не туда попали</h4>
-    </div>
-    <div class="textContainer primaryText">Назад к чатам</div>
-  </div>
-</div>
-{{/ layout/layout}}
+{{> error/error codeError="404" description="Не туда попали"}} {{/
+layout/layout}}
