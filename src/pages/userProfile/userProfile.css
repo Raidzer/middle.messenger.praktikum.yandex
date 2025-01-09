@@ -1,0 +1,63 @@
+@import "../../styles/colors.css";
+
+.container {
+  display: flex;
+  height: 100%;
+
+  .backContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50px;
+    border-right: 1px solid var(--borderMenu-color);
+
+    .back {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+
+      &:hover {
+        background-color: var(--secondary-color);
+      }
+    }
+  }
+
+  .userInfoContainer {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    .userAvatar {
+      height: 150px;
+      width: 150px;
+      background-color: lightgrey;
+      border-radius: 50%;
+    }
+
+    .userInfo {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      .infoData {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    .userName {
+      font-size: 35px;
+      font-weight: bold;
+    }
+  }
+}
