@@ -6,4 +6,7 @@
   --placeholder-color: #999;
   --background-color: #fff;
   --background-color-transparent: rgba(255, 255, 255, 0);
+  --textMenu-color: #a9a9a9;
+  --textMenuWithBackground-color: #FFFFFF;
+  --borderMenu-color: #a9a9a9;
 }
