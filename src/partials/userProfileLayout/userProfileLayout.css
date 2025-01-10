@@ -45,7 +45,9 @@
         width: 150px;
         min-width: 150px;
         min-height: 150px;
-        background-color: lightgrey;
+        background-image: url("/images/avatar.png");
+        background-size: cover;
+        background-position: center;
         border-radius: 50%;
       }
 

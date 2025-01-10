@@ -2,7 +2,13 @@
 <div class="infoRowContainer">
   <span class="infoName">{{infoName}}</span>
   {{#if isEditable}}
-    <input class="infoInput" type={{type}} value="{{infoData}}" name={{name}}/>
+    <input
+      class="infoInput"
+      type="{{type}}"
+      value="{{infoData}}"
+      name="{{name}}"
+      placeholder="{{placeholder}}"
+    />
   {{else}}
     <span class="infoData">{{infoData}}</span>
   {{/if}}

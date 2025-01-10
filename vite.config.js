@@ -4,7 +4,6 @@ import path from "path";
 
 const contextData = {
   title: "Проект чат",
-  test: "test",
 };
 
 export default defineConfig({
