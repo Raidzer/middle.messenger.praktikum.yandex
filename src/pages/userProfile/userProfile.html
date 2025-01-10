@@ -1,25 +1,17 @@
-{{#> layout/layout }}
+{{#> userProfileLayout/userProfileLayout}}
 <link rel="stylesheet" href="userProfile.css" />
-<div class="container">
-  <div class="backContainer">
-    <div class="back">
-      <i class="fa-solid fa-arrow-left"></i>
-    </div>
-  </div>
-  <div class="userInfoContainer">
-    <div class="userAvatar"></div>
-    <div class="userName">Имя</div>
-    <div class="userInfo">
-      <div class="infoData">
-        <span >Имя</span>
-        <span>Виталик</span>
-      </div>
-    </div>
-    <div>
-      {{> button/button type="button" label="Изменить пароль"
-      class="secondary"}} {{> button/button type="button" label="Изменить
-      профиль" class="secondary"}}
-    </div>
-  </div>
+<div class="userName">Имя</div>
+<div class="userInfo">
+  {{> infoRow/infoRow infoName="Почта" infoData="pochta@yandex.ru"}} {{>
+  infoRow/infoRow infoName="Логин" infoData="ivan"}} {{> infoRow/infoRow
+  infoName="Имя" infoData="Иван"}} {{> infoRow/infoRow infoName="Фамилия"
+  infoData="Иванов"}} {{> infoRow/infoRow infoName="Имя в чате"
+  infoData="Иван"}} {{> infoRow/infoRow infoName="Телефон"
+  infoData="1234567890"}}
 </div>
-{{/ layout/layout}}
+<div class="buttonContainer">
+  {{> button/button type="button" label="Изменить пароль" class="secondary"}}
+  {{> button/button type="button" label="Изменить профиль" class="secondary"}}
+  {{> button/button type="button" label="Выйти" class="primary"}}
+</div>
+{{/userProfileLayout/userProfileLayout}}

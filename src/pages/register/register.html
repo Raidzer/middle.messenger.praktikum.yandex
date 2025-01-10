@@ -1,7 +1,7 @@
 {{#> layout/layout }}
 <link rel="stylesheet" href="register.css" />
 <div class="container">
-  <form class="loginForm">
+  <form class="registerForm">
     <h1>Регистрация</h1>
     {{> formInput/formInput name="email" type="email" placeholder="Почта" }} {{>
     formInput/formInput name="login" type="text" placeholder="Логин" }} {{>
@@ -12,7 +12,7 @@
     }} {{> formInput/formInput name="password" type="password"
     placeholder="Пароль (еще раз)" }}
     <div class="buttonContainer">
-      {{> button/button type="submit" label="Войти" class="primary"}}
+      {{> button/button type="submit" label="Регистрация" class="primary"}}
     </div>
   </form>
 </div>
