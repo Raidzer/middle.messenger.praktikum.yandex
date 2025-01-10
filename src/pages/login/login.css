@@ -20,12 +20,6 @@
   padding: 20px;
   box-sizing: border-box;
 
-  .noAccount {
-    text-align: center;
-    font-size: 14px;
-    color: var(--secondary-color);
-  }
-
   .buttonContainer {
     display: flex;
     justify-content: center;

@@ -14,10 +14,10 @@ button {
 
 .primary {
   background-color: var(--primary-color);
-  color: var(--background-color);
+  color: var(--textWhite-color);
 
   &:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--primaryHover-color);
   }
 }
 

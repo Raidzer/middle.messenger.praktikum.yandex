@@ -31,6 +31,6 @@
     background: var(--background-color);
     padding: 0 5px;
     pointer-events: none;
-    color: var(--placeholder-color);
+    color: var(--placeholderText-color);
   }
 }
