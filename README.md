@@ -31,32 +31,18 @@ npm run dev
 npm run start
 ```
 # Страницы приложения
+Страница входа: [login](https://raidzermessenger.netlify.app/src/pages/login/login)
 
-Страница входа:
+Страница регистрации: [register](https://raidzermessenger.netlify.app/src/pages/register/register)
 
-[login](https://raidzermessenger.netlify.app/src/pages/login/login)
+Страница ошибок: [error404](https://raidzermessenger.netlify.app/src/pages/error404/error404), [error500](https://raidzermessenger.netlify.app/src/pages/error500/error500)
 
-Страница регистрации:
+Страница с чатами: [message](https://raidzermessenger.netlify.app/src/pages/message/message)
 
-[register](https://raidzermessenger.netlify.app/src/pages/register/register)
+Страница с данными пользователя: [userProfile](https://raidzermessenger.netlify.app/src/pages/userprofile/userprofile)
 
-Страница ошибок:
+Страница редактирования данных пользователя: [changeProfile](https://raidzermessenger.netlify.app/src/pages/changeprofile/changeprofile)
 
-[error404](https://raidzermessenger.netlify.app/src/pages/error404/error404)
-[error500](https://raidzermessenger.netlify.app/src/pages/error500/error500)
+Страница изменения пароля: [changePassword](https://raidzermessenger.netlify.app/src/pages/changepassword/changepassword)
 
-Страница с чатами:
-
-[message](https://raidzermessenger.netlify.app/src/pages/message/message)
-
-Страница с данными пользователя:
-
-[userProfile](https://raidzermessenger.netlify.app/src/pages/userprofile/userprofile)
-
-Страница редактирования данных пользователя:
-
-[changeProfile](https://raidzermessenger.netlify.app/src/pages/changeprofile/changeprofile)
-
-Страница изменения пароля:
-
-[changePassword](https://raidzermessenger.netlify.app/src/pages/changepassword/changepassword)
+# Демо: [Чат](https://raidzermessenger.netlify.app/)
