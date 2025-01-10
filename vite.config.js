@@ -17,8 +17,9 @@ export default defineConfig({
     }),
   ],
   server: {
-    host: "localhost",
-    open: true,
+    port: 3000,
+  },
+  preview: {
     port: 3000,
   },
   css: {
