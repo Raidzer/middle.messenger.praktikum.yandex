@@ -30,6 +30,22 @@ export default defineConfig({
       input: {
         index: path.resolve(__dirname, "index.html"),
         login: path.resolve(__dirname, "src/pages/login/login.html"),
+        changePassword: path.resolve(
+          __dirname,
+          "src/pages/changePassword/changePassword.html"
+        ),
+        changeProfile: path.resolve(
+          __dirname,
+          "src/pages/changeProfile/changeProfile.html"
+        ),
+        error404: path.resolve(__dirname, "src/pages/error404/error404.html"),
+        error500: path.resolve(__dirname, "src/pages/error500/error500.html"),
+        message: path.resolve(__dirname, "src/pages/message/message.html"),
+        register: path.resolve(__dirname, "src/pages/register/register.html"),
+        userProfile: path.resolve(
+          __dirname,
+          "src/pages/userProfile/userProfile.html"
+        ),
       },
     },
     outDir: "./build",
