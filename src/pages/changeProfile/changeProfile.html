@@ -1,0 +1,21 @@
+{{#> userProfileLayout/userProfileLayout}}
+<link rel="stylesheet" href="changeProfile.css" />
+<div class="userName">Имя</div>
+<form class="userInfo">
+  <div>
+    {{> infoRow/infoRow infoName="Почта" type="text" infoData="pochta@yandex.ru"
+    name="email" isEditable="true"}} {{> infoRow/infoRow infoName="Логин"
+    type="text" name="login" infoData="ivan" isEditable="true"}} {{>
+    infoRow/infoRow infoName="Имя" type="text" infoData="Иван" name="first_name"
+    isEditable="true"}} {{> infoRow/infoRow infoName="Фамилия" type="text"
+    infoData="Иванов" name="second_name" isEditable="true"}} {{> infoRow/infoRow
+    infoName="Имя в чате" type="text" infoData="Иван" name="display_name"
+    isEditable="true"}} {{> infoRow/infoRow infoName="Телефон" type="text"
+    infoData="1234567890" name="phone" isEditable="true"}}
+  </div>
+  <div class="buttonContainer">
+    {{> button/button type="submit" label="Сохранить" class="primary"}}
+  </div>
+</form>
+
+{{/userProfileLayout/userProfileLayout}}

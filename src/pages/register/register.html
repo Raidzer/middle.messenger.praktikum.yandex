@@ -1,0 +1,19 @@
+{{#> layout/layout }}
+<link rel="stylesheet" href="register.css" />
+<div class="container">
+  <form class="registerForm">
+    <h1>Регистрация</h1>
+    {{> formInput/formInput name="email" type="email" placeholder="Почта" }} {{>
+    formInput/formInput name="login" type="text" placeholder="Логин" }} {{>
+    formInput/formInput name="first_name" type="text" placeholder="Имя" }} {{>
+    formInput/formInput name="second_name" type="text" placeholder="Фамилия" }}
+    {{> formInput/formInput name="phone" type="text" placeholder="Телефон" }}
+    {{> formInput/formInput name="password" type="password" placeholder="Пароль"
+    }} {{> formInput/formInput name="password" type="password"
+    placeholder="Пароль (еще раз)" }}
+    <div class="buttonContainer">
+      {{> button/button type="submit" label="Регистрация" class="primary"}}
+    </div>
+  </form>
+</div>
+{{/ layout/layout}}

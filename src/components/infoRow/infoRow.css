@@ -1,0 +1,33 @@
+@import "../../styles/colors.css";
+
+.infoRowContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  margin-top: 10px;
+  border-bottom: 1px solid var(--borderMenu-color);
+
+  span {
+    font-size: 17px;
+  }
+
+  .infoName {
+    font-weight: bold;
+  }
+
+  .infoData {
+    color: var(--textMenu-color);
+  }
+
+  .infoInput {
+    border: none;
+    outline: none;
+    text-align: right;
+    color: var(--textMenu-color);
+
+    &:focus {
+      color: var(--textBlack-color);
+    }
+  }
+}
