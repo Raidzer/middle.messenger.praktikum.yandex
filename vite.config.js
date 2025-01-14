@@ -7,11 +7,12 @@ const contextData = {
 };
 
 export default defineConfig({
+  root:'src',
   plugins: [
     handlebars({
       partialDirectory: [
-        path.resolve(__dirname, "src/partials"),
-        path.resolve(__dirname, "src/components"),
+        path.resolve(__dirname, "partials"),
+        path.resolve(__dirname, "components"),
       ],
       context: contextData,
     }),
@@ -23,32 +24,32 @@ export default defineConfig({
     port: 3000,
   },
   css: {
-    postcss: "./postcss.config.сjs",
+    postcss: "../postcss.config.сjs",
   },
   build: {
     rollupOptions: {
       input: {
         index: path.resolve(__dirname, "index.html"),
-        login: path.resolve(__dirname, "src/pages/login/login.html"),
+        login: path.resolve(__dirname, "pages/login/login.html"),
         changePassword: path.resolve(
           __dirname,
-          "src/pages/changePassword/changePassword.html"
+          "pages/changePassword/changePassword.html"
         ),
         changeProfile: path.resolve(
           __dirname,
-          "src/pages/changeProfile/changeProfile.html"
+          "pages/changeProfile/changeProfile.html"
         ),
-        error404: path.resolve(__dirname, "src/pages/error404/error404.html"),
-        error500: path.resolve(__dirname, "src/pages/error500/error500.html"),
-        message: path.resolve(__dirname, "src/pages/message/message.html"),
-        register: path.resolve(__dirname, "src/pages/register/register.html"),
+        error404: path.resolve(__dirname, "pages/error404/error404.html"),
+        error500: path.resolve(__dirname, "pages/error500/error500.html"),
+        message: path.resolve(__dirname, "pages/message/message.html"),
+        register: path.resolve(__dirname, "pages/register/register.html"),
         userProfile: path.resolve(
           __dirname,
-          "src/pages/userProfile/userProfile.html"
+          "pages/userProfile/userProfile.html"
         ),
       },
     },
-    outDir: "./build",
+    outDir: "../build",
   },
-  publicDir: "./static",
+  publicDir: "../static",
 });
