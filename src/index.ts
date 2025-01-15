@@ -1,38 +1,11 @@
-import Block from "./utils/Block/Block";
-import { IBlockProps } from "./utils/Block/IBlock";
-
-class Button extends Block {
-  constructor(props: IBlockProps) {
-    super("button", props);
-  }
-
-  render() {
-    return `<div>${this.props.text}</div>`;
-  }
-}
-
-function render(query: string, block: Block): Element | null {
-  const root = document.querySelector(query);
-  const child = block.getContent();
-
-  if (!root || !child) {
-    return null;
-  }
-
-  root.appendChild(child);
-  return root;
-}
-
-const test = () => {
-  console.log(123)
-}
-
-const test1 = () => {
-  console.log(321)
-}
+import Button from "./components/Button/Button.ts";
+import { ButtonClass } from "./enums/Button.ts";
+import render from "./utils/utils.ts";
 
 const button = new Button({
-  text: "Click me",
+  label: "Жамай",
+  type: "button",
+  class: ButtonClass.PRIMARY,
   events: {
     click: (event) => {
       console.log(event);
@@ -44,7 +17,7 @@ render(".root", button);
 
 setTimeout(() => {
   button.setProps({
-    text: "Click me, please",
+    label: "Не жди, жамай!",
     events: {
       click: () => {
         console.log("event");

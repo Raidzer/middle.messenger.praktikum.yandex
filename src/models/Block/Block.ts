@@ -1,7 +1,7 @@
-import EventBus from "../EventBus";
+import EventBus from "../../utils/EventBus";
 import { IBlockMeta, IBlockProps } from "./IBlock";
 
-export default class Block {
+export default class Block<T extends IBlockProps> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -71,7 +71,7 @@ export default class Block {
     return true;
   }
 
-  setProps = (nextProps: IBlockProps): void | null => {
+  setProps = (nextProps: T): void | null => {
     if (!nextProps) {
       return null;
     }
@@ -137,7 +137,7 @@ export default class Block {
 
   private _deleteEvents(): void {
     const { events = {} } = this.props;
-    console.log(events)
+    console.log(events);
     for (let eventName in events) {
       this._element?.removeEventListener(eventName, events[eventName]);
     }

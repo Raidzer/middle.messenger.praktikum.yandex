@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import handlebars from "vite-plugin-handlebars";
+import handlebars from "./vite-plugin-handlebars-precompile";
 import path from "path";
 
 const contextData = {
