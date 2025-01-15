@@ -7,23 +7,27 @@ const button = new Button({
   type: "button",
   class: ButtonClass.PRIMARY,
   events: {
-    click: (event) => {
-      console.log(event);
+    click: () => {
+      console.log('Раааано');
     },
   },
 });
 
 render(".root", button);
 
+let count = 0;
 setTimeout(() => {
   button.setProps({
     label: "Не жди, жамай!",
     events: {
       click: () => {
-        console.log("event");
+        count++
+        button.setProps({
+          label: `${count}`
+        })
       },
     },
   });
-}, 1000);
+}, 3000);
 
 button.show();

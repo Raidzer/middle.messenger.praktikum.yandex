@@ -90,7 +90,6 @@ export default class Block<T extends IBlockProps> {
     const block = this.render();
 
     this._element.innerHTML = block;
-    this._deleteEvents();
     this._addEvents();
   }
 
@@ -110,6 +109,11 @@ export default class Block<T extends IBlockProps> {
         if (typeof prop === "symbol") {
           return false;
         }
+
+        if (prop === "events") {
+          self._deleteEvents();
+        }
+
         target[prop] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_UPDATE, { ...target }, target);
         return true;
@@ -137,7 +141,6 @@ export default class Block<T extends IBlockProps> {
 
   private _deleteEvents(): void {
     const { events = {} } = this.props;
-    console.log(events);
     for (let eventName in events) {
       this._element?.removeEventListener(eventName, events[eventName]);
     }
