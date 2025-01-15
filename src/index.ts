@@ -8,23 +8,34 @@ const button = new Button({
   class: ButtonClass.PRIMARY,
   events: {
     click: () => {
-      console.log('Раааано');
+      console.log("Раааано");
     },
   },
 });
 
-render(".root", button);
+const button2 = new Button({
+  label: "Жамай2",
+  type: "button",
+  class: ButtonClass.SECONDARY,
+  events: {
+    click: () => {
+      console.log("Сюда не жамай");
+    },
+  },
+});
 
-let count = 0;
+render(".root", [button, button2]);
+
 setTimeout(() => {
+  let count = 0;
   button.setProps({
     label: "Не жди, жамай!",
     events: {
       click: () => {
-        count++
+        count++;
         button.setProps({
-          label: `${count}`
-        })
+          label: `${count}`,
+        });
       },
     },
   });
