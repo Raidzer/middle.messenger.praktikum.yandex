@@ -1,13 +1,16 @@
 import { defineConfig } from "vite";
 import handlebars from "./vite-plugin-handlebars-precompile";
 import path from "path";
+import { URL } from "url";
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const contextData = {
   title: "Проект чат",
 };
 
 export default defineConfig({
-  root:'src',
+  root: "src",
   plugins: [
     handlebars({
       partialDirectory: [

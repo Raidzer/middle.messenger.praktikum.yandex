@@ -51,7 +51,9 @@ export default class Block<T extends IBlockProps> {
     this.componentDidMount();
   }
 
-  componentDidMount(oldProps?: IBlockProps): void {}
+  componentDidMount(oldProps?: IBlockProps): void {
+    console.log("🚀 ~ Block<T ~ componentDidMount ~ oldProps:", oldProps);
+  }
 
   dispatchComponentDidMount(): void {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -68,6 +70,8 @@ export default class Block<T extends IBlockProps> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ newProps:", newProps);
+    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ oldProps:", oldProps);
     return true;
   }
 
@@ -102,6 +106,7 @@ export default class Block<T extends IBlockProps> {
   }
 
   _makePropsProxy(props: IBlockProps) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
     const proxyProps = new Proxy(props, {
@@ -134,14 +139,14 @@ export default class Block<T extends IBlockProps> {
   private _addEvents(): void {
     const { events = {} } = this.props;
 
-    for (let eventName in events) {
+    for (const eventName in events) {
       this._element?.addEventListener(eventName, events[eventName]);
     }
   }
 
   private _deleteEvents(): void {
     const { events = {} } = this.props;
-    for (let eventName in events) {
+    for (const eventName in events) {
       this._element?.removeEventListener(eventName, events[eventName]);
     }
   }
