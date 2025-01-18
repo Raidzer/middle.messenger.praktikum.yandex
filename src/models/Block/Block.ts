@@ -22,6 +22,15 @@ export default class Block<T extends IBlockProps> {
       props,
     };
 
+    if (props.children) {
+      for (const childName in props.children) {
+        const child = props.children[childName];
+        if (child instanceof Block) {
+          props[childName] = child.render();
+        }
+      }
+    }
+
     this.props = this._makePropsProxy(props);
 
     this.eventBus = () => eventBus;
