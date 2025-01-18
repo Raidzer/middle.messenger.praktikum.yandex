@@ -2,10 +2,11 @@ import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import button from "./button.hbs";
 import "./button.css";
-import { ButtonClass } from "../../enums/Button";
+import { ButtonClass, ButtonType } from "../../enums/Button";
+
 
 interface IButtonProps extends IBlockProps {
-  type?: string;
+  type?: ButtonType;
   class?: ButtonClass;
   label?: string;
 }

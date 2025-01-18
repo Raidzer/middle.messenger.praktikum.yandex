@@ -1,7 +1,7 @@
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import error from "../../components/error/error.hbs";
-import { ButtonClass } from "../../enums/Button";
+import { ButtonClass, ButtonType } from "../../enums/Button";
 import Button from "../button/Button";
 import "./error.css"
 
@@ -12,7 +12,7 @@ interface IErrorProps extends IBlockProps {
 
 const button = new Button({
   class: ButtonClass.SECONDARY,
-  type: "button",
+  type: ButtonType.BUTTON,
   label: "На главную",
 });
 
