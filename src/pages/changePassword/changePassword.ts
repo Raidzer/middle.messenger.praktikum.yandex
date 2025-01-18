@@ -5,7 +5,6 @@ import { UserProfile } from "../../components/userProfile/UserProfile";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import { InputType } from "../../enums/Input";
 import render from "../../utils/utils";
-import "./changePassword.css";
 
 const buttonSave = new Button({
   type: ButtonType.SUBMIT,
