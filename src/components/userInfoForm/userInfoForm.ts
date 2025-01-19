@@ -1,7 +1,7 @@
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
-import "./changePasswordForm.css";
-import changePasswordForm from "./changePasswordForm.hbs"
+import "./userInfoFrom.css";
+import changePasswordForm from "./userInfoForm.hbs"
 
 
 

@@ -1,5 +1,5 @@
 import Button from "../../components/button/Button";
-import { ChangePasswordForm } from "../../components/changePasswordForm/changePasswordForm";
+import { ChangePasswordForm } from "../../components/userInfoForm/userInfoForm";
 import { InfoRow } from "../../components/infoRow/InfoRow";
 import { UserProfile } from "../../components/userProfile/UserProfile";
 import { ButtonClass, ButtonType } from "../../enums/Button";
@@ -8,7 +8,7 @@ import render from "../../utils/utils";
 
 const buttonSave = new Button({
   type: ButtonType.SUBMIT,
-  label: "Сохранить",
+  label: "Изменить пароль",
   class: ButtonClass.PRIMARY,
 });
 
