@@ -4,7 +4,7 @@ import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import Button from "../button/Button";
 import FormInput from "../formInput/FormInput";
-import loginForm from "./LoginForm.hbs";
+import loginForm from "./loginForm.hbs";
 import "./loginForm.css";
 
 const inputLogin = new FormInput({
