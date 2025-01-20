@@ -112,7 +112,7 @@ export default class Block<T extends IBlockProps> {
   }
 
   private _render(): void | null {
-    if (!this._element) {
+    if (!this.element) {
       return null;
     }
     const block = this.render();
@@ -120,9 +120,10 @@ export default class Block<T extends IBlockProps> {
     if (!(block instanceof DocumentFragment)) {
       return;
     }
+
     this._deleteEvents();
-    this._element.innerHTML = "";
-    this._element.appendChild(block);
+    this.element.innerHTML = "";
+    this.element.appendChild(block);
     this._addEvents();
   }
 
@@ -201,14 +202,14 @@ export default class Block<T extends IBlockProps> {
     const { events = {} } = this.props;
 
     for (const eventName in events) {
-      this._element?.addEventListener(eventName, events[eventName]);
+      this.element?.addEventListener(eventName, events[eventName]);
     }
   }
 
   private _deleteEvents(): void {
     const { events = {} } = this.props;
     for (const eventName in events) {
-      this._element?.removeEventListener(eventName, events[eventName]);
+      this.element?.removeEventListener(eventName, events[eventName]);
     }
   }
 
