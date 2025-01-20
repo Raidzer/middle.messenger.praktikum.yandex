@@ -1,9 +1,8 @@
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
-import button from "./button.hbs";
+import button from "./button.hbs?raw";
 import "./button.css";
 import { ButtonClass, ButtonType } from "../../enums/Button";
-
 
 interface IButtonProps extends IBlockProps {
   type?: ButtonType;
@@ -13,11 +12,10 @@ interface IButtonProps extends IBlockProps {
 
 export default class Button extends Block<IButtonProps> {
   constructor(props: IButtonProps) {
-    super("div", props);
+    super(props);
   }
 
   render() {
-    const element = button(this.props);
-    return element;
+    return this.compile(button, this.props);
   }
 }

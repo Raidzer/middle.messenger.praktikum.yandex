@@ -1,5 +1,7 @@
+import Handlebars from "handlebars";
 import EventBus from "../../utils/EventBus";
-import { IBlockMeta, IBlockProps } from "./IBlock";
+import { IBlockProps } from "./IBlock";
+import { v4 as uuid } from "uuid";
 
 export default class Block<T extends IBlockProps> {
   static EVENTS = {
@@ -10,34 +12,42 @@ export default class Block<T extends IBlockProps> {
   };
 
   private _element: HTMLElement | null = null;
-  private _meta: IBlockMeta;
-  private eventBus: () => EventBus;
+  private _id: string | null = null;
+  private _eventBus: () => EventBus;
+
   props: IBlockProps;
+  children: Record<string, Block<IBlockProps>>;
 
-  constructor(tagName = "div", props: IBlockProps = {}) {
+  constructor(propsAndChildren: IBlockProps = {}) {
     const eventBus = new EventBus();
+    const { children, props } = this._getChildren(propsAndChildren);
 
-    this._meta = {
-      tagName,
-      props,
-    };
+    this.children = children;
 
-    if (props.children) {
-      for (const childName in props.children) {
-        const child = props.children[childName];
-        if (child instanceof Block) {
-          props[childName] = child.render();
-        }
-      }
-    }
+    this._id = uuid();
 
-    this.props = this._makePropsProxy(props);
+    this.props = this._makePropsProxy({ ...props, __id: this._id });
 
-    this.eventBus = () => eventBus;
+    this._eventBus = () => eventBus;
 
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
+  }
+
+  private _getChildren(propsAndChildren: IBlockProps) {
+    const children: Record<string, Block<IBlockProps>> = {};
+    const props: Record<string, unknown> = {};
+
+    Object.entries(propsAndChildren).forEach(([key, value]) => {
+      if (value instanceof Block) {
+        children[key] = value;
+      } else {
+        props[key] = value;
+      }
+    });
+
+    return { children, props };
   }
 
   private _registerEvents(eventBus: EventBus): void {
@@ -48,8 +58,7 @@ export default class Block<T extends IBlockProps> {
   }
 
   private _createResources(): void {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
+    this._element = this._createDocumentElement("div");
   }
 
   init(): void {
@@ -65,7 +74,7 @@ export default class Block<T extends IBlockProps> {
   }
 
   dispatchComponentDidMount(): void {
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    this._eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
   private _componentDidUpdate(
@@ -74,7 +83,7 @@ export default class Block<T extends IBlockProps> {
   ): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {
-      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+      this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
@@ -102,16 +111,48 @@ export default class Block<T extends IBlockProps> {
     }
     const block = this.render();
 
-    this._element.innerHTML = block;
+    if (!(block instanceof DocumentFragment)) {
+      return;
+    }
+    this._deleteEvents();
+    this._element.innerHTML = "";
+    this._element.appendChild(block);
     this._addEvents();
   }
 
-  render(): string {
+  compile(template: string, props: IBlockProps) {
+    const propsAndStubs = { ...props };
+    Object.entries(this.children).forEach(([key, child]) => {
+      if (child._id) {
+        propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
+      }
+    });
+    const compiledTemplate = Handlebars.compile(template);
+    const fragment = document.createElement("template") as HTMLTemplateElement;
+    fragment.innerHTML = compiledTemplate(propsAndStubs);
+
+    Object.values(this.children).forEach((child) => {
+      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+      if (stub && child) {
+        const children = child.getContent();
+        if (children) {
+          stub.replaceWith(children);
+        }
+      }
+    });
+    return fragment.content;
+  }
+
+  render(): DocumentFragment | string {
     return "";
   }
 
   getContent() {
-    return this.element;
+    if (this._element) {
+      return this._element.firstElementChild;
+    }
+
+    return null;
   }
 
   _makePropsProxy(props: IBlockProps) {
@@ -129,7 +170,7 @@ export default class Block<T extends IBlockProps> {
         }
 
         target[prop] = value;
-        self.eventBus().emit(Block.EVENTS.FLOW_UPDATE, { ...target }, target);
+        self._eventBus().emit(Block.EVENTS.FLOW_UPDATE, { ...target }, target);
         return true;
       },
 
@@ -142,7 +183,13 @@ export default class Block<T extends IBlockProps> {
   }
 
   private _createDocumentElement(tagName: string): HTMLElement {
-    return document.createElement(tagName);
+    const element = document.createElement(tagName);
+
+    if (this._id) {
+      element.setAttribute("data-id", this._id);
+    }
+
+    return element;
   }
 
   private _addEvents(): void {

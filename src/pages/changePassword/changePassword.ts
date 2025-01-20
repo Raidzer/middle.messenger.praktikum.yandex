@@ -1,5 +1,5 @@
-import Button from "../../components/button/Button";
-import { ChangePasswordForm } from "../../components/userInfoForm/userInfoForm";
+import Button from "../../components/Button/Button";
+import { userInfoForm } from "../../components/userInfoForm/userInfoForm";
 import { InfoRow } from "../../components/infoRow/InfoRow";
 import { UserProfile } from "../../components/userProfile/UserProfile";
 import { ButtonClass, ButtonType } from "../../enums/Button";
@@ -39,19 +39,15 @@ const infoRowNewPasswordRepeat = new InfoRow({
   placeholder: "Новый пароль (еще раз)",
 });
 
-const changePasswordForm = new ChangePasswordForm({
-  children: {
-    buttonSave,
-    infoRowOldPassword,
-    infoRowNewPassword,
-    infoRowNewPasswordRepeat,
-  },
+const changePasswordForm = new userInfoForm({
+  buttonSave,
+  infoRowOldPassword,
+  infoRowNewPassword,
+  infoRowNewPasswordRepeat,
 });
 
 const page = new UserProfile({
-  children: {
-    children: changePasswordForm,
-  },
+  form: changePasswordForm,
 });
 
 render(".root", [page]);

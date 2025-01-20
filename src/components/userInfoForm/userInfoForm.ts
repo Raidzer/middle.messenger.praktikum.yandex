@@ -1,18 +1,14 @@
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import "./userInfoFrom.css";
-import changePasswordForm from "./userInfoForm.hbs"
+import changePasswordForm from "./userInfoForm.hbs?raw";
 
-
-
-export class ChangePasswordForm extends Block<IBlockProps> {
+export class userInfoForm extends Block<IBlockProps> {
   constructor(props: IBlockProps) {
-    super("div", props);
+    super(props);
   }
 
-  render(): string {
-      const element = changePasswordForm(this.props);
-
-      return element;
+  render(): DocumentFragment {
+    return this.compile(changePasswordForm, this.props);
   }
 }

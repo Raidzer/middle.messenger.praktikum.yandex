@@ -1,5 +1,5 @@
-import Button from "../../components/button/Button";
-import { ChangePasswordForm } from "../../components/userInfoForm/userInfoForm";
+import Button from "../../components/Button/Button";
+import { ChangePasswordForm, userInfoForm } from "../../components/userInfoForm/userInfoForm";
 import { InfoRow } from "../../components/infoRow/InfoRow";
 import { UserProfile } from "../../components/userProfile/UserProfile";
 import { ButtonClass, ButtonType } from "../../enums/Button";
@@ -66,8 +66,7 @@ const infoRowPhone = new InfoRow({
   placeholder: "Телефон",
 });
 
-const changeInfoUserForm = new ChangePasswordForm({
-  children: {
+const changeInfoUserForm = new userInfoForm({
     buttonSave,
     infoRowEmail,
     infoRowLogin,
@@ -75,13 +74,10 @@ const changeInfoUserForm = new ChangePasswordForm({
     infoRowSecondName,
     infoRowDisplayName,
     infoRowPhone,
-  },
 });
 
 const page = new UserProfile({
-  children: {
-    children: changeInfoUserForm,
-  },
+  children: changeInfoUserForm,
 });
 
 render(".root", [page]);

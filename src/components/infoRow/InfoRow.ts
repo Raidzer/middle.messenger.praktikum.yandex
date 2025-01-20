@@ -2,7 +2,7 @@ import { InputType } from "../../enums/Input";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import "./infoRow.css";
-import infoRow from "./infoRow.hbs";
+import infoRow from "./infoRow.hbs?raw";
 
 interface IInfoRowProps extends IBlockProps {
   infoName?: string;
@@ -16,12 +16,10 @@ interface IInfoRowProps extends IBlockProps {
 
 export class InfoRow extends Block<IInfoRowProps> {
   constructor(props: IInfoRowProps) {
-    super("div", props);
+    super(props);
   }
 
-  render(): string {
-    const element = infoRow(this.props);
-
-    return element;
+  render(): DocumentFragment {
+    return this.compile(infoRow, this.props);
   }
 }

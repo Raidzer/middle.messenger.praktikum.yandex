@@ -1,7 +1,7 @@
 import { InputType } from "../../enums/Input";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
-import formInput from "./formInput.hbs";
+import formInput from "./formInput.hbs?raw";
 import "./formInput.css";
 
 interface IFormInputProps extends IBlockProps {
@@ -12,11 +12,10 @@ interface IFormInputProps extends IBlockProps {
 
 export default class FormInput extends Block<IFormInputProps> {
   constructor(props: IFormInputProps) {
-    super("div", props);
+    super(props);
   }
 
-  render(): string {
-    const element = formInput(this.props);
-    return element;
+  render(): DocumentFragment {
+    return this.compile(formInput, this.props);
   }
 }

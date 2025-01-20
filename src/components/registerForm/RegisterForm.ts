@@ -1,9 +1,9 @@
 import { IBlockProps } from "./../../models/Block/IBlock";
 import Block from "../../models/Block/Block";
-import registerForm from "./registerForm.hbs";
+import registerForm from "./registerForm.hbs?raw";
 import FormInput from "../formInput/FormInput";
 import { InputType } from "../../enums/Input";
-import Button from "../button/Button";
+import Button from "../Button/Button";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import "./register.css";
 
@@ -57,24 +57,20 @@ const buttonRegister = new Button({
 
 export class RegisterForm extends Block<IBlockProps> {
   constructor(props: IBlockProps) {
-    super("div", {
+    super({
       ...props,
-      children: {
-        inputEmail,
-        inputFirstName,
-        inputSecondName,
-        inputLogin,
-        inputPassword,
-        inputPasswordRepeat,
-        inputPhone,
-        buttonRegister,
-      },
+      inputEmail,
+      inputFirstName,
+      inputSecondName,
+      inputLogin,
+      inputPassword,
+      inputPasswordRepeat,
+      inputPhone,
+      buttonRegister,
     });
   }
 
-  render(): string {
-    const element = registerForm(this.props);
-
-    return element;
+  render(): DocumentFragment {
+    return this.compile(registerForm, this.props);
   }
 }
