@@ -51,18 +51,18 @@ export default class Block<T extends IBlockProps> {
   }
 
   private _registerEvents(eventBus: EventBus): void {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+    eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     eventBus.on(Block.EVENTS.FLOW_UPDATE, this._componentDidUpdate.bind(this));
   }
 
-  private _createResources(): void {
-    this._element = this._createDocumentElement("div");
+  init(): void {
+    this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  init(): void {
-    this._createResources();
+  private _init(): void {
+    this.init();
   }
 
   private _componentDidMount(): void {
@@ -112,24 +112,24 @@ export default class Block<T extends IBlockProps> {
   }
 
   private _render(): void | null {
-    if (!this.element) {
-      return null;
-    }
     const block = this.render();
-
     if (!(block instanceof DocumentFragment)) {
       return;
     }
 
-    this._deleteEvents();
-    this.element.innerHTML = "";
-    this.element.appendChild(block);
+    const newElement = block.firstChild as HTMLElement;
+
+    if (this.element) {
+      this.element.replaceWith(newElement);
+    }
+
+    this._element = newElement;
+
     this._addEvents();
   }
 
   compile(template: string, props: IBlockProps) {
     const propsAndStubs = { ...props };
-
     Object.entries(this.children).forEach(([key, child]) => {
       if (child._id) {
         propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
@@ -186,16 +186,6 @@ export default class Block<T extends IBlockProps> {
     });
 
     return proxyProps;
-  }
-
-  private _createDocumentElement(tagName: string): HTMLElement {
-    const element = document.createElement(tagName);
-
-    if (this._id) {
-      element.setAttribute("data-id", this._id);
-    }
-
-    return element;
   }
 
   private _addEvents(): void {

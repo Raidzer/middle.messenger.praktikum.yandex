@@ -44,6 +44,7 @@ const changePasswordForm = new userInfoForm({
   infoRowOldPassword,
   infoRowNewPassword,
   infoRowNewPasswordRepeat,
+  userName: "Иван",
 });
 
 const page = new UserProfile({
