@@ -67,6 +67,10 @@ export default class Block<T extends IBlockProps> {
 
   private _componentDidMount(): void {
     this.componentDidMount();
+
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount();
+    });
   }
 
   componentDidMount(oldProps?: IBlockProps): void {
@@ -87,9 +91,8 @@ export default class Block<T extends IBlockProps> {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
-    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ newProps:", newProps);
-    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ oldProps:", oldProps);
     return true;
   }
 
@@ -98,6 +101,9 @@ export default class Block<T extends IBlockProps> {
       return null;
     }
 
+    const { children } = this._getChildren(nextProps);
+
+    this.children = { ...this.children, ...children };
     Object.assign(this.props, nextProps);
   };
 
@@ -122,17 +128,20 @@ export default class Block<T extends IBlockProps> {
 
   compile(template: string, props: IBlockProps) {
     const propsAndStubs = { ...props };
+
     Object.entries(this.children).forEach(([key, child]) => {
       if (child._id) {
         propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
       }
     });
+
     const compiledTemplate = Handlebars.compile(template);
     const fragment = document.createElement("template") as HTMLTemplateElement;
     fragment.innerHTML = compiledTemplate(propsAndStubs);
 
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+
       if (stub && child) {
         const children = child.getContent();
         if (children) {
@@ -148,11 +157,7 @@ export default class Block<T extends IBlockProps> {
   }
 
   getContent() {
-    if (this._element) {
-      return this._element.firstElementChild;
-    }
-
-    return null;
+    return this.element;
   }
 
   _makePropsProxy(props: IBlockProps) {

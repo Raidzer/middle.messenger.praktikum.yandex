@@ -1,5 +1,5 @@
 import Button from "../../components/Button/Button";
-import { ChangePasswordForm, userInfoForm } from "../../components/userInfoForm/userInfoForm";
+import { userInfoForm } from "../../components/userInfoForm/userInfoForm";
 import { InfoRow } from "../../components/infoRow/InfoRow";
 import { UserProfile } from "../../components/userProfile/UserProfile";
 import { ButtonClass, ButtonType } from "../../enums/Button";
@@ -67,17 +67,17 @@ const infoRowPhone = new InfoRow({
 });
 
 const changeInfoUserForm = new userInfoForm({
-    buttonSave,
-    infoRowEmail,
-    infoRowLogin,
-    infoRowFirstName,
-    infoRowSecondName,
-    infoRowDisplayName,
-    infoRowPhone,
+  buttonSave,
+  infoRowEmail,
+  infoRowLogin,
+  infoRowFirstName,
+  infoRowSecondName,
+  infoRowDisplayName,
+  infoRowPhone,
 });
 
 const page = new UserProfile({
-  children: changeInfoUserForm,
+  form: changeInfoUserForm,
 });
 
 render(".root", [page]);
