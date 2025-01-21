@@ -45,6 +45,25 @@ const changePasswordForm = new userInfoForm({
   infoRowNewPassword,
   infoRowNewPasswordRepeat,
   userName: "Иван",
+  events: {
+    submit: (event) => {
+      event.preventDefault();
+
+      const form = event.target;
+      if (!form || !(form instanceof HTMLFormElement)) {
+        return;
+      }
+
+      const formData = new FormData(form);
+
+      const formDataObj: Record<string, string> = {};
+      formData.forEach((value, key) => {
+        formDataObj[key] = value as string;
+      });
+
+      console.table(formDataObj);
+    },
+  },
 });
 
 const page = new UserProfile({

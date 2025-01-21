@@ -1,7 +1,5 @@
 import Button from "../../components/Button/Button";
-import {
-  userInfoForm,
-} from "../../components/userInfoForm/userInfoForm";
+import { userInfoForm } from "../../components/userInfoForm/userInfoForm";
 import { InfoRow } from "../../components/infoRow/InfoRow";
 import { UserProfile } from "../../components/userProfile/UserProfile";
 import { ButtonClass, ButtonType } from "../../enums/Button";
@@ -77,6 +75,25 @@ const changeInfoUserForm = new userInfoForm({
   infoRowDisplayName,
   infoRowPhone,
   userName: "Иван",
+  events: {
+    submit: (event) => {
+      event.preventDefault();
+
+      const form = event.target;
+      if (!form || !(form instanceof HTMLFormElement)) {
+        return;
+      }
+
+      const formData = new FormData(form);
+
+      const formDataObj: Record<string, string> = {};
+      formData.forEach((value, key) => {
+        formDataObj[key] = value as string;
+      });
+
+      console.table(formDataObj);
+    },
+  },
 });
 
 const page = new UserProfile({
