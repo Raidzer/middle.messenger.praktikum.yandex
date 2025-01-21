@@ -11,4 +11,19 @@ export class ChatWindow extends Block<IBlockProps> {
   render(): DocumentFragment {
     return this.compile(chatWindow, this.props);
   }
+
+  show(): void {
+      if (!this.element){
+        return;
+      }
+      this.element.style.display = "flex"
+  }
+
+  hide(): void {
+      if (!this.element) {
+        return;
+      }
+
+      this.element.style.display = "none"
+  }
 }

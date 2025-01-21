@@ -5,13 +5,15 @@ import "./message.css";
 import { UserSearchList } from "../userSearchList/UserSearchList";
 import { ChatWindow } from "../chatWindow/chatWindow";
 
-const userSearchList = new UserSearchList({});
+interface IMessageProps extends IBlockProps {
+  userSearchList: UserSearchList;
+  chatWindow: ChatWindow;
+}
 
-const chatWindow = new ChatWindow({});
-
-export class Message extends Block<IBlockProps> {
+export class Message extends Block<IMessageProps> {
   constructor(props: IBlockProps) {
-    super({ ...props, userSearchList, chatWindow });
+    super(props);
+    this.children.chatWindow.hide();
   }
 
   render(): DocumentFragment {
