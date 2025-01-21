@@ -34,3 +34,15 @@
     color: var(--placeholderText-color);
   }
 }
+
+.inputContainer--error {
+  .loginInput {
+    border-color: var(--red-color);
+  }
+
+  .errorMessage {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+}

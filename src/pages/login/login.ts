@@ -5,6 +5,10 @@ import Button from "../../components/Button/Button";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import FormInput from "../../components/formInput/FormInput";
 import { InputType } from "../../enums/Input";
+import {
+  ValidationMessageError,
+  ValidationRulesRegExp,
+} from "../../utils/validationRules";
 
 document.addEventListener("DOMContentLoaded", () => {
   const buttonSubmit = new Button({
@@ -53,6 +57,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         console.table(formDataObj);
+      },
+    },
+  });
+
+  inputLogin.setProps({
+    events: {
+      focusout: (event) => {
+        const input = event.target as HTMLInputElement;
+        const value = input.value;
+        inputLogin.validate(
+          value,
+          ValidationRulesRegExp.Login,
+          ValidationMessageError.Login
+        );
       },
     },
   });
