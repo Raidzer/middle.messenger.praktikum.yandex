@@ -76,6 +76,7 @@ const changeInfoUserForm = new userInfoForm({
   infoRowSecondName,
   infoRowDisplayName,
   infoRowPhone,
+  userName: "Иван",
 });
 
 const page = new UserProfile({
