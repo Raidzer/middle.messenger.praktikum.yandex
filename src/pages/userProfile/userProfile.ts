@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     infoName: "Почта",
     type: InputType.TEXT,
     isEditable: false,
-    infoData: "pochta@yandex.ru",
+    value: "pochta@yandex.ru",
     name: "email",
     placeholder: "Почта",
   });
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     infoName: "Логин",
     type: InputType.TEXT,
     isEditable: false,
-    infoData: "ivan",
+    value: "ivan",
     name: "login",
     placeholder: "Логин",
   });
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     infoName: "Имя",
     type: InputType.TEXT,
     isEditable: false,
-    infoData: "Иван",
+    value: "Иван",
     name: "first_name",
     placeholder: "Имя",
   });
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     infoName: "Фамилия",
     type: InputType.TEXT,
     isEditable: false,
-    infoData: "Иванов",
+    value: "Иванов",
     name: "second_name",
     placeholder: "Фамилия",
   });
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     infoName: "Имя в чате",
     type: InputType.TEXT,
     isEditable: false,
-    infoData: "Иван",
+    value: "Иван",
     name: "display_name",
     placeholder: "Имя в чате",
   });
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     infoName: "Телефон",
     type: InputType.TEXT,
     isEditable: false,
-    infoData: "1234567890",
+    value: "1234567890",
     name: "phone",
     placeholder: "Телефон",
   });

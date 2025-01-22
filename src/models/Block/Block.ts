@@ -198,11 +198,14 @@ export default class Block<T extends IBlockProps = IBlockProps> {
     const { events } = this.props;
 
     for (const eventName in events) {
-      const cb = events[eventName as keyof HTMLElementEventMap];
+      const cb = events[eventName as keyof HTMLElementEventMap]?.cb;
+      const option =
+        events[eventName as keyof HTMLElementEventMap]?.option ?? false;
       if (cb) {
         this.element?.addEventListener(
           eventName as keyof HTMLElementEventMap,
-          cb as EventListener
+          cb as EventListener,
+          option
         );
       }
     }
@@ -211,8 +214,7 @@ export default class Block<T extends IBlockProps = IBlockProps> {
   private _deleteEvents(): void {
     const { events } = this.props;
     for (const eventName in events) {
-      const cb = events[eventName as keyof HTMLElementEventMap];
-
+      const cb = events[eventName as keyof HTMLElementEventMap]?.cb;
       if (cb) {
         this.element?.removeEventListener(
           eventName as keyof HTMLElementEventMap,

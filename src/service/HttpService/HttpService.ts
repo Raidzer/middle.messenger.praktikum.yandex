@@ -11,12 +11,12 @@ interface QueryStringData {
   [key: string]: string | number | boolean;
 }
 
-const METHODS = {
-  GET: "GET" as const,
-  POST: "POST" as const,
-  PUT: "PUT" as const,
-  DELETE: "DELETE" as const,
-};
+enum METHODS {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+}
 
 function queryStringify(data: QueryStringData): string {
   if (typeof data !== "object" || data === null) {
@@ -30,7 +30,7 @@ function queryStringify(data: QueryStringData): string {
   }, "?");
 }
 
-export default class HTTPTransport {
+export default class HTTPService {
   get<T = unknown>(url: string, options: RequestOptions = {}): Promise<T> {
     return this.request<T>(url, { ...options, method: METHODS.GET });
   }

@@ -105,34 +105,36 @@ document.addEventListener("DOMContentLoaded", () => {
     infoRowPhone,
     userName: "Иван",
     events: {
-      submit: (event) => {
-        event.preventDefault();
+      submit: {
+        cb: (event) => {
+          event.preventDefault();
 
-        const form = event.target;
-        if (!form || !(form instanceof HTMLFormElement)) {
-          return;
-        }
+          const form = event.target;
+          if (!form || !(form instanceof HTMLFormElement)) {
+            return;
+          }
 
-        const dataValid =
-          infoRowEmail.inputValidate() &&
-          infoRowLogin.inputValidate() &&
-          infoRowFirstName.inputValidate() &&
-          infoRowSecondName.inputValidate() &&
-          infoRowDisplayName.inputValidate() &&
-          infoRowPhone.inputValidate();
+          const dataValid =
+            infoRowEmail.inputValidate() &&
+            infoRowLogin.inputValidate() &&
+            infoRowFirstName.inputValidate() &&
+            infoRowSecondName.inputValidate() &&
+            infoRowDisplayName.inputValidate() &&
+            infoRowPhone.inputValidate();
 
-        if (!dataValid) {
-          return;
-        }
+          if (!dataValid) {
+            return;
+          }
 
-        const formData = new FormData(form);
+          const formData = new FormData(form);
 
-        const formDataObj: Record<string, string> = {};
-        formData.forEach((value, key) => {
-          formDataObj[key] = value as string;
-        });
+          const formDataObj: Record<string, string> = {};
+          formData.forEach((value, key) => {
+            formDataObj[key] = value as string;
+          });
 
-        console.table(formDataObj);
+          console.table(formDataObj);
+        },
       },
     },
   });

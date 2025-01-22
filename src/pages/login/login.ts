@@ -50,28 +50,30 @@ document.addEventListener("DOMContentLoaded", () => {
     inputLogin,
     inputPassword,
     events: {
-      submit: (event) => {
-        event.preventDefault();
-        const form = event.target;
-        if (!form || !(form instanceof HTMLFormElement)) {
-          return;
-        }
+      submit: {
+        cb: (event) => {
+          event.preventDefault();
+          const form = event.target;
+          if (!form || !(form instanceof HTMLFormElement)) {
+            return;
+          }
 
-        const dataValid =
-          inputLogin.inputValidate() && inputPassword.inputValidate();
+          const dataValid =
+            inputLogin.inputValidate() && inputPassword.inputValidate();
 
-        if (!dataValid) {
-          return;
-        }
+          if (!dataValid) {
+            return;
+          }
 
-        const formData = new FormData(form);
+          const formData = new FormData(form);
 
-        const formDataObj: Record<string, string> = {};
-        formData.forEach((value, key) => {
-          formDataObj[key] = value as string;
-        });
+          const formDataObj: Record<string, string> = {};
+          formData.forEach((value, key) => {
+            formDataObj[key] = value as string;
+          });
 
-        console.table(formDataObj);
+          console.table(formDataObj);
+        },
       },
     },
   });

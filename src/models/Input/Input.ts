@@ -1,7 +1,6 @@
 import Block from "../Block/Block";
 import IInputProps from "./IInput";
 
-
 export default class Input extends Block<IInputProps> {
   private _value: string = "";
 
@@ -9,19 +8,24 @@ export default class Input extends Block<IInputProps> {
     super(props);
     this._value = props.value ?? "";
     this.props.events = {
-      input: (event) => {
-        const input = event.target as HTMLInputElement;
-        const value = input.value;
-        console.log(value);
-        this._value = value;
+      input: {
+        cb: (event) => {
+          const input = event.target as HTMLInputElement;
+          const value = input.value;
+
+          this._value = value;
+        },
       },
     };
 
     if (props.validate) {
       this.props.events = {
         ...this.props.events,
-        focusout: () => {
-          this.inputValidate();
+        blur: {
+          cb: () => {
+            this.inputValidate();
+          },
+          option: true,
         },
       };
     }
