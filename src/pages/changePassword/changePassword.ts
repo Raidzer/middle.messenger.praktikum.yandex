@@ -5,6 +5,10 @@ import { UserProfile } from "../../components/userProfile/UserProfile";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import { InputType } from "../../enums/Input";
 import render from "../../utils/utils";
+import {
+  ValidationMessageError,
+  ValidationRulesRegExp,
+} from "../../utils/validationRules";
 
 const buttonSave = new Button({
   type: ButtonType.SUBMIT,
@@ -19,6 +23,10 @@ const infoRowOldPassword = new InfoRow({
   infoData: "",
   name: "oldPassword",
   placeholder: "Пароль",
+  validate: {
+    rule: ValidationRulesRegExp.Password,
+    errorMessage: ValidationMessageError.Password,
+  },
 });
 
 const infoRowNewPassword = new InfoRow({
@@ -28,6 +36,10 @@ const infoRowNewPassword = new InfoRow({
   infoData: "",
   name: "newPassword",
   placeholder: "Новый пароль",
+  validate: {
+    rule: ValidationRulesRegExp.Password,
+    errorMessage: ValidationMessageError.Password,
+  },
 });
 
 const infoRowNewPasswordRepeat = new InfoRow({
@@ -37,6 +49,10 @@ const infoRowNewPasswordRepeat = new InfoRow({
   infoData: "",
   name: "newPasswordRepeat",
   placeholder: "Новый пароль (еще раз)",
+  validate: {
+    rule: ValidationRulesRegExp.Password,
+    errorMessage: ValidationMessageError.Password,
+  },
 });
 
 const changePasswordForm = new userInfoForm({
@@ -51,6 +67,15 @@ const changePasswordForm = new userInfoForm({
 
       const form = event.target;
       if (!form || !(form instanceof HTMLFormElement)) {
+        return;
+      }
+
+      const dataValid =
+        infoRowOldPassword.inputValidate() &&
+        infoRowNewPassword.inputValidate() &&
+        infoRowNewPasswordRepeat.inputValidate();
+
+      if (!dataValid) {
         return;
       }
 

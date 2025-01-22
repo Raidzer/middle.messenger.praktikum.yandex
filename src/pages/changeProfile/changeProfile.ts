@@ -5,6 +5,10 @@ import { UserProfile } from "../../components/userProfile/UserProfile";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import { InputType } from "../../enums/Input";
 import render from "../../utils/utils";
+import {
+  ValidationMessageError,
+  ValidationRulesRegExp,
+} from "../../utils/validationRules";
 
 const buttonSave = new Button({
   type: ButtonType.SUBMIT,
@@ -19,6 +23,10 @@ const infoRowEmail = new InfoRow({
   infoData: "pochta@yandex.ru",
   name: "email",
   placeholder: "Почта",
+  validate: {
+    rule: ValidationRulesRegExp.Email,
+    errorMessage: ValidationMessageError.Email,
+  },
 });
 
 const infoRowLogin = new InfoRow({
@@ -28,6 +36,10 @@ const infoRowLogin = new InfoRow({
   infoData: "ivan",
   name: "login",
   placeholder: "Логин",
+  validate: {
+    rule: ValidationRulesRegExp.Login,
+    errorMessage: ValidationMessageError.Login,
+  },
 });
 
 const infoRowFirstName = new InfoRow({
@@ -37,6 +49,10 @@ const infoRowFirstName = new InfoRow({
   infoData: "Иван",
   name: "first_name",
   placeholder: "Имя",
+  validate: {
+    rule: ValidationRulesRegExp.Name,
+    errorMessage: ValidationMessageError.Name,
+  },
 });
 
 const infoRowSecondName = new InfoRow({
@@ -46,6 +62,10 @@ const infoRowSecondName = new InfoRow({
   infoData: "Иванов",
   name: "second_name",
   placeholder: "Фамилия",
+  validate: {
+    rule: ValidationRulesRegExp.Name,
+    errorMessage: ValidationMessageError.Name,
+  },
 });
 
 const infoRowDisplayName = new InfoRow({
@@ -55,6 +75,10 @@ const infoRowDisplayName = new InfoRow({
   infoData: "Иван",
   name: "display_name",
   placeholder: "Имя в чате",
+  validate: {
+    rule: ValidationRulesRegExp.Name,
+    errorMessage: ValidationMessageError.Name,
+  },
 });
 
 const infoRowPhone = new InfoRow({
@@ -64,6 +88,10 @@ const infoRowPhone = new InfoRow({
   infoData: "1234567890",
   name: "phone",
   placeholder: "Телефон",
+  validate: {
+    rule: ValidationRulesRegExp.Phone,
+    errorMessage: ValidationMessageError.Phone,
+  },
 });
 
 const changeInfoUserForm = new userInfoForm({
@@ -81,6 +109,18 @@ const changeInfoUserForm = new userInfoForm({
 
       const form = event.target;
       if (!form || !(form instanceof HTMLFormElement)) {
+        return;
+      }
+
+      const dataValid =
+        infoRowEmail.inputValidate() &&
+        infoRowLogin.inputValidate() &&
+        infoRowFirstName.inputValidate() &&
+        infoRowSecondName.inputValidate() &&
+        infoRowDisplayName.inputValidate() &&
+        infoRowPhone.inputValidate();
+
+      if (!dataValid) {
         return;
       }
 

@@ -6,10 +6,16 @@ import { ButtonClass, ButtonType } from "../../enums/Button";
 import { InputType } from "../../enums/Input";
 import render from "../../utils/utils";
 
-const buttonSave = new Button({
+const buttonChangePassword = new Button({
   type: ButtonType.SUBMIT,
-  label: "Сохранить изменения",
-  class: ButtonClass.PRIMARY,
+  label: "Изменить пароль",
+  class: ButtonClass.SECONDARY,
+});
+
+const buttonChangeUserInfo = new Button({
+  type: ButtonType.SUBMIT,
+  label: "Изменить данные",
+  class: ButtonClass.SECONDARY,
 });
 
 const infoRowEmail = new InfoRow({
@@ -67,7 +73,8 @@ const infoRowPhone = new InfoRow({
 });
 
 const changeInfoUserForm = new userInfoForm({
-  buttonSave,
+  buttonChangePassword,
+  buttonChangeUserInfo,
   infoRowEmail,
   infoRowLogin,
   infoRowFirstName,

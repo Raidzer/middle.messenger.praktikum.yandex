@@ -24,10 +24,10 @@ export default class FormInput extends Block<IFormInputProps> {
     super(props);
     this._value = props.value ?? "";
     this.props.events = {
-      change: (event) => {
+      input: (event) => {
         const input = event.target as HTMLInputElement;
         const value = input.value;
-
+        console.log(value);
         this._value = value;
       },
     };
