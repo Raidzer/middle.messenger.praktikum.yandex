@@ -1,4 +1,4 @@
-@import "../../styles/colors.css";
+@import url("../../styles/colors.css");
 
 .inputContainer {
   position: relative;

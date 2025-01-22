@@ -13,7 +13,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "lint:css": "stylelint '**/*.css'"
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:cssfix": "stylelint \"src/**/*.css\" --fix"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
