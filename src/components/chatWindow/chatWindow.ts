@@ -13,17 +13,17 @@ export class ChatWindow extends Block<IBlockProps> {
   }
 
   show(): void {
-      if (!this.element){
-        return;
-      }
-      this.element.style.display = "flex"
+    if (!this.element) {
+      return;
+    }
+    this.element.style.display = "flex";
   }
 
   hide(): void {
-      if (!this.element) {
-        return;
-      }
+    if (!this.element) {
+      return;
+    }
 
-      this.element.style.display = "none"
+    this.element.style.display = "flex";
   }
 }

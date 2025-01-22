@@ -1,7 +1,7 @@
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
-import message from "./message.hbs?raw";
-import "./message.css";
+import message from "./userChatPanel.hbs?raw";
+import "./userChatPanel.css";
 import { UserSearchList } from "../userSearchList/UserSearchList";
 import { ChatWindow } from "../chatWindow/chatWindow";
 
@@ -10,8 +10,8 @@ interface IMessageProps extends IBlockProps {
   chatWindow: ChatWindow;
 }
 
-export class Message extends Block<IMessageProps> {
-  constructor(props: IBlockProps) {
+export class UserChatPanel extends Block<IMessageProps> {
+  constructor(props: IMessageProps) {
     super(props);
     this.children.chatWindow.hide();
   }

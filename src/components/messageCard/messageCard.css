@@ -1,0 +1,75 @@
+@import "../../styles/colors.css";
+@import "../../styles/styles.css";
+
+.messagesContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+
+  .messageContainer {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    margin: 3px 0px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--backgroundLightBlue-color);
+    }
+
+    .avatarContainer {
+      width: 25%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: var(--avatarContainer-color);
+      }
+    }
+
+    .messageDataContainer {
+      width: 55%;
+      margin: 10px 5px;
+
+      .userName {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .userMessage {
+        font-size: 14px;
+        color: var(--textMenu-color);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .dateContainer {
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+
+      .dateText {
+        color: var(--textMenu-color);
+      }
+
+      .messageCount {
+        width: 20px;
+        height: 20px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        color: var(--textMenuWithBackground-color);
+      }
+    }
+  }
+}
