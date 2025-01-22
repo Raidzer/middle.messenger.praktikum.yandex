@@ -1,4 +1,4 @@
-import Button from "../../components/Button/Button";
+import Button from "../../components/button/Button";
 import { userInfoForm } from "../../components/userInfoForm/userInfoForm";
 import { InfoRow } from "../../components/infoRow/InfoRow";
 import { UserProfile } from "../../components/userProfile/UserProfile";

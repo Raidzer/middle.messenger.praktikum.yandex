@@ -2,7 +2,7 @@ import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import error from "../../components/error/error.hbs?raw";
 import { ButtonClass, ButtonType } from "../../enums/Button";
-import Button from "../Button/Button";
+import Button from "../button/Button";
 import "./error.css";
 
 interface IErrorProps extends IBlockProps {

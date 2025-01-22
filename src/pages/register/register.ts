@@ -1,5 +1,5 @@
 import { BaseAuthForm } from "../../components/baseAuthForm/BaseAuthForm";
-import Button from "../../components/Button/Button";
+import Button from "../../components/button/Button";
 import FormInput from "../../components/formInput/FormInput";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import { InputType } from "../../enums/Input";

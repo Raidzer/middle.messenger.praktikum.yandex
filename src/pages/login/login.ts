@@ -1,6 +1,6 @@
 import render from "../../utils/utils";
 import "../../styles/styles.css";
-import Button from "../../components/Button/Button";
+import Button from "../../components/button/Button";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import FormInput from "../../components/formInput/FormInput";
 import { InputType } from "../../enums/Input";
