@@ -1,7 +1,7 @@
 import Block from "../Block/Block";
 import IInputProps from "./IInput";
 
-export default class Input extends Block<IInputProps> {
+export default abstract class Input extends Block<IInputProps> {
   private _value: string = "";
 
   constructor(props: IInputProps) {

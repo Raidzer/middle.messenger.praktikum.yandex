@@ -3,7 +3,7 @@ import EventBus from "../../utils/EventBus/EventBus";
 import { IBlockProps } from "./IBlock";
 import { v4 as uuid } from "uuid";
 
-export default class Block<T extends IBlockProps = IBlockProps> {
+export default abstract class Block<T extends IBlockProps = IBlockProps> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
