@@ -1,5 +1,5 @@
 import Handlebars from "handlebars";
-import EventBus from "../../utils/EventBus";
+import EventBus from "../../utils/EventBus/EventBus";
 import { IBlockProps } from "./IBlock";
 import { v4 as uuid } from "uuid";
 
@@ -15,10 +15,10 @@ export default class Block<T extends IBlockProps = IBlockProps> {
   private _id: string | null = null;
   private _eventBus: () => EventBus;
 
-  props: T;
+  props: Partial<T>;
   children: Record<string, Block<IBlockProps>>;
 
-  constructor(propsAndChildren: IBlockProps = {}) {
+  constructor(propsAndChildren: T) {
     const eventBus = new EventBus();
     const { children, props } = this._getChildren(propsAndChildren);
 
@@ -37,13 +37,13 @@ export default class Block<T extends IBlockProps = IBlockProps> {
 
   private _getChildren(propsAndChildren: IBlockProps) {
     const children: Record<string, Block<IBlockProps>> = {};
-    const props: Record<string, unknown> = {};
+    const props: Partial<T> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
       } else {
-        props[key] = value;
+        props[key as keyof T] = value as T[keyof T];
       }
     });
 
@@ -91,8 +91,9 @@ export default class Block<T extends IBlockProps = IBlockProps> {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ newProps:", newProps);
+    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ oldProps:", oldProps);
     return true;
   }
 
@@ -161,7 +162,7 @@ export default class Block<T extends IBlockProps = IBlockProps> {
     return this.element;
   }
 
-  _makePropsProxy(props: T) {
+  _makePropsProxy(props: Partial<T>) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
@@ -194,16 +195,30 @@ export default class Block<T extends IBlockProps = IBlockProps> {
   }
 
   private _addEvents(): void {
-    const { events = {} } = this.props;
+    const { events } = this.props;
+
     for (const eventName in events) {
-      this.element?.addEventListener(eventName, events[eventName]);
+      const cb = events[eventName as keyof HTMLElementEventMap];
+      if (cb) {
+        this.element?.addEventListener(
+          eventName as keyof HTMLElementEventMap,
+          cb as EventListener
+        );
+      }
     }
   }
 
   private _deleteEvents(): void {
-    const { events = {} } = this.props;
+    const { events } = this.props;
     for (const eventName in events) {
-      this.element?.removeEventListener(eventName, events[eventName]);
+      const cb = events[eventName as keyof HTMLElementEventMap];
+
+      if (cb) {
+        this.element?.removeEventListener(
+          eventName as keyof HTMLElementEventMap,
+          cb as EventListener
+        );
+      }
     }
   }
 

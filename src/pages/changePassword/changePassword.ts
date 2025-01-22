@@ -8,7 +8,7 @@ import render from "../../utils/utils";
 import {
   ValidationMessageError,
   ValidationRulesRegExp,
-} from "../../utils/validationRules";
+} from "../../utils/validationRules/validationRules";
 
 const buttonSave = new Button({
   type: ButtonType.SUBMIT,

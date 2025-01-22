@@ -7,7 +7,7 @@ import render from "../../utils/utils";
 import {
   ValidationMessageError,
   ValidationRulesRegExp,
-} from "../../utils/validationRules";
+} from "../../utils/validationRules/validationRules";
 
 const inputEmail = new FormInput({
   name: "email",

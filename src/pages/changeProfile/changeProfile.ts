@@ -8,7 +8,7 @@ import render from "../../utils/utils";
 import {
   ValidationMessageError,
   ValidationRulesRegExp,
-} from "../../utils/validationRules";
+} from "../../utils/validationRules/validationRules";
 
 const buttonSave = new Button({
   type: ButtonType.SUBMIT,
@@ -20,7 +20,7 @@ const infoRowEmail = new InfoRow({
   infoName: "Почта",
   type: InputType.TEXT,
   isEditable: true,
-  infoData: "pochta@yandex.ru",
+  value: "pochta@yandex.ru",
   name: "email",
   placeholder: "Почта",
   validate: {
@@ -33,7 +33,7 @@ const infoRowLogin = new InfoRow({
   infoName: "Логин",
   type: InputType.TEXT,
   isEditable: true,
-  infoData: "ivan",
+  value: "ivan",
   name: "login",
   placeholder: "Логин",
   validate: {
@@ -46,7 +46,7 @@ const infoRowFirstName = new InfoRow({
   infoName: "Имя",
   type: InputType.TEXT,
   isEditable: true,
-  infoData: "Иван",
+  value: "Иван",
   name: "first_name",
   placeholder: "Имя",
   validate: {
@@ -59,7 +59,7 @@ const infoRowSecondName = new InfoRow({
   infoName: "Фамилия",
   type: InputType.TEXT,
   isEditable: true,
-  infoData: "Иванов",
+  value: "Иванов",
   name: "second_name",
   placeholder: "Фамилия",
   validate: {
@@ -72,7 +72,7 @@ const infoRowDisplayName = new InfoRow({
   infoName: "Имя в чате",
   type: InputType.TEXT,
   isEditable: true,
-  infoData: "Иван",
+  value: "Иван",
   name: "display_name",
   placeholder: "Имя в чате",
   validate: {
@@ -85,7 +85,7 @@ const infoRowPhone = new InfoRow({
   infoName: "Телефон",
   type: InputType.TEXT,
   isEditable: true,
-  infoData: "1234567890",
+  value: "1234567890",
   name: "phone",
   placeholder: "Телефон",
   validate: {

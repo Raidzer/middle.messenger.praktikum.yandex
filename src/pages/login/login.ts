@@ -7,7 +7,7 @@ import { InputType } from "../../enums/Input";
 import {
   ValidationMessageError,
   ValidationRulesRegExp,
-} from "../../utils/validationRules";
+} from "../../utils/validationRules/validationRules";
 import { BaseAuthForm } from "../../components/baseAuthForm/BaseAuthForm";
 
 document.addEventListener("DOMContentLoaded", () => {

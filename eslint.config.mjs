@@ -10,5 +10,8 @@ export default tseslint.config(
         __dirname: true,
       },
     },
+  },
+  {
+    ignores: ["**/build/*", "**/node_modules/*"],
   }
 );
