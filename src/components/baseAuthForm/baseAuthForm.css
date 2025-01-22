@@ -8,13 +8,10 @@
   height: 100%;
 }
 
-.registerForm {
+.loginForm {
   width: 100%;
-  height: 100%;
   max-width: 400px;
-  max-height: 650px;
-  min-height: 650px;
-  min-width: 400px;
+  max-height: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;

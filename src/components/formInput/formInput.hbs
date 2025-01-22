@@ -1,5 +1,5 @@
 <div class="inputContainer {{#if error}}inputContainer--error{{/if}}">
-  <input class="loginInput {{#if error}}loginInput--error{{/if}}" name="{{name}}" type="{{type}}" placeholder=" " />
+  <input class="loginInput {{#if error}}loginInput--error{{/if}}" name="{{name}}" type="{{type}}" placeholder=" " value="{{value}}"/>
   <label class="inputLabel">{{placeholder}}</label>
   {{#if error}}
     <span class="errorMessage">{{error}}</span>

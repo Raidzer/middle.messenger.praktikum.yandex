@@ -1,4 +1,3 @@
-import { LoginForm } from "../../components/loginForm/LoginForm";
 import render from "../../utils/utils";
 import "../../styles/styles.css";
 import Button from "../../components/Button/Button";
@@ -9,6 +8,7 @@ import {
   ValidationMessageError,
   ValidationRulesRegExp,
 } from "../../utils/validationRules";
+import { BaseAuthForm } from "../../components/baseAuthForm/BaseAuthForm";
 
 document.addEventListener("DOMContentLoaded", () => {
   const buttonSubmit = new Button({
@@ -27,15 +27,24 @@ document.addEventListener("DOMContentLoaded", () => {
     name: "login",
     type: InputType.TEXT,
     placeholder: "Логин",
+    validate: {
+      rule: ValidationRulesRegExp.Login,
+      errorMessage: ValidationMessageError.Login,
+    },
   });
 
   const inputPassword = new FormInput({
     name: "password",
     type: InputType.PASSWORD,
     placeholder: "Пароль",
+    validate: {
+      rule: ValidationRulesRegExp.Password,
+      errorMessage: ValidationMessageError.Password,
+    },
   });
 
-  const loginForm = new LoginForm({
+  const loginForm = new BaseAuthForm({
+    title: "Вход",
     buttonCreate,
     buttonSubmit,
     inputLogin,
@@ -43,9 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
     events: {
       submit: (event) => {
         event.preventDefault();
-
         const form = event.target;
         if (!form || !(form instanceof HTMLFormElement)) {
+          return;
+        }
+
+        const dataValid =
+          inputLogin.inputValidate() && inputPassword.inputValidate();
+
+        if (!dataValid) {
           return;
         }
 
@@ -57,20 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         console.table(formDataObj);
-      },
-    },
-  });
-
-  inputLogin.setProps({
-    events: {
-      focusout: (event) => {
-        const input = event.target as HTMLInputElement;
-        const value = input.value;
-        inputLogin.validate(
-          value,
-          ValidationRulesRegExp.Login,
-          ValidationMessageError.Login
-        );
       },
     },
   });

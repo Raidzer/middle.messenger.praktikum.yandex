@@ -36,12 +36,19 @@
 }
 
 .inputContainer--error {
+  .inputLabel {
+    top: 0;
+    transform: translateY(-100%);
+    font-size: 12px;
+    color: var(--text-color);
+  }
+
   .loginInput {
     border-color: var(--red-color);
   }
 
   .errorMessage {
-    color: red;
+    color: var(--red-color);
     font-size: 12px;
     margin-top: 5px;
   }

@@ -3,7 +3,7 @@ import EventBus from "../../utils/EventBus";
 import { IBlockProps } from "./IBlock";
 import { v4 as uuid } from "uuid";
 
-export default class Block<T extends IBlockProps> {
+export default class Block<T extends IBlockProps = IBlockProps> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -15,7 +15,7 @@ export default class Block<T extends IBlockProps> {
   private _id: string | null = null;
   private _eventBus: () => EventBus;
 
-  props: IBlockProps;
+  props: T;
   children: Record<string, Block<IBlockProps>>;
 
   constructor(propsAndChildren: IBlockProps = {}) {
@@ -124,7 +124,7 @@ export default class Block<T extends IBlockProps> {
     }
 
     this._element = newElement;
-
+    this._deleteEvents();
     this._addEvents();
   }
 
@@ -161,7 +161,7 @@ export default class Block<T extends IBlockProps> {
     return this.element;
   }
 
-  _makePropsProxy(props: IBlockProps) {
+  _makePropsProxy(props: T) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
@@ -172,10 +172,15 @@ export default class Block<T extends IBlockProps> {
         }
 
         if (prop === "events") {
-          self._deleteEvents();
+          const existingEvents = (target[prop] as Partial<T>["events"]) || {};
+          const newEvents = value as Partial<T>["events"];
+
+          const mergedEvents = { ...existingEvents, ...newEvents };
+          target[prop as keyof T] = mergedEvents as T[keyof T];
+        } else {
+          (target as T)[prop as keyof T] = value;
         }
 
-        target[prop] = value;
         self._eventBus().emit(Block.EVENTS.FLOW_UPDATE, { ...target }, target);
         return true;
       },
@@ -190,7 +195,6 @@ export default class Block<T extends IBlockProps> {
 
   private _addEvents(): void {
     const { events = {} } = this.props;
-
     for (const eventName in events) {
       this.element?.addEventListener(eventName, events[eventName]);
     }
