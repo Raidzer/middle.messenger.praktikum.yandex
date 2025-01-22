@@ -1,75 +1,68 @@
 @import url("../../styles/colors.css");
 @import url("../../styles/styles.css");
 
-.messagesContainer {
+.message-container {
   display: flex;
   width: 100%;
-  height: 100%;
-  flex-direction: column;
+  height: 100px;
+  margin: 3px 0;
+  cursor: pointer;
 
-  .messageContainer {
+  &:hover {
+    background-color: var(--background-lightBlue-color);
+  }
+
+  .avatar-container {
+    width: 25%;
     display: flex;
-    width: 100%;
-    height: 100px;
-    margin: 3px 0;
-    cursor: pointer;
+    align-items: center;
+    justify-content: center;
 
-    &:hover {
-      background-color: var(--backgroundLightBlue-color);
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: var(--avatar-container-color);
+    }
+  }
+
+  .message-data-container {
+    width: 55%;
+    margin: 10px 5px;
+
+    .user-name {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 5px;
     }
 
-    .avatarContainer {
-      width: 25%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .user-message {
+      font-size: 14px;
+      color: var(--text-menu-color);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
 
-      .avatar {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background-color: var(--avatarContainer-color);
-      }
+  .date-container {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+
+    .date-text {
+      color: var(--text-menu-color);
     }
 
-    .messageDataContainer {
-      width: 55%;
-      margin: 10px 5px;
-
-      .userName {
-        font-weight: bold;
-        font-size: 18px;
-        margin-bottom: 5px;
-      }
-
-      .userMessage {
-        font-size: 14px;
-        color: var(--textMenu-color);
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-    }
-
-    .dateContainer {
-      width: 20%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      text-align: center;
-
-      .dateText {
-        color: var(--textMenu-color);
-      }
-
-      .messageCount {
-        width: 20px;
-        height: 20px;
-        background-color: var(--primary-color);
-        border-radius: 50%;
-        color: var(--textMenuWithBackground-color);
-      }
+    .message-count {
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      color: var(--text-menu-with-background-color);
     }
   }
 }

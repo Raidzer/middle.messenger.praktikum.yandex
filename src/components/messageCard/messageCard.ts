@@ -1,6 +1,7 @@
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import messageCard from "./messageCard.hbs?raw";
+import "./messageCard.css";
 
 interface IMessageCardProps extends IBlockProps {
   name: string;
