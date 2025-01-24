@@ -16,10 +16,10 @@ button {
 
 .primary {
   background-color: var(--primary-color);
-  color: var(--textWhite-color);
+  color: var(--text-white-color);
 
   &:hover {
-    background-color: var(--primaryHover-color);
+    background-color: var(--primary-hover-color);
   }
 }
 
@@ -27,6 +27,6 @@ button {
   background-color: var(--background-color-transparent);
 
   &:hover {
-    background-color: var(--secondaryButtonHover-color);
+    background-color: var(--secondary-button-hover-color);
   }
 }

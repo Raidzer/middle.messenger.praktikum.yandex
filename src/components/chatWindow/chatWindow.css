@@ -1,19 +1,19 @@
 @import url("../../styles/colors.css");
 @import url("../../styles/styles.css");
 
-.ChatContainer {
+.chat-container {
   height: 100%;
   width: 75%;
   display: flex;
   flex-direction: column;
   margin: 20px;
 
-  .optionsChatContainer {
+  .options-chat-container {
     height: 50px;
     display: flex;
     justify-content: space-between;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--borderMenu-color);
+    border-bottom: 1px solid var(--border-menu-color);
 
     .user {
       display: flex;
@@ -21,20 +21,20 @@
       align-items: center;
       gap: 20px;
 
-      .userAvatar {
+      .user-avatar {
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background-color: #d3d3d3;
+        background-color: var(--avatar-container-color);
       }
 
-      .userName {
+      .user-name {
         font-size: 20px;
         font-weight: bold;
       }
     }
 
-    .chatMenu {
+    .chat-menu {
       height: 100%;
 
       button {
@@ -43,32 +43,32 @@
     }
   }
 
-  .chatMessageContainer {
+  .chat-message-container {
     height: 100%;
   }
 
-  .toolsChatContainer {
+  .tools-chat-container {
     display: flex;
     height: 50px;
     padding-top: 10px;
     padding-bottom: 20px;
-    border-top: 1px solid var(--borderMenu-color);
+    border-top: 1px solid var(--border-menu-color);
     justify-content: space-around;
     align-items: center;
     gap: 5px;
 
-    .loadFile {
+    .load-file {
       button {
         height: 30px;
       }
     }
 
-    .textMessageForm {
+    .text-message-form {
       display: flex;
       width: 100%;
       gap: 5px;
 
-      .textMessage {
+      .text-message {
         width: 100%;
         display: flex;
 
@@ -77,13 +77,13 @@
           height: 30px;
           border: none;
           border-radius: 30px;
-          background-color: lightgray;
+          background-color: var(--avatar-container-color);
           text-align: left;
           padding: 0 10px;
         }
       }
 
-      .sendMessage {
+      .send-message {
         button {
           height: 30px;
         }

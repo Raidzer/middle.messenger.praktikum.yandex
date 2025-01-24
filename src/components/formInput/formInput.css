@@ -1,28 +1,11 @@
 @import url("../../styles/colors.css");
 
-.inputContainer {
+.input-container {
   position: relative;
   margin-bottom: 20px;
   width: 100%;
 
-  .loginInput {
-    width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    outline: none;
-
-    &:focus + .inputLabel,
-    &:not(:placeholder-shown) + .inputLabel {
-      top: 0;
-      transform: translateY(-100%);
-      font-size: 12px;
-      color: var(--text-color);
-      background: var(--background-color-transparent);
-    }
-  }
-
-  .inputLabel {
+  .input-label {
     position: absolute;
     top: 50%;
     left: 10px;
@@ -31,23 +14,40 @@
     background: var(--background-color);
     padding: 0 5px;
     pointer-events: none;
-    color: var(--placeholderText-color);
+    color: var(--placeholder-text-color);
+  }
+
+  .login-input {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    outline: none;
+
+    &:focus + .input-label,
+    &:not(:placeholder-shown) + .input-label {
+      top: 0;
+      transform: translateY(-100%);
+      font-size: 12px;
+      color: var(--text-color);
+      background: var(--background-color-transparent);
+    }
   }
 }
 
-.inputContainer--error {
-  .inputLabel {
+.input-container-error {
+  .input-label-error {
     top: 0;
     transform: translateY(-100%);
     font-size: 12px;
     color: var(--text-color);
   }
 
-  .loginInput {
+  .login-input-error {
     border-color: var(--red-color);
   }
 
-  .errorMessage {
+  .error-message {
     color: var(--red-color);
     font-size: 12px;
     margin-top: 5px;

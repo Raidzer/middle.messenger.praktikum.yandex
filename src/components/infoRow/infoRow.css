@@ -1,41 +1,41 @@
 @import url("../../styles/colors.css");
 
-.infoRowContainer {
+.info-row-container {
   display: flex;
   width: 100%;
   justify-content: space-between;
   padding-bottom: 15px;
   margin-top: 10px;
-  border-bottom: 1px solid var(--borderMenu-color);
+  border-bottom: 1px solid var(--border-menu-color);
 
   span {
     font-size: 17px;
   }
 
-  .infoName {
+  .info-name {
     font-weight: bold;
   }
 
-  .infoData {
-    color: var(--textMenu-color);
+  .info-data {
+    color: var(--text-menu-color);
   }
 
-  .infoInput {
+  .info-input {
     border: none;
     outline: none;
     text-align: right;
-    color: var(--textMenu-color);
+    color: var(--text-menu-color);
 
     &:focus {
-      color: var(--textBlack-color);
+      color: var(--text-black-color);
     }
   }
 
-  .inputContainer {
+  .input-container {
     display: flex;
     flex-direction: column;
 
-    .errorMessage {
+    .error-message {
       color: var(--red-color);
       font-size: 12px;
       margin-top: 5px;

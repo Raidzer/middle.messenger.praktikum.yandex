@@ -9,7 +9,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: var(--background-lightBlue-color);
+    background-color: var(--background-light-blue-color);
   }
 
   .avatar-container {

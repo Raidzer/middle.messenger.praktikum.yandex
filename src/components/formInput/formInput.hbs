@@ -1,7 +1,7 @@
-<div class="inputContainer {{#if error}}inputContainer--error{{/if}}">
-  <input class="loginInput {{#if error}}loginInput--error{{/if}}" name="{{name}}" type="{{type}}" placeholder=" " value="{{value}}"/>
-  <label class="inputLabel">{{placeholder}}</label>
+<div class="input-container {{#if error}}input-container-error{{/if}}">
+  <input class="login-input {{#if error}}login-input-error{{/if}}" name="{{name}}" type="{{type}}" placeholder=" " value="{{value}}"/>
+  <label class="input-label {{#if error}}input-label-error{{/if}}">{{placeholder}}</label>
   {{#if error}}
-    <span class="errorMessage">{{error}}</span>
+    <span class="error-message">{{error}}</span>
   {{/if}}
 </div>
