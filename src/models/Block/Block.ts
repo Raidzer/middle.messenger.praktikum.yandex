@@ -78,8 +78,9 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidMount(oldProps?: IBlockProps): void {}
+  componentDidMount(oldProps?: IBlockProps): void {
+    console.log("🚀 ~ Block<T ~ componentDidMount ~ oldProps:", oldProps);
+  }
 
   dispatchComponentDidMount(): void {
     this._eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -95,8 +96,9 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ newProps:", newProps);
+    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ oldProps:", oldProps);
     return true;
   }
 
