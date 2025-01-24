@@ -1,0 +1,23 @@
+@import url("../../styles/colors.css");
+@import url("../../styles/styles.css");
+
+.incoming-message-container {
+  background-color: #f1f1f1;
+  color: #000;
+  text-align: left;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px 0;
+  max-width: 70%;
+}
+
+.outgoing-message-container {
+  background-color: #4caf50;
+  color: #fff;
+  text-align: right;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px 0;
+  max-width: 70%;
+  margin-left: auto; /* Сдвигает сообщение вправо */
+}

@@ -16,7 +16,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
   private _eventBus: () => EventBus;
 
   props: Partial<T>;
-  children: Record<string, Block<IBlockProps>>;
+  children: Record<string, Block<IBlockProps>[]>;
 
   constructor(propsAndChildren: T) {
     const eventBus = new EventBus();
@@ -36,17 +36,22 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
   }
 
   private _getChildren(propsAndChildren: IBlockProps) {
-    const children: Record<string, Block<IBlockProps>> = {};
+    const children: Record<string, Block<IBlockProps>[]> = {};
     const props: Partial<T> = {};
-
     Object.entries(propsAndChildren).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        children[key] = [...value];
+      }
       if (value instanceof Block) {
-        children[key] = value;
+        if (children.key) {
+          children.key.push(value);
+        } else {
+          children[key] = [value];
+        }
       } else {
         props[key as keyof T] = value as T[keyof T];
       }
     });
-
     return { children, props };
   }
 
@@ -68,14 +73,13 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
   private _componentDidMount(): void {
     this.componentDidMount();
 
-    Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount();
+    Object.values(this.children).forEach((children) => {
+      children.forEach((child) => child.dispatchComponentDidMount);
     });
   }
 
-  componentDidMount(oldProps?: IBlockProps): void {
-    console.log("🚀 ~ Block<T ~ componentDidMount ~ oldProps:", oldProps);
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  componentDidMount(oldProps?: IBlockProps): void {}
 
   dispatchComponentDidMount(): void {
     this._eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -91,9 +95,8 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
-    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ newProps:", newProps);
-    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ oldProps:", oldProps);
     return true;
   }
 
@@ -104,7 +107,14 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
 
     const { children } = this._getChildren(nextProps);
 
-    this.children = { ...this.children, ...children };
+    Object.entries(children).forEach(([key, child]) => {
+      if (this.children[key]) {
+        this.children[key] = [...this.children[key], ...child];
+      } else {
+        this.children[key] = child;
+      }
+    });
+
     Object.assign(this.props, nextProps);
   };
 
@@ -131,26 +141,34 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
 
   compile(template: string, props: IBlockProps) {
     const propsAndStubs = { ...props };
+
     Object.entries(this.children).forEach(([key, child]) => {
-      if (child._id) {
-        propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
-      }
+      propsAndStubs[key] = [];
+      child.map((el) => {
+        if (el._id) {
+          if (Array.isArray(propsAndStubs[key])) {
+            propsAndStubs[key].push(`<div data-id="${el._id}"></div>`);
+          }
+        }
+      });
     });
 
     const compiledTemplate = Handlebars.compile(template);
     const fragment = document.createElement("template") as HTMLTemplateElement;
     fragment.innerHTML = compiledTemplate(propsAndStubs);
 
-    Object.values(this.children).forEach((child) => {
-      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-
-      if (stub && child) {
-        const children = child.getContent();
-        if (children) {
-          stub.replaceWith(children);
+    Object.values(this.children).forEach((children) => {
+      children.forEach((child) => {
+        const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+        if (stub && child) {
+          const children = child.getContent();
+          if (children) {
+            stub.replaceWith(children);
+          }
         }
-      }
+      });
     });
+
     return fragment.content;
   }
 

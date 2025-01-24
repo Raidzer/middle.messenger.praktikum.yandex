@@ -13,7 +13,7 @@ interface IMessageProps extends IBlockProps {
 export class UserChatPanel extends Block<IMessageProps> {
   constructor(props: IMessageProps) {
     super(props);
-    this.children.chatWindow.hide();
+   // this.children.chatWindow.hide();
   }
 
   render(): DocumentFragment {

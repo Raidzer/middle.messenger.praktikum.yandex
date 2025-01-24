@@ -10,7 +10,11 @@
       </button>
     </div>
   </div>
-  <div class="chat-message-container"></div>
+  <div class="chat-message-container">
+    {{#each messages}}
+      {{{this}}}
+    {{/each}}
+  </div>
   <div class="tools-chat-container">
     <div class="load-file">
       <button class="clip-button">
