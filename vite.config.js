@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import handlebars from "vite-plugin-handlebars";
+import handlebars from "./vite-plugin-handlebars-precompile";
 import path from "path";
 
 const contextData = {
@@ -7,11 +7,11 @@ const contextData = {
 };
 
 export default defineConfig({
+  root: "src",
   plugins: [
     handlebars({
       partialDirectory: [
-        path.resolve(__dirname, "src/partials"),
-        path.resolve(__dirname, "src/components"),
+        path.resolve(__dirname, "components"),
       ],
       context: contextData,
     }),
@@ -23,12 +23,12 @@ export default defineConfig({
     port: 3000,
   },
   css: {
-    postcss: "./postcss.config.сjs",
+    postcss: "../postcss.config.сjs",
   },
   build: {
     rollupOptions: {
       input: {
-        index: path.resolve(__dirname, "index.html"),
+        index: path.resolve(__dirname, "src/index.html"),
         login: path.resolve(__dirname, "src/pages/login/login.html"),
         changePassword: path.resolve(
           __dirname,
@@ -48,7 +48,7 @@ export default defineConfig({
         ),
       },
     },
-    outDir: "./build",
+    outDir: "../build",
   },
-  publicDir: "./static",
+  publicDir: "../static",
 });

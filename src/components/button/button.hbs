@@ -1,2 +1,7 @@
-<link rel="stylesheet" href="/src/components/button/button.css" />
-<button type={{type}} class={{class}}>{{label}}</button>
+<button type={{type}} class={{class}}>
+  {{#if icon}}
+    <i class="{{icon}}"></i>
+  {{else}}
+    {{label}}
+  {{/if}}
+</button>

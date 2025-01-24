@@ -1,5 +1,13 @@
-<link rel="stylesheet" href="/src/components/formInput/formInput.css" />
-<div class="inputContainer">
-  <input class="loginInput" name="{{name}}" type="{{type}}" placeholder=" " />
-  <label class="inputLabel">{{placeholder}}</label>
+{{#if class}}
+<div class="default-input">
+  <input class="{{class}}" name="{{name}}" type="{{type}}" placeholder="{{placeholder}}" value="{{value}}">
 </div>
+{{else}}
+<div class="input-container {{#if error}}input-container-error{{/if}}">
+  <input class="login-input {{#if error}}login-input-error{{/if}}" name="{{name}}" type="{{type}}" placeholder=" " value="{{value}}"/>
+  <label class="input-label {{#if error}}input-label-error{{/if}}">{{placeholder}}</label>
+  {{#if error}}
+    <span class="error-message">{{error}}</span>
+  {{/if}}
+</div>
+{{/if}}

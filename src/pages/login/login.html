@@ -1,14 +1,17 @@
-{{#> layout/layout title="Вход"}}
-<link rel="stylesheet" href="login.css" />
-<div class="container">
-  <form class="loginForm">
-    <h1>Вход</h1>
-    {{> formInput/formInput name="login" type="text" placeholder="Логин" }}
-    {{> formInput/formInput name="password" type="password" placeholder="Пароль" }}
-    <div class="buttonContainer">
-      {{> button/button type="submit" label="Войти" class="primary"}}
-      {{> button/button type="button" label="Нет аккаунта?" class="secondary"}}
-    </div>
-  </form>
-</div>
-{{/ layout/layout}}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image" href="/images/chat.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <title>Вход в чат</title>
+  </head>
+  <body>
+    <div class="root"></div>
+    <script type="module" src="./login.ts"></script>
+  </body>
+</html>

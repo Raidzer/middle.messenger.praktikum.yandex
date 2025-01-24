@@ -1,15 +1,17 @@
-<link rel="stylesheet" href="/src/components/infoRow/infoRow.css" />
-<div class="infoRowContainer">
-  <span class="infoName">{{infoName}}</span>
+<div class="info-row-container">
+  <span class="info-name">{{infoName}}</span>
   {{#if isEditable}}
-    <input
-      class="infoInput"
-      type="{{type}}"
-      value="{{infoData}}"
-      name="{{name}}"
-      placeholder="{{placeholder}}"
-    />
+    <div class="input-container">
+      <input
+        class="info-input"
+        type="{{type}}"
+        value="{{value}}"
+        name="{{name}}"
+        placeholder="{{placeholder}}"
+      />
+      <span class="error-message">{{error}}</span>
+    </div>
   {{else}}
-    <span class="infoData">{{infoData}}</span>
+    <span class="info-data">{{value}}</span>
   {{/if}}
 </div>
