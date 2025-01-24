@@ -11,7 +11,6 @@ export default defineConfig({
   plugins: [
     handlebars({
       partialDirectory: [
-        path.resolve(__dirname, "partials"),
         path.resolve(__dirname, "components"),
       ],
       context: contextData,

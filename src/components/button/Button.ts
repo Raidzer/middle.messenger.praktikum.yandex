@@ -8,6 +8,7 @@ interface IButtonProps extends IBlockProps {
   type?: ButtonType;
   class?: ButtonClass;
   label?: string;
+  icon? : string;
 }
 
 export default class Button extends Block<IButtonProps> {

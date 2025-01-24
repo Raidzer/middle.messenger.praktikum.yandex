@@ -1,5 +1,10 @@
 @import url("../../styles/colors.css");
 
+.default-input {
+  height: 100%;
+  width: 100%;
+}
+
 .input-container {
   position: relative;
   margin-bottom: 20px;

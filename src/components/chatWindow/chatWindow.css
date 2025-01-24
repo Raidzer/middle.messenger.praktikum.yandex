@@ -71,6 +71,7 @@
       .text-message {
         width: 100%;
         display: flex;
+        margin-right: 30px;
 
         input {
           width: 100%;

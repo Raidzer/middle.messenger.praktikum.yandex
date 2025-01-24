@@ -5,9 +5,7 @@
       <div class="user-name">Имя пользователя</div>
     </div>
     <div class="chat-menu">
-      <button class="menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+      {{{chatMenu}}}
     </div>
   </div>
   <div class="chat-message-container">
@@ -17,23 +15,14 @@
   </div>
   <div class="tools-chat-container">
     <div class="load-file">
-      <button class="clip-button">
-        <i class="fas fa-paperclip"></i>
-      </button>
+      {{{loadFile}}}
     </div>
     <form class="text-message-form">
       <div class="text-message">
-        <input
-          class="message"
-          name="message"
-          type="text"
-          placeholder="Сообщение"
-        />
+        {{{messageInput}}}
       </div>
       <div class="send-message">
-        <button class="send-message" type="submit">
-          <i class="fa-solid fa-paper-plane"></i>
-        </button>
+        {{{sendMessage}}}
       </div>
     </form>
   </div>
