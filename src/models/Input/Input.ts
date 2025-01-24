@@ -44,11 +44,16 @@ export default abstract class Input extends Block<IInputProps> {
     }
 
     if (!rule.test(value)) {
+      if (this.props.error === errorMessage) {
+        return false;
+      }
       this.props.error = errorMessage;
       return false;
     }
 
-    this.props.error = "";
+    if (this.props.error !== "") {
+      this.props.error = "";
+    }
     return true;
   }
 
