@@ -248,7 +248,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
     if (!this.element) {
       return;
     }
-    this.element.style.display = "block";
+    this.element.style.display = "flex";
   }
 
   hide() {

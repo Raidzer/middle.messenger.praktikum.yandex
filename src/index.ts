@@ -1,3 +1,7 @@
-import render from "./utils/utils.ts";
+import { LoginPage } from "./pages/login/LoginPage.ts";
+import { RegisterPage } from "./pages/register/RegisterPage.ts";
+import Router from "./router/Router.ts";
 
-render(".root", []);
+window.addEventListener("DOMContentLoaded", () => {
+  Router.use("/", LoginPage).use("/register", RegisterPage).start();
+});

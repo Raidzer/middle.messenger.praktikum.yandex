@@ -1,3 +1,4 @@
+import Block from "../models/Block/Block";
 import Page from "../models/Page/Page";
 import render from "../utils/utils";
 
@@ -12,11 +13,11 @@ function isEqual(lhs: string, rhs: string) {
 
 class Route {
   private _pathname: string;
-  private _blockClass: typeof Page;
+  private _blockClass: new () => Block;
   private _block: Page | null;
   private _props: IRouteProps;
 
-  constructor(pathname: string, view: typeof Page, props: IRouteProps) {
+  constructor(pathname: string, view: new () => Block, props: IRouteProps) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
@@ -42,7 +43,8 @@ class Route {
 
   render() {
     if (!this._block) {
-      this._block = new this._blockClass({});
+        
+      this._block = new this._blockClass();
       render(this._props.rootQuery, [this._block]);
       return;
     }

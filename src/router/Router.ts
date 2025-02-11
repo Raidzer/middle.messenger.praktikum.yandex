@@ -1,4 +1,4 @@
-import Page from "../models/Page/Page";
+import Block from "../models/Block/Block";
 import Route from "./route";
 
 class Router {
@@ -20,7 +20,7 @@ class Router {
     Router.instance = this;
   }
 
-  use(pathname: string, block: typeof Page) {
+  use(pathname: string, block: new () => Block) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
     this.routes.push(route);
     return this;
@@ -67,4 +67,4 @@ class Router {
   }
 }
 
-export default Router;
+export default new Router(".root");
