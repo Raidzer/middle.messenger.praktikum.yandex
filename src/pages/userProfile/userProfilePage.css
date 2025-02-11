@@ -1,0 +1,63 @@
+@import url("../../styles/colors.css");
+@import url("../../styles/styles.css");
+
+.container {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+
+  .back-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50px;
+    border-right: 1px solid var(--border-menu-color);
+
+    .back {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+
+      &:hover {
+        background-color: var(--secondary-color);
+      }
+    }
+  }
+
+  .user-info-container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .user-avatar-container {
+      .user-avatar {
+        height: 150px;
+        width: 150px;
+        min-width: 150px;
+        min-height: 150px;
+        background-image: url("/images/avatar.png");
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%;
+      }
+
+      .file-upload {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+    }
+  }
+}

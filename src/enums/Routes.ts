@@ -4,7 +4,7 @@ export enum Routes {
   REGISTER = "/register",
   ERROR404 = "/error404",
   ERROR500 = "/error500",
-  MESSAGE = "/message",
+  CHAT = "/message",
   PROFILE = "/profile",
   CHANGEPROFILE = "/change-profile",
   CHANGEPASSWORD = "/change-password",
