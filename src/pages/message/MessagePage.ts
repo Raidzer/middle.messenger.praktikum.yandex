@@ -14,6 +14,8 @@ import {
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
 import { IncomingMessage } from "../../components/chatMessage/ChatMessage";
+import Router from "../../router/Router";
+import { Routes } from "../../enums/Routes";
 
 interface IMessageProps extends IBlockProps {
   userSearchList?: UserSearchList;
@@ -27,7 +29,17 @@ const messageCard = new MessageCard({
   name: "Иван",
 });
 
-const userSearchList = new UserSearchList({ messageCard });
+const profile = new Button({
+  type: ButtonType.BUTTON,
+  label: "Профиль",
+  events: {
+    click: {
+      cb: () => Router.go(Routes.PROFILE),
+    },
+  },
+});
+
+const userSearchList = new UserSearchList({ messageCard, profile });
 
 const messages = [
   new IncomingMessage({ text: "Тест_1", isIncoming: true }),

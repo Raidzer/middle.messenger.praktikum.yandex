@@ -1,10 +1,13 @@
 import Button from "../../components/button/Button";
 import { InfoRow } from "../../components/infoRow/InfoRow";
 import { userInfoForm } from "../../components/userInfoForm/userInfoForm";
+import AuthController from "../../controller/AuthController";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import { InputType } from "../../enums/Input";
+import { Routes } from "../../enums/Routes";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
+import Router from "../../router/Router";
 import "./userProfilePage.css";
 import userProfilePage from "./userProfilePage.hbs?raw";
 
@@ -18,6 +21,24 @@ const buttonChangeUserInfo = new Button({
   type: ButtonType.SUBMIT,
   label: "Изменить данные",
   class: ButtonClass.SECONDARY,
+});
+
+const buttonLogout = new Button({
+  type: ButtonType.BUTTON,
+  label: "Выйти из профиля",
+  class: ButtonClass.PRIMARY,
+  events: {
+    click: {
+      cb: () => {
+        try {
+          AuthController.logout();
+          Router.go(Routes.LOGIN);
+        } catch (error) {
+          console.warn(error);
+        }
+      },
+    },
+  },
 });
 
 const infoRowEmail = new InfoRow({
@@ -84,6 +105,7 @@ const changeInfoUserForm = new userInfoForm({
   infoRowDisplayName,
   infoRowPhone,
   userName: "Иван",
+  buttonLogout,
 });
 
 export class UserProfilePage extends Block<IBlockProps> {

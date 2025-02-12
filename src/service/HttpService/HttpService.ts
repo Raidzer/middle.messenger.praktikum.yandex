@@ -28,7 +28,10 @@ function queryStringify(data: QueryStringData): string {
   }, "?");
 }
 
-type HTTPMethod = (url: string, options?: RequestOptions) => Promise<{ data: unknown; status: number }>;
+type HTTPMethod = (
+  url: string,
+  options?: RequestOptions
+) => Promise<{ data: unknown; status: number }>;
 export default class HTTPService {
   private _endpoint: string;
   private _baseUrl: string = "https:/ya-praktikum.tech/api/v2";
@@ -84,7 +87,8 @@ export default class HTTPService {
         method,
         isGet && !!data && typeof data === "object"
           ? `${url}${queryStringify(data as QueryStringData)}`
-          : url
+          : url,
+        true
       );
 
       if (!headers["Content-Type"]) {
@@ -125,7 +129,7 @@ export default class HTTPService {
       xhr.ontimeout = () => reject(new Error("Request timed out"));
 
       xhr.timeout = timeout;
-
+      xhr.withCredentials = true;
       if (isGet || !data) {
         xhr.send();
       } else {

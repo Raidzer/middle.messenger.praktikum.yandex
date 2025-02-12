@@ -29,6 +29,23 @@ class AuthAPI extends BaseAPI {
       console.warn(error);
     }
   }
+
+  async userInfo() {
+    try {
+      const resp = await this._fetch.get("/user");
+      console.log(resp);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
+  async logout() {
+    try {
+      await this._fetch.post("/logout");
+    } catch (error) {
+      console.warn(error);
+    }
+  }
 }
 
 export default new AuthAPI();

@@ -14,6 +14,10 @@ class AuthController {
   public signup(data: ISignupData) {
     AuthAPI.signup(data);
   }
+
+  public logout() {
+    AuthAPI.logout();
+  }
 }
 
 export default new AuthController();
