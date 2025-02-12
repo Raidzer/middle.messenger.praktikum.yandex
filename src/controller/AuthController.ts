@@ -1,18 +1,19 @@
 import AuthAPI from "../api/AuthAPI/AuthAPI";
 import { ISigninData, ISignupData } from "../api/AuthAPI/IAuthAPI";
-import Store from "../store/Store";
 
 class AuthController {
   public getUser() {
-    Store.set("label", "Привет");
+    AuthAPI.userInfo();
   }
 
-  public signin(data: ISigninData) {
-    AuthAPI.signin(data);
+  public async signin(data: ISigninData) {
+    await AuthAPI.signin(data);
+    this.getUser();
   }
 
-  public signup(data: ISignupData) {
-    AuthAPI.signup(data);
+  public async signup(data: ISignupData) {
+    await AuthAPI.signup(data);
+    this.getUser();
   }
 
   public logout() {
