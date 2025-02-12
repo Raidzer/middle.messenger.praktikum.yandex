@@ -1,5 +1,7 @@
+import { ISignupData } from "../../api/AuthAPI/IAuthAPI";
 import Button from "../../components/button/Button";
 import FormInput from "../../components/formInput/FormInput";
+import AuthController from "../../controller/AuthController";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import { InputType } from "../../enums/Input";
 import Block from "../../models/Block/Block";
@@ -106,14 +108,16 @@ export class RegisterPage extends Block<IBaseAuthFormPros> {
               return;
             }
 
-            const formData = new FormData(form);
+            const data: ISignupData = {
+              email: inputEmail.value,
+              first_name: inputFirstName.value,
+              login: inputLogin.value,
+              password: inputPassword.value,
+              phone: inputPhone.value,
+              second_name: inputSecondName.value,
+            };
 
-            const formDataObj: Record<string, string> = {};
-            formData.forEach((value, key) => {
-              formDataObj[key] = value as string;
-            });
-
-            console.table(formDataObj);
+            AuthController.signup(data);
           },
         },
       },

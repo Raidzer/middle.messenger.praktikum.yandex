@@ -1,4 +1,4 @@
-import "../../styles/styles.css";
+import { ISigninData } from "./../../api/AuthAPI/IAuthAPI";
 import Button from "../../components/button/Button";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import FormInput from "../../components/formInput/FormInput";
@@ -11,6 +11,9 @@ import loginPage from "./loginPage.hbs?raw";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import Router from "../../router/Router";
+import { Routes } from "../../enums/Routes";
+import "./loginPage.css";
+import AuthController from "../../controller/AuthController";
 
 const buttonSubmit = new Button({
   type: ButtonType.SUBMIT,
@@ -24,7 +27,7 @@ const buttonCreate = new Button({
   class: ButtonClass.SECONDARY,
   events: {
     click: {
-      cb: () => Router.go("/register"),
+      cb: () => Router.go(Routes.REGISTER),
     },
   },
 });
@@ -77,14 +80,12 @@ export class LoginPage extends Block<IBaseAuthFormPros> {
               return;
             }
 
-            const formData = new FormData(form);
+            const data: ISigninData = {
+              login: inputLogin.value,
+              password: inputPassword.value,
+            };
 
-            const formDataObj: Record<string, string> = {};
-            formData.forEach((value, key) => {
-              formDataObj[key] = value as string;
-            });
-
-            console.table(formDataObj);
+            AuthController.signin(data);
           },
         },
       },

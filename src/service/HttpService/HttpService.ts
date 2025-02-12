@@ -1,21 +1,19 @@
-type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
-
-interface RequestOptions {
-  method?: HttpMethod;
-  headers?: Record<string, string>;
-  data?: Record<string, unknown> | string | null;
-  timeout?: number;
-}
-
-interface QueryStringData {
-  [key: string]: string | number | boolean;
-}
-
 enum METHODS {
   GET = "GET",
   POST = "POST",
   PUT = "PUT",
   DELETE = "DELETE",
+}
+
+interface RequestOptions {
+  method?: METHODS;
+  headers?: Record<string, string>;
+  data?: unknown;
+  timeout?: number;
+}
+
+interface QueryStringData {
+  [key: string]: string | number | boolean;
 }
 
 function queryStringify(data: QueryStringData): string {
@@ -30,31 +28,50 @@ function queryStringify(data: QueryStringData): string {
   }, "?");
 }
 
+type HTTPMethod = (url: string, options?: RequestOptions) => Promise<{ data: unknown; status: number }>;
 export default class HTTPService {
-  get<T = unknown>(url: string, options: RequestOptions = {}): Promise<T> {
-    return this.request<T>(url, { ...options, method: METHODS.GET });
+  private _endpoint: string;
+  private _baseUrl: string = "https:/ya-praktikum.tech/api/v2";
+
+  constructor(endpoint: string) {
+    this._endpoint = this._baseUrl + endpoint;
   }
 
-  post<T = unknown>(url: string, options: RequestOptions = {}): Promise<T> {
-    return this.request<T>(url, { ...options, method: METHODS.POST });
-  }
+  get: HTTPMethod = (url, options = {}) => {
+    return this.request(this._endpoint + url, {
+      ...options,
+      method: METHODS.GET,
+    });
+  };
 
-  put<T = unknown>(url: string, options: RequestOptions = {}): Promise<T> {
-    return this.request<T>(url, { ...options, method: METHODS.PUT });
-  }
+  post: HTTPMethod = (url, options = {}) => {
+    return this.request(this._endpoint + url, {
+      ...options,
+      method: METHODS.POST,
+    });
+  };
 
-  delete<T = unknown>(url: string, options: RequestOptions = {}): Promise<T> {
-    return this.request<T>(url, { ...options, method: METHODS.DELETE });
-  }
+  put: HTTPMethod = (url, options = {}) => {
+    return this.request(this._endpoint + url, {
+      ...options,
+      method: METHODS.PUT,
+    });
+  };
+
+  delete: HTTPMethod = (url, options = {}) => {
+    return this.request(this._endpoint + url, {
+      ...options,
+      method: METHODS.DELETE,
+    });
+  };
 
   request<T = unknown>(
     url: string,
     options: RequestOptions = {},
     timeout = 5000
-  ): Promise<T> {
+  ): Promise<{ data: T; status: number }> {
     const { headers = {}, method, data } = options;
-
-    return new Promise<T>((resolve, reject) => {
+    return new Promise<{ data: T; status: number }>((resolve, reject) => {
       if (!method) {
         reject(new Error("No method"));
         return;
@@ -70,16 +87,36 @@ export default class HTTPService {
           : url
       );
 
+      if (!headers["Content-Type"]) {
+        headers["Content-Type"] = "application/json";
+      }
+
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
       });
 
       xhr.onload = function () {
-        try {
-          const response = JSON.parse(xhr.responseText) as T;
-          resolve(response);
-        } catch (e) {
-          reject(e);
+        const status = xhr.status;
+
+        const contentType = xhr.getResponseHeader("Content-Type");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let responseData: any;
+
+        if (contentType && contentType.includes("application/json")) {
+          try {
+            responseData = JSON.parse(xhr.responseText) as T;
+          } catch (e) {
+            reject(new Error("Failed to parse JSON"));
+            return e;
+          }
+        } else {
+          responseData = xhr.responseText;
+        }
+
+        if (status >= 200 && status < 300) {
+          resolve({ data: responseData, status });
+        } else {
+          reject({ status, message: "Request failed", data: responseData });
         }
       };
 
