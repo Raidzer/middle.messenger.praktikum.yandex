@@ -7,6 +7,7 @@ import { Routes } from "../../enums/Routes";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import Router from "../../router/Router";
+import connect from "../../utils/HOC/connect";
 import "./userProfilePage.css";
 import userProfilePage from "./userProfilePage.hbs?raw";
 
@@ -79,7 +80,7 @@ const input = Object.entries(profileFields).map(([key, value]) => {
   });
 });
 
-export class UserProfilePage extends Block<IBlockProps> {
+class UserProfilePage extends Block<IBlockProps> {
   constructor(props?: IBlockProps) {
     props = {
       input,
@@ -91,11 +92,9 @@ export class UserProfilePage extends Block<IBlockProps> {
     super(props);
   }
 
-  init(): void {
-    console.log("fsdf");
-  }
-
   render(): DocumentFragment {
     return this.compile(userProfilePage, this.props);
   }
 }
+
+export default connect(UserProfilePage as typeof Block);

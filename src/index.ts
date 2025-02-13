@@ -7,7 +7,7 @@ import { Error500Page } from "./pages/error500/Error500Page.ts";
 import { LoginPage } from "./pages/login/LoginPage.ts";
 import { MessagePage } from "./pages/message/MessagePage.ts";
 import { RegisterPage } from "./pages/register/RegisterPage.ts";
-import { UserProfilePage } from "./pages/userProfile/UserProfilePage.ts";
+import UserProfilePage from "./pages/userProfile/UserProfilePage.ts";
 import Router from "./router/Router.ts";
 
 window.addEventListener("DOMContentLoaded", async () => {

@@ -1,15 +1,14 @@
 import { StoreEvents } from "../../enums/StoreEvents";
 import Block from "../../models/Block/Block";
+import { IBlockProps } from "../../models/Block/IBlock";
 import store from "../../store/Store";
 
-type BlockConstructor<T = unknown> = new (props: T) => Block;
-
-export default function connect<T>(Component: BlockConstructor<T>) {
+export default function connect(Component: typeof Block) {
   return class extends Component {
-    constructor(props: T) {
-      super(props);
+    constructor(props: IBlockProps) {
+      super({ ...props });
       store.on(StoreEvents.Update, () => {
-        this.setProps(store.getState() as Partial<T>);
+        this.setProps({ ...store.getState() });
       });
     }
   };

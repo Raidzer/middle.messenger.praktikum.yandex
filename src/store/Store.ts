@@ -1,9 +1,10 @@
+import { IUserData } from "./../api/AuthAPI/IAuthAPI";
 import { StoreEvents } from "../enums/StoreEvents";
 import EventBus from "../utils/EventBus/EventBus";
 import { set } from "../utils/utils";
 
 interface IStoreState {
-  [key: string]: unknown;
+  user?: IUserData;
 }
 
 class Store extends EventBus {
@@ -20,7 +21,6 @@ class Store extends EventBus {
 
   public set(path: string, value: unknown) {
     set(this._state, path, value);
-
     this.emit(StoreEvents.Update);
   }
 }

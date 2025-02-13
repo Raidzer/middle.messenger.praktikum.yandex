@@ -93,7 +93,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
   ): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {
-      this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
+     this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 

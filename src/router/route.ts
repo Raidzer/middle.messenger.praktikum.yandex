@@ -1,5 +1,5 @@
 import Block from "../models/Block/Block";
-import {render} from "../utils/utils";
+import { render } from "../utils/utils";
 
 interface IRouteProps {
   rootQuery: string;
@@ -12,11 +12,15 @@ function isEqual(lhs: string, rhs: string) {
 
 class Route {
   private _pathname: string;
-  private _blockClass: new () => Block;
+  private _blockClass: new ({ ...args }) => Block;
   private _block: Block | null;
   private _props: IRouteProps;
 
-  constructor(pathname: string, view: new () => Block, props: IRouteProps) {
+  constructor(
+    pathname: string,
+    view: new ({ ...args }) => Block,
+    props: IRouteProps
+  ) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
@@ -42,8 +46,7 @@ class Route {
 
   render() {
     if (!this._block) {
-        
-      this._block = new this._blockClass();
+      this._block = new this._blockClass({});
       render(this._props.rootQuery, [this._block]);
       return;
     }
