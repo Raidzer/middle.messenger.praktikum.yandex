@@ -11,6 +11,7 @@ import connect from "../../utils/HOC/connect";
 import "./userProfilePage.css";
 import userProfilePage from "./userProfilePage.hbs?raw";
 import { IUserData } from "../../api/AuthAPI/IAuthAPI";
+import { isEqual } from "../../utils/utils";
 
 const buttonChangePassword = new Button({
   type: ButtonType.BUTTON,
@@ -95,9 +96,31 @@ class UserProfilePage extends Block<IBlockProps> {
 
   async init(): Promise<void> {
     await AuthController.getUser();
+
+    (this.children.input as InfoRow[]).forEach((el) => {
+      const inputName = el.props.name as keyof IUserData;
+
+      if (!inputName) {
+        return;
+      }
+
+      const userInfo = this.props.user as IUserData;
+
+      if (!userInfo) {
+        return;
+      }
+
+      if (inputName in userInfo) {
+        el.setProps({ value: userInfo[inputName] as string });
+      }
+    });
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    if (isEqual(oldProps, newProps)) {
+      return false;
+    }
+
     (this.children.input as InfoRow[]).forEach((el) => {
       const inputName = el.props.name as keyof IUserData;
 
