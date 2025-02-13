@@ -15,12 +15,7 @@ class AuthController {
 
       if (resp.status === 200) {
         store.set("user", resp.data);
-        if (window.location.pathname === "/") {
-          Router.go(Routes.CHAT);
-        } else {
-          Router.go(window.location.pathname);
-        }
-      } else {
+      } else if (resp.status === 401) {
         Router.go(Routes.LOGIN);
       }
     } catch (error) {
@@ -30,17 +25,32 @@ class AuthController {
   }
 
   public async signin(data: ISigninData) {
-    await AuthAPI.signin(data);
-    this.getUser();
+    const response = await AuthAPI.signin(data);
+
+    this._checkStatusResponse(response);
   }
 
   public async signup(data: ISignupData) {
-    await AuthAPI.signup(data);
-    this.getUser();
+    const response = await AuthAPI.signup(data);
+
+    this._checkStatusResponse(response);
   }
 
   public logout() {
     AuthAPI.logout();
+  }
+
+  private _checkStatusResponse(response: {
+    data: unknown;
+    status: number;
+  }): void {
+    if (response.status >= 500) {
+      Router.go(Routes.ERROR500);
+    }
+
+    if (response.status === 200) {
+      Router.go(Routes.CHAT);
+    }
   }
 }
 

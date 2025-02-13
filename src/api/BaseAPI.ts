@@ -1,5 +1,3 @@
-import { Routes } from "../enums/Routes";
-import Router from "../router/Router";
 import HTTPService from "../service/HttpService/HttpService";
 
 export abstract class BaseAPI {
@@ -7,14 +5,6 @@ export abstract class BaseAPI {
 
   constructor(endpoint: string) {
     this._fetch = new HTTPService(endpoint);
-  }
-
-  protected responseOk(status: number) {
-    if (status >= 500) {
-      Router.go(Routes.ERROR500);
-    } else {
-      return true;
-    }
   }
 
   create() {

@@ -1,5 +1,3 @@
-import { Routes } from "../../enums/Routes";
-import Router from "../../router/Router";
 import { BaseAPI } from "../BaseAPI";
 import { ISigninData, ISignupData } from "./IAuthAPI";
 
@@ -11,22 +9,19 @@ class AuthAPI extends BaseAPI {
   async signin(data: ISigninData) {
     try {
       const resp = await this._fetch.post("/signin", { data });
-      if (this.responseOk(resp.status)) {
-        Router.go(Routes.CHAT);
-      }
+      return resp;
     } catch (error) {
-      console.warn(error);
+      throw new Error(`${error}`);
     }
   }
 
   async signup(data: ISignupData) {
     try {
       const resp = await this._fetch.post("/signup", { data });
-      if (this.responseOk(resp.status)) {
-        Router.go(Routes.CHAT);
-      }
+
+      return resp;
     } catch (error) {
-      console.warn(error);
+      throw new Error(`${error}`);
     }
   }
 
@@ -35,7 +30,6 @@ class AuthAPI extends BaseAPI {
       const resp = await this._fetch.get("/user");
       return resp;
     } catch (error) {
-      console.warn(error);
       throw new Error(`${error}`);
     }
   }

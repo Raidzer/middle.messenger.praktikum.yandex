@@ -1,9 +1,9 @@
+import { Routes } from "./../../enums/Routes";
 import Button from "../../components/button/Button";
 import { InfoRow } from "../../components/infoRow/InfoRow";
 import AuthController from "../../controller/AuthController";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import { InputType } from "../../enums/Input";
-import { Routes } from "../../enums/Routes";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import Router from "../../router/Router";
@@ -56,7 +56,7 @@ const buttonBack = new Button({
   icon: "fa-solid fa-arrow-left",
   events: {
     click: {
-      cb: () => Router.back(),
+      cb: () => Router.go(Routes.CHAT),
     },
   },
 });
@@ -91,6 +91,8 @@ class UserProfilePage extends Block<IBlockProps> {
     };
     super(props);
   }
+
+  componentDidMount(): void {}
 
   render(): DocumentFragment {
     return this.compile(userProfilePage, this.props);
