@@ -1,7 +1,6 @@
 import AuthController from "./controller/AuthController.ts";
 import { Routes } from "./enums/Routes.ts";
 import { ChangePasswordPage } from "./pages/changePassword/ChangePasswordPage.ts";
-import { ChangeProfilePage } from "./pages/changeProfile/ChangeProfilePage.ts";
 import { Error404Page } from "./pages/error404/Error404Page.ts";
 import { Error500Page } from "./pages/error500/Error500Page.ts";
 import { LoginPage } from "./pages/login/LoginPage.ts";
@@ -17,9 +16,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     .use(Routes.ERROR500, Error500Page)
     .use(Routes.CHAT, MessagePage)
     .use(Routes.PROFILE, UserProfilePage)
-    .use(Routes.CHANGEPROFILE, ChangeProfilePage)
     .use(Routes.CHANGEPASSWORD, ChangePasswordPage)
     .start();
-    
+
   await AuthController.getUser();
 });
