@@ -1,3 +1,4 @@
+import AuthController from "./controller/AuthController.ts";
 import { Routes } from "./enums/Routes.ts";
 import { ChangePasswordPage } from "./pages/changePassword/ChangePasswordPage.ts";
 import { ChangeProfilePage } from "./pages/changeProfile/ChangeProfilePage.ts";
@@ -9,7 +10,7 @@ import { RegisterPage } from "./pages/register/RegisterPage.ts";
 import { UserProfilePage } from "./pages/userProfile/UserProfilePage.ts";
 import Router from "./router/Router.ts";
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
   Router.use(Routes.LOGIN, LoginPage)
     .use(Routes.REGISTER, RegisterPage)
     .use(Routes.ERROR404, Error404Page)
@@ -19,4 +20,6 @@ window.addEventListener("DOMContentLoaded", () => {
     .use(Routes.CHANGEPROFILE, ChangeProfilePage)
     .use(Routes.CHANGEPASSWORD, ChangePasswordPage)
     .start();
+    
+  await AuthController.getUser();
 });

@@ -1,6 +1,5 @@
 export enum Routes {
-  INDEX = "/",
-  LOGIN = "/login",
+  LOGIN = "/",
   REGISTER = "/register",
   ERROR404 = "/error404",
   ERROR500 = "/error500",

@@ -9,6 +9,11 @@ interface IStoreState {
 class Store extends EventBus {
   private _state: IStoreState = {};
 
+  constructor() {
+    super();
+    this.on(StoreEvents.Update, () => {});
+  }
+
   public getState() {
     return this._state;
   }
@@ -20,4 +25,6 @@ class Store extends EventBus {
   }
 }
 
-export default new Store();
+const store = new Store();
+
+export default store;

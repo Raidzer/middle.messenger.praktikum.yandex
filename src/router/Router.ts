@@ -1,3 +1,4 @@
+import { Routes } from "../enums/Routes";
 import Block from "../models/Block/Block";
 import Route from "./route";
 
@@ -36,7 +37,11 @@ class Router {
   }
 
   _onRoute(pathname: string) {
-    const route = this.getRoute(pathname);
+    let route = this.getRoute(pathname);
+    if (!route) {
+      route = this.getRoute(Routes.ERROR404);
+    }
+
     if (!route) {
       return;
     }

@@ -33,9 +33,12 @@ class AuthAPI extends BaseAPI {
   async userInfo() {
     try {
       const resp = await this._fetch.get("/user");
-      console.log(resp);
+      console.log("🚀 ~ AuthAPI ~ userInfo ~ resp:", resp);
+
+      return resp;
     } catch (error) {
       console.warn(error);
+      throw new Error(`${error}`);
     }
   }
 
