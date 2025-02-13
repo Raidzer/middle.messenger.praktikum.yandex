@@ -38,7 +38,7 @@ export default abstract class Input extends Block<IInputProps> {
     if (value) {
       this._value = value as string;
     }
-    
+
     return true;
   }
 

@@ -16,6 +16,8 @@ import {
   ValidationMessageError,
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
+import UserController from "../../controller/UserController";
+import { IUserChangeData } from "../../api/UserAPI/IUserApi";
 
 const buttonChangePassword = new Button({
   type: ButtonType.BUTTON,
@@ -117,12 +119,46 @@ class UserProfilePage extends Block<IBlockProps> {
       buttonSaveChange,
       events: {
         submit: {
-          cb: (event) => {
+          cb: (event: SubmitEvent) => {
             event.preventDefault();
-            buttonSaveChange.hide();
-            buttonChangePassword.show();
-            buttonChangeUserInfo.show();
-            buttonLogout.show();
+
+            let valid = true;
+
+            input.forEach((el) => {
+              if (!el.inputValidate()) {
+                valid = false;
+              }
+            });
+
+            if (valid) {
+              const form = event.target as HTMLFormElement;
+              if (!form) {
+                return;
+              }
+              const formData = new FormData(form);
+
+              const formValues: IUserChangeData = {
+                first_name: "",
+                second_name: "",
+                display_name: "",
+                phone: "",
+                login: "",
+                avatar: "",
+                email: "",
+              };
+
+              formData.forEach((value, key) => {
+                if (key in formValues) {
+                  formValues[key as keyof IUserChangeData] = value as string;
+                }
+              });
+
+              UserController.changeUserInfo(formValues);
+              buttonSaveChange.hide();
+              buttonChangePassword.show();
+              buttonChangeUserInfo.show();
+              buttonLogout.show();
+            }
           },
         },
       },
