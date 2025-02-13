@@ -12,6 +12,10 @@ import "./userProfilePage.css";
 import userProfilePage from "./userProfilePage.hbs?raw";
 import { IUserData } from "../../api/AuthAPI/IAuthAPI";
 import { isEqual } from "../../utils/utils";
+import {
+  ValidationMessageError,
+  ValidationRulesRegExp,
+} from "../../utils/validationRules/validationRules";
 
 const buttonChangePassword = new Button({
   type: ButtonType.BUTTON,
@@ -20,17 +24,6 @@ const buttonChangePassword = new Button({
   events: {
     click: {
       cb: () => Router.go(Routes.CHANGEPASSWORD),
-    },
-  },
-});
-
-const buttonChangeUserInfo = new Button({
-  type: ButtonType.BUTTON,
-  label: "Изменить данные",
-  class: ButtonClass.SECONDARY,
-  events: {
-    click: {
-      cb: () => Router.go(Routes.CHANGEPROFILE),
     },
   },
 });
@@ -63,6 +56,12 @@ const buttonBack = new Button({
   },
 });
 
+const buttonSaveChange = new Button({
+  type: ButtonType.SUBMIT,
+  label: "Сохранить изменения",
+  class: ButtonClass.PRIMARY,
+});
+
 const profileFields = {
   email: "Почта",
   login: "Логин",
@@ -73,13 +72,38 @@ const profileFields = {
 };
 
 const input = Object.entries(profileFields).map(([key, value]) => {
+  const typedKey = key as keyof typeof profileFields;
+
   return new InfoRow({
     infoName: value,
     type: InputType.TEXT,
     isEditable: false,
     name: key,
     placeholder: value,
+    validate: {
+      rule: ValidationRulesRegExp[typedKey],
+      errorMessage: ValidationMessageError[typedKey],
+    },
   });
+});
+
+const buttonChangeUserInfo = new Button({
+  type: ButtonType.BUTTON,
+  label: "Изменить данные",
+  class: ButtonClass.SECONDARY,
+  events: {
+    click: {
+      cb: () => {
+        input.forEach((el) => {
+          el.setProps({ isEditable: true });
+        });
+        buttonChangePassword.hide();
+        buttonLogout.hide();
+        buttonChangeUserInfo.hide();
+        buttonSaveChange.show();
+      },
+    },
+  },
 });
 
 class UserProfilePage extends Block<IBlockProps> {
@@ -90,6 +114,18 @@ class UserProfilePage extends Block<IBlockProps> {
       buttonChangeUserInfo,
       buttonLogout,
       buttonBack,
+      buttonSaveChange,
+      events: {
+        submit: {
+          cb: (event) => {
+            event.preventDefault();
+            buttonSaveChange.hide();
+            buttonChangePassword.show();
+            buttonChangeUserInfo.show();
+            buttonLogout.show();
+          },
+        },
+      },
     };
     super(props);
   }
@@ -113,6 +149,8 @@ class UserProfilePage extends Block<IBlockProps> {
       if (inputName in userInfo) {
         el.setProps({ value: userInfo[inputName] as string });
       }
+
+      buttonSaveChange.hide();
     });
   }
 

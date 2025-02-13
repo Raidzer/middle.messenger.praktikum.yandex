@@ -8,7 +8,6 @@ export class InfoRow extends Input {
   }
 
   render(): DocumentFragment {
-    
-    return this.compile(infoRow, { ...this.props, /* value: this.value */ });
+    return this.compile(infoRow, { ...this.props });
   }
 }
