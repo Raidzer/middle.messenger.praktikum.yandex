@@ -18,8 +18,8 @@ const inputEmail = new FormInput({
   type: InputType.TEXT,
   placeholder: "Почта",
   validate: {
-    rule: ValidationRulesRegExp.Email,
-    errorMessage: ValidationMessageError.Email,
+    rule: ValidationRulesRegExp.email,
+    errorMessage: ValidationMessageError.email,
   },
 });
 
@@ -28,8 +28,8 @@ const inputLogin = new FormInput({
   type: InputType.TEXT,
   placeholder: "Логин",
   validate: {
-    rule: ValidationRulesRegExp.Login,
-    errorMessage: ValidationMessageError.Login,
+    rule: ValidationRulesRegExp.email,
+    errorMessage: ValidationMessageError.email,
   },
 });
 
@@ -38,8 +38,8 @@ const inputFirstName = new FormInput({
   type: InputType.TEXT,
   placeholder: "Имя",
   validate: {
-    rule: ValidationRulesRegExp.Name,
-    errorMessage: ValidationMessageError.Name,
+    rule: ValidationRulesRegExp.first_name,
+    errorMessage: ValidationMessageError.first_name,
   },
 });
 
@@ -48,8 +48,8 @@ const inputSecondName = new FormInput({
   type: InputType.TEXT,
   placeholder: "Фамилия",
   validate: {
-    rule: ValidationRulesRegExp.Name,
-    errorMessage: ValidationMessageError.Name,
+    rule: ValidationRulesRegExp.second_name,
+    errorMessage: ValidationMessageError.second_name,
   },
 });
 
@@ -58,8 +58,8 @@ const inputPhone = new FormInput({
   type: InputType.TEXT,
   placeholder: "Телефон",
   validate: {
-    rule: ValidationRulesRegExp.Phone,
-    errorMessage: ValidationMessageError.Phone,
+    rule: ValidationRulesRegExp.phone,
+    errorMessage: ValidationMessageError.phone,
   },
 });
 
@@ -68,8 +68,8 @@ const inputPassword = new FormInput({
   type: InputType.PASSWORD,
   placeholder: "Пароль",
   validate: {
-    rule: ValidationRulesRegExp.Password,
-    errorMessage: ValidationMessageError.Password,
+    rule: ValidationRulesRegExp.password,
+    errorMessage: ValidationMessageError.password,
   },
 });
 

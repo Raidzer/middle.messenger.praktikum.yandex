@@ -1,13 +1,9 @@
 <div class="container-register">
   <form class="login-form">
     <h1>{{title}}</h1>
-    {{{inputEmail}}}
-    {{{inputLogin}}}
-    {{{inputFirstName}}}
-    {{{inputSecondName}}}
-    {{{inputPhone}}}
-    {{{inputPassword}}}
-    {{{inputPasswordRepeat}}}
+    {{#each input}}
+      {{{this}}}
+    {{/each}}
     <div class="button-container">
       {{{buttonSubmit}}}
       {{{buttonCreate}}}

@@ -26,8 +26,8 @@ const infoRowEmail = new InfoRow({
   name: "email",
   placeholder: "Почта",
   validate: {
-    rule: ValidationRulesRegExp.Email,
-    errorMessage: ValidationMessageError.Email,
+    rule: ValidationRulesRegExp.email,
+    errorMessage: ValidationMessageError.email,
   },
 });
 
@@ -39,8 +39,8 @@ const infoRowLogin = new InfoRow({
   name: "login",
   placeholder: "Логин",
   validate: {
-    rule: ValidationRulesRegExp.Login,
-    errorMessage: ValidationMessageError.Login,
+    rule: ValidationRulesRegExp.login,
+    errorMessage: ValidationMessageError.login,
   },
 });
 
@@ -52,8 +52,8 @@ const infoRowFirstName = new InfoRow({
   name: "first_name",
   placeholder: "Имя",
   validate: {
-    rule: ValidationRulesRegExp.Name,
-    errorMessage: ValidationMessageError.Name,
+    rule: ValidationRulesRegExp.first_name,
+    errorMessage: ValidationMessageError.first_name,
   },
 });
 
@@ -65,8 +65,8 @@ const infoRowSecondName = new InfoRow({
   name: "second_name",
   placeholder: "Фамилия",
   validate: {
-    rule: ValidationRulesRegExp.Name,
-    errorMessage: ValidationMessageError.Name,
+    rule: ValidationRulesRegExp.second_name,
+    errorMessage: ValidationMessageError.second_name,
   },
 });
 
@@ -78,8 +78,8 @@ const infoRowDisplayName = new InfoRow({
   name: "display_name",
   placeholder: "Имя в чате",
   validate: {
-    rule: ValidationRulesRegExp.Name,
-    errorMessage: ValidationMessageError.Name,
+    rule: ValidationRulesRegExp.display_name,
+    errorMessage: ValidationMessageError.display_name,
   },
 });
 
@@ -91,8 +91,8 @@ const infoRowPhone = new InfoRow({
   name: "phone",
   placeholder: "Телефон",
   validate: {
-    rule: ValidationRulesRegExp.Phone,
-    errorMessage: ValidationMessageError.Phone,
+    rule: ValidationRulesRegExp.phone,
+    errorMessage: ValidationMessageError.phone,
   },
 });
 
