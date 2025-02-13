@@ -1,28 +1,35 @@
 import Button from "../../components/button/Button";
 import { InfoRow } from "../../components/infoRow/InfoRow";
-import { userInfoForm } from "../../components/userInfoForm/userInfoForm";
 import AuthController from "../../controller/AuthController";
 import { ButtonClass, ButtonType } from "../../enums/Button";
 import { InputType } from "../../enums/Input";
 import { Routes } from "../../enums/Routes";
-import { StoreEvents } from "../../enums/StoreEvents";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import Router from "../../router/Router";
-import store from "../../store/Store";
 import "./userProfilePage.css";
 import userProfilePage from "./userProfilePage.hbs?raw";
 
 const buttonChangePassword = new Button({
-  type: ButtonType.SUBMIT,
+  type: ButtonType.BUTTON,
   label: "Изменить пароль",
   class: ButtonClass.SECONDARY,
+  events: {
+    click: {
+      cb: () => Router.go(Routes.CHANGEPASSWORD),
+    },
+  },
 });
 
 const buttonChangeUserInfo = new Button({
-  type: ButtonType.SUBMIT,
+  type: ButtonType.BUTTON,
   label: "Изменить данные",
   class: ButtonClass.SECONDARY,
+  events: {
+    click: {
+      cb: () => Router.go(Routes.CHANGEPROFILE),
+    },
+  },
 });
 
 const buttonLogout = new Button({
@@ -43,7 +50,17 @@ const buttonLogout = new Button({
   },
 });
 
-const infoSkeleton = {
+const buttonBack = new Button({
+  type: ButtonType.BUTTON,
+  icon: "fa-solid fa-arrow-left",
+  events: {
+    click: {
+      cb: () => Router.back(),
+    },
+  },
+});
+
+const profileFields = {
   email: "Почта",
   login: "Логин",
   first_name: "Имя",
@@ -52,24 +69,13 @@ const infoSkeleton = {
   phone: "Телефон",
 };
 
-const input = Object.entries(infoSkeleton).map(([key, value]) => {
+const input = Object.entries(profileFields).map(([key, value]) => {
   return new InfoRow({
     infoName: value,
     type: InputType.TEXT,
     isEditable: false,
     name: key,
     placeholder: value,
-  });
-});
-
-store.on(StoreEvents.Update, () => {
-  const data = store.getState();
-  input.forEach((el) => {
-    const inputName = el.props.name;
-    if (data.user[inputName]) {
-      el.setProps({ value: data.user[inputName] });
-      console.log(el);
-    }
   });
 });
 
@@ -80,8 +86,13 @@ export class UserProfilePage extends Block<IBlockProps> {
       buttonChangePassword,
       buttonChangeUserInfo,
       buttonLogout,
+      buttonBack,
     };
     super(props);
+  }
+
+  init(): void {
+    console.log("fsdf");
   }
 
   render(): DocumentFragment {
