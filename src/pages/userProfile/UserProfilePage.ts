@@ -146,4 +146,6 @@ class UserProfilePage extends Block<IBlockProps> {
   }
 }
 
-export default connect(UserProfilePage as typeof Block);
+const withUser = connect((state) => ({ user: state.user }));
+
+export default withUser(UserProfilePage as typeof Block);

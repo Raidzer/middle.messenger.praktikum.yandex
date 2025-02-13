@@ -19,7 +19,7 @@ export function render<T extends IBlockProps>(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Indexed<T = any> = {
+export type Indexed<T = any> = {
   [key in string]: T;
 };
 
