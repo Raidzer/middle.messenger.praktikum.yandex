@@ -10,6 +10,7 @@ import Router from "../../router/Router";
 import connect from "../../utils/HOC/connect";
 import "./userProfilePage.css";
 import userProfilePage from "./userProfilePage.hbs?raw";
+import { IUserData } from "../../api/AuthAPI/IAuthAPI";
 
 const buttonChangePassword = new Button({
   type: ButtonType.BUTTON,
@@ -92,7 +93,30 @@ class UserProfilePage extends Block<IBlockProps> {
     super(props);
   }
 
-  componentDidMount(): void {}
+  async init(): Promise<void> {
+    await AuthController.getUser();
+  }
+
+  componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    (this.children.input as InfoRow[]).forEach((el) => {
+      const inputName = el.props.name as keyof IUserData;
+
+      if (!inputName) {
+        return;
+      }
+
+      const userInfo = newProps.user as IUserData;
+
+      if (!userInfo) {
+        return;
+      }
+
+      if (inputName in userInfo) {
+        el.setProps({ value: userInfo[inputName] as string });
+      }
+    });
+    return true;
+  }
 
   render(): DocumentFragment {
     return this.compile(userProfilePage, this.props);
