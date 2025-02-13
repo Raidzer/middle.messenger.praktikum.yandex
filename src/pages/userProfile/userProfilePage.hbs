@@ -15,6 +15,20 @@
         />
       </div>
     </div>
-    {{{form}}}
+    <div class="form-container">
+      <div class="user-name">{{userName}}</div>
+      <form class="user-info">
+        <div class="info-container">
+          {{#each input}}
+            {{{this}}}
+          {{/each}}
+        </div>
+        <div class="button-container">
+          {{{buttonChangePassword}}}
+          {{{buttonChangeUserInfo}}}
+          {{{buttonLogout}}}
+        </div>
+      </form>
+    </div>
   </div>
 </div>

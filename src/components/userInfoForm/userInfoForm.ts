@@ -1,7 +1,7 @@
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import "./userInfoFrom.css";
-import changePasswordForm from "./userInfoForm.hbs?raw";
+import userInfo from "./userInfoForm.hbs?raw";
 
 export class userInfoForm extends Block<IBlockProps> {
   constructor(props: IBlockProps) {
@@ -9,6 +9,6 @@ export class userInfoForm extends Block<IBlockProps> {
   }
 
   render(): DocumentFragment {
-    return this.compile(changePasswordForm, this.props);
+    return this.compile(userInfo, this.props);
   }
 }

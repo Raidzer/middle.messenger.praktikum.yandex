@@ -2,15 +2,9 @@
   <div class="user-name">{{userName}}</div>
   <form class="user-info">
     <div class="info-container">
-      {{{infoRowOldPassword}}}
-      {{{infoRowNewPassword}}}
-      {{{infoRowNewPasswordRepeat}}}
-      {{{infoRowEmail}}}
-      {{{infoRowLogin}}}
-      {{{infoRowFirstName}}}
-      {{{infoRowSecondName}}}
-      {{{infoRowDisplayName}}}
-      {{{infoRowPhone}}}
+      {{#each input}}
+        {{{this}}}
+      {{/each}}
     </div>
     <div class="button-container">
       {{{buttonSave}}}
