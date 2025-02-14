@@ -1,3 +1,5 @@
+import { MessageType } from "../../enums/Message";
+
 export interface IMessagesData {
   chat_id: number;
   content: string;
@@ -7,4 +9,9 @@ export interface IMessagesData {
   time: string;
   type: "message";
   user_id: number;
+}
+
+export interface ISendMessageData {
+  content: string;
+  type: MessageType;
 }

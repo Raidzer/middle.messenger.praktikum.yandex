@@ -2,7 +2,7 @@ import ChatsAPI from "../../api/ChatsAPI/ChatsAPI";
 import { WSTransportEvents } from "../../enums/WSTransportEvents";
 import { WSTransport } from "../../service/WSTransport/WSTransport";
 import store from "../../store/Store";
-import { IMessagesData } from "./IMessagesController";
+import { IMessagesData, ISendMessageData } from "./IMessagesController";
 
 class MessagesController {
   private _openSocket: WSTransport | null;
@@ -55,14 +55,31 @@ class MessagesController {
     this._getOldMessage();
   }
 
+  public sendMessage(data: ISendMessageData) {
+    this._openSocket?.send(data);
+  }
+
   private _getOldMessage() {
     if (this._openSocket) {
       this._openSocket.send({ type: "get old", content: "0" });
     }
   }
 
-  private _gotMessage(data: IMessagesData[]) {
-    store.set("messages", data);
+  private _gotMessage(data: IMessagesData[] | IMessagesData) {
+    let messages: IMessagesData[] = [];
+    if (Array.isArray(data)) {
+      messages = data.reverse();
+    } else {
+      messages.push(data);
+    }
+
+    const oldMessage = store.getState().messages;
+
+    if (oldMessage) {
+      store.set("messages", [...oldMessage, ...messages]);
+    } else {
+      store.set("messages", messages);
+    }
     console.log(store.getState());
   }
 }

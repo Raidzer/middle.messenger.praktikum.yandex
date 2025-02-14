@@ -9,6 +9,6 @@ export default class FormInput extends Input {
   }
 
   render(): DocumentFragment {
-    return this.compile(formInput, { ...this.props, value: this.value });
+    return this.compile(formInput, { ...this.props });
   }
 }

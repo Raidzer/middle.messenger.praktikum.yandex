@@ -12,8 +12,13 @@ import {
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
 import connect from "../../utils/HOC/connect";
-import { IMessagesData } from "../../controller/MessagesController/IMessagesController";
+import {
+  IMessagesData,
+  ISendMessageData,
+} from "../../controller/MessagesController/IMessagesController";
 import { ChatMessage } from "../chatMessage/ChatMessage";
+import { MessageType } from "../../enums/Message";
+import MessagesController from "../../controller/MessagesController/MessagesController";
 
 const sendMessage = new Button({
   icon: "fa-solid fa-paper-plane",
@@ -70,14 +75,14 @@ class ChatWindow extends Block<IBlockProps> {
               return;
             }
 
-            const formData = new FormData(form);
+            const formValues: ISendMessageData = {
+              content: messageInput.value,
+              type: MessageType.Message,
+            };
 
-            const formDataObj: Record<string, string> = {};
-            formData.forEach((value, key) => {
-              formDataObj[key] = value as string;
-            });
-
-            console.table(formDataObj);
+            console.log(formValues);
+            MessagesController.sendMessage(formValues)
+            messageInput.setProps({ value: "" });
           },
         },
       },
