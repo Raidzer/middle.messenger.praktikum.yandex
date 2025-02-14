@@ -16,7 +16,7 @@ class Modal extends Block<IBlockProps> {
         events: {
           click: {
             cb: () => {
-              this.setProps({ isOpen: false });
+              this.hide();
               const inputs = this.children.input;
 
               if (inputs) {
@@ -27,6 +27,14 @@ class Modal extends Block<IBlockProps> {
         },
       }),
     ];
+  }
+
+  show(): void {
+    this.setProps({ isOpen: true });
+  }
+
+  hide(): void {
+    this.setProps({ isOpen: false });
   }
 
   render(): DocumentFragment {

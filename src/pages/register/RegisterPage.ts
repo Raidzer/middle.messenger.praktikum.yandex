@@ -28,8 +28,8 @@ const inputLogin = new FormInput({
   type: InputType.TEXT,
   placeholder: "Логин",
   validate: {
-    rule: ValidationRulesRegExp.email,
-    errorMessage: ValidationMessageError.email,
+    rule: ValidationRulesRegExp.login,
+    errorMessage: ValidationMessageError.login,
   },
 });
 

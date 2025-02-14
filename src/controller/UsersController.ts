@@ -1,5 +1,6 @@
 import {
   IPasswordChangeData,
+  ISearchUserByLogin,
   IUserChangeData,
 } from "../api/UsersAPI/IUsersApi";
 import UserAPI from "../api/UsersAPI/UsersAPI";
@@ -37,6 +38,22 @@ class UsersController {
       }
     } catch (error) {
       console.warn(error);
+    }
+  }
+
+  public async searchUserByLogin(data: ISearchUserByLogin) {
+    try {
+      const response = await UserAPI.searchUserByLogin(data);
+
+      if (!response) {
+        return;
+      }
+
+      if (response.status === 200) {
+        store.set("userSearchList", response.data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 }

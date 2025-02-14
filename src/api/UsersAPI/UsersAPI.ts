@@ -1,5 +1,9 @@
 import { BaseAPI } from "../BaseAPI";
-import { IPasswordChangeData, IUserChangeData } from "./IUsersApi";
+import {
+  IPasswordChangeData,
+  ISearchUserByLogin,
+  IUserChangeData,
+} from "./IUsersApi";
 
 class UsersAPI extends BaseAPI {
   constructor() {
@@ -18,6 +22,16 @@ class UsersAPI extends BaseAPI {
   async changeUserPassword(data: IPasswordChangeData) {
     try {
       const response = await this._fetch.put("/password", { data });
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
+
+  async searchUserByLogin(data: ISearchUserByLogin) {
+    try {
+      const response = await this._fetch.post("/search", { data });
+
       return response;
     } catch (error) {
       throw new Error(`${error}`);

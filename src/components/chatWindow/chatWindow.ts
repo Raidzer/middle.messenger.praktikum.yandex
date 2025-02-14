@@ -15,6 +15,12 @@ import { ChatMessage } from "../chatMessage/ChatMessage";
 import { MessageType } from "../../enums/Message";
 import MessagesController from "../../controller/MessagesController/MessagesController";
 import ChatsController from "../../controller/ChatsController";
+import Modal from "../modal/Modal";
+import {
+  ValidationMessageError,
+  ValidationRulesRegExp,
+} from "../../utils/validationRules/validationRules";
+import UsersController from "../../controller/UsersController";
 
 const sendMessage = new Button({
   icon: "fa-solid fa-paper-plane",
@@ -33,6 +39,37 @@ const messageInput = new FormInput({
   class: true,
 });
 
+const userSearch = new FormInput({
+  name: "userSearch",
+  type: InputType.TEXT,
+  placeholder: "Введите имя пользователя",
+  validate: {
+    rule: ValidationRulesRegExp.NoEmpty,
+    errorMessage: ValidationMessageError.NoEmpty,
+  },
+});
+
+const buttonSubmit = new Button({
+  type: ButtonType.BUTTON,
+  label: "Искать пользователя",
+  events: {
+    click: {
+      cb: async () => {
+        const login = userSearch.value;
+
+        if (login) {
+          await UsersController.searchUserByLogin({ login });
+        }
+      },
+    },
+  },
+});
+
+const modal = new Modal({
+  input: [userSearch],
+  buttonSubmit: [buttonSubmit],
+});
+
 class ChatWindow extends Block<IBlockProps> {
   constructor(props?: IBlockProps) {
     props = {
@@ -40,6 +77,7 @@ class ChatWindow extends Block<IBlockProps> {
       sendMessage,
       loadFile,
       messageInput,
+      modal,
       events: {
         submit: {
           cb: (event) => {
@@ -89,6 +127,19 @@ class ChatWindow extends Block<IBlockProps> {
         },
       }),
     ];
+
+    this.children.buttonAddUser = [
+      new Button({
+        class: ButtonClass.SECONDARY,
+        label: "Добавить пользователя",
+        type: ButtonType.BUTTON,
+        events: {
+          click: {
+            cb: () => modal.show(),
+          },
+        },
+      }),
+    ];
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
@@ -103,6 +154,13 @@ class ChatWindow extends Block<IBlockProps> {
       });
       this.show();
     }
+
+    const userSearchList = newProps.userSearchList;
+    console.log(
+      "🚀 ~ ChatWindow ~ componentDidUpdate ~ userSearchList:",
+      userSearchList
+    );
+
     return true;
   }
 
@@ -129,6 +187,7 @@ const withMessagesAndChatId = connect((state) => ({
   messages: state.messages,
   title: state.selectedChat?.title,
   chatId: state.selectedChat?.id,
+  userSearchList: state.userSearchList,
 }));
 
 export default withMessagesAndChatId(ChatWindow as typeof Block);

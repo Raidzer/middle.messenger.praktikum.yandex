@@ -12,3 +12,7 @@ export interface IPasswordChangeData {
   oldPassword: string;
   newPassword: string;
 }
+
+export interface ISearchUserByLogin {
+  login: string;
+}

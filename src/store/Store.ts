@@ -10,6 +10,7 @@ interface IStoreState {
   chats?: IChatData[];
   selectedChat: IChatData | null;
   messages?: IMessagesData[];
+  userSearchList: IUserData[];
 }
 
 class Store extends EventBus {
@@ -19,6 +20,7 @@ class Store extends EventBus {
     super();
     this._state = {
       selectedChat: null,
+      userSearchList: [],
     };
     this.on(StoreEvents.Update, () => {});
   }
