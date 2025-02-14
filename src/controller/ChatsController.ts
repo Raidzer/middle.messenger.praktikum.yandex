@@ -1,5 +1,5 @@
 import ChatsAPI from "../api/ChatsAPI/ChatsAPI";
-import { IChatCreateData } from "../api/ChatsAPI/IChatsAPI";
+import { IChatCreateData, IChatDeleteData } from "../api/ChatsAPI/IChatsAPI";
 import store from "../store/Store";
 
 class ChatsController {
@@ -26,7 +26,22 @@ class ChatsController {
       if (response.status === 200) {
         await this.getChats();
       }
-      
+
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  public async deleteChat(data: IChatDeleteData) {
+    try {
+      const response = await ChatsAPI.deleteChat(data);
+
+      if (response.status === 200) {
+        await this.getChats();
+        store.set("selectedChat", null);
+      }
+
       return response;
     } catch (error) {
       console.log(error);

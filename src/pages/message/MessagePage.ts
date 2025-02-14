@@ -5,6 +5,7 @@ import "./messagePage.css";
 import messagePage from "./messagePage.hbs?raw";
 import ChatsController from "../../controller/ChatsController";
 import UserSearchList from "../../components/userSearchList/UserSearchList";
+import store from "../../store/Store";
 
 const userSearchList = new UserSearchList({});
 const chatWindow = new ChatWindow({});
@@ -17,6 +18,14 @@ export class MessagePage extends Block<IBlockProps> {
     };
     super(props);
     ChatsController.getChats();
+  }
+
+  init(): void {
+    const { selectedChat } = store.getState();
+
+    if (!selectedChat) {
+      chatWindow.hide();
+    }
   }
 
   render(): DocumentFragment {

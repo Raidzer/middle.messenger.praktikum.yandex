@@ -4,7 +4,6 @@ import chatWindow from "./chatWindow.hbs?raw";
 import "./chatWindow.css";
 import Button from "../button/Button";
 import { ButtonClass, ButtonType } from "../../enums/Button";
-import ChatsAPI from "../../api/ChatsAPI/ChatsAPI";
 import FormInput from "../formInput/FormInput";
 import { InputType } from "../../enums/Input";
 import connect from "../../utils/HOC/connect";
@@ -15,6 +14,7 @@ import {
 import { ChatMessage } from "../chatMessage/ChatMessage";
 import { MessageType } from "../../enums/Message";
 import MessagesController from "../../controller/MessagesController/MessagesController";
+import ChatsController from "../../controller/ChatsController";
 
 const sendMessage = new Button({
   icon: "fa-solid fa-paper-plane",
@@ -24,17 +24,6 @@ const sendMessage = new Button({
 const loadFile = new Button({
   icon: "fas fa-paperclip",
   type: ButtonType.BUTTON,
-});
-
-const chatMenu = new Button({
-  type: ButtonType.BUTTON,
-  class: ButtonClass.PRIMARY,
-  label: "Добавить чат",
-  events: {
-    click: {
-      cb: () => ChatsAPI.createChat({ title: "Пробный" }),
-    },
-  },
 });
 
 const messageInput = new FormInput({
@@ -50,7 +39,6 @@ class ChatWindow extends Block<IBlockProps> {
       messages: [],
       sendMessage,
       loadFile,
-      chatMenu,
       messageInput,
       events: {
         submit: {
@@ -81,10 +69,29 @@ class ChatWindow extends Block<IBlockProps> {
       ...props,
     };
     super(props);
+
+    this.children.buttonDeleteChat = [
+      new Button({
+        class: ButtonClass.SECONDARY,
+        label: "Удалить чат",
+        type: ButtonType.BUTTON,
+        events: {
+          click: {
+            cb: async () => {
+              const chatId = this.props.chatId;
+
+              if (typeof chatId === "number") {
+                await ChatsController.deleteChat({ chatId });
+                this.hide();
+              }
+            },
+          },
+        },
+      }),
+    ];
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
-    console.log(newProps);
     const messages = newProps.messages as IMessagesData[];
     if (messages) {
       this.children.messages = messages.map((message) => {
@@ -121,6 +128,7 @@ class ChatWindow extends Block<IBlockProps> {
 const withMessagesAndChatId = connect((state) => ({
   messages: state.messages,
   title: state.selectedChat?.title,
+  chatId: state.selectedChat?.id,
 }));
 
 export default withMessagesAndChatId(ChatWindow as typeof Block);

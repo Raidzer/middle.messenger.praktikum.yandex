@@ -81,7 +81,6 @@ class MessagesController {
     } else {
       store.set("messages", messages);
     }
-    console.log(store.getState());
   }
 }
 
