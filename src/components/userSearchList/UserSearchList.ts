@@ -98,7 +98,7 @@ class UserSearchList extends Block<IUserSearchList> {
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
     const chats = newProps.chats as IChatData[];
-    if (chats.length > 0) {
+    if (chats) {
       this.children.messagesCard = [];
       chats.forEach((chat) => {
         const messageCard = new MessageCard({

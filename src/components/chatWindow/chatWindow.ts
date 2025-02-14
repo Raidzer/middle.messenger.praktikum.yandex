@@ -21,6 +21,7 @@ import {
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
 import UsersController from "../../controller/UsersController";
+import { isEqual } from "../../utils/utils";
 
 const sendMessage = new Button({
   icon: "fa-solid fa-paper-plane",
@@ -143,6 +144,9 @@ class ChatWindow extends Block<IBlockProps> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    if (isEqual(oldProps, newProps)) {
+      return true;
+    }
     const messages = newProps.messages as IMessagesData[];
     if (messages) {
       this.children.messages = messages.map((message) => {
@@ -187,7 +191,6 @@ const withMessagesAndChatId = connect((state) => ({
   messages: state.messages,
   title: state.selectedChat?.title,
   chatId: state.selectedChat?.id,
-  userSearchList: state.userSearchList,
 }));
 
 export default withMessagesAndChatId(ChatWindow as typeof Block);
