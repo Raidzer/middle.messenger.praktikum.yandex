@@ -32,6 +32,15 @@ class ChatsAPI extends BaseAPI {
       throw new Error(`${error}`);
     }
   }
+
+  async getChatToken(id: number) {
+    try {
+      const response = await this._fetch.post(`/token/${id}`);
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
 }
 
 export default new ChatsAPI();

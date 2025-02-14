@@ -3,11 +3,13 @@ import { StoreEvents } from "../enums/StoreEvents";
 import EventBus from "../utils/EventBus/EventBus";
 import { set } from "../utils/utils";
 import { IChatData } from "../api/ChatsAPI/IChatsAPI";
+import { IMessagesData } from "../controller/MessagesController/IMessagesController";
 
 interface IStoreState {
   user?: IUserData;
   chats?: IChatData[];
   idSelectedChat: number | null;
+  messages?: IMessagesData[],
 }
 
 class Store extends EventBus {

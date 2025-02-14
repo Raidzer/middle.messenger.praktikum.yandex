@@ -36,7 +36,6 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
         lhs[p] = rhs[p];
       }
     } catch (e) {
-      console.warn("merge warn", e);
       lhs[p] = rhs[p];
     }
   }

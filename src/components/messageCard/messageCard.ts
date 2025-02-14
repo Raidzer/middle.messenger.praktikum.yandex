@@ -3,6 +3,7 @@ import { IBlockProps } from "../../models/Block/IBlock";
 import messageCard from "./messageCard.hbs?raw";
 import "./messageCard.css";
 import store from "../../store/Store";
+import MessagesController from "../../controller/MessagesController/MessagesController";
 
 interface IMessageCardProps extends IBlockProps {
   id?: number;
@@ -16,8 +17,20 @@ export default class MessageCard extends Block<IMessageCardProps> {
     props = {
       events: {
         click: {
-          cb: () => {
-            store.set("idSelectedChat", props.id);
+          cb: async () => {
+            const chatId = props.id;
+            const { user } = store.getState();
+            const userId = user?.id;
+
+            if (chatId && userId) {
+              store.set("idSelectedChat", props.id);
+              const token = await MessagesController.getChatMessageToken(
+                chatId
+              );
+              if (token) {
+                MessagesController.connectChat(userId, chatId, token);
+              }
+            }
           },
         },
       },
