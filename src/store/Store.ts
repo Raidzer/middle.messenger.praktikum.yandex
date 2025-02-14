@@ -7,13 +7,17 @@ import { IChatData } from "../api/ChatsAPI/IChatsAPI";
 interface IStoreState {
   user?: IUserData;
   chats?: IChatData[];
+  idSelectedChat: number | null;
 }
 
 class Store extends EventBus {
-  private _state: IStoreState = {};
+  private _state: IStoreState;
 
   constructor() {
     super();
+    this._state = {
+      idSelectedChat: null,
+    };
     this.on(StoreEvents.Update, () => {});
   }
 
@@ -21,7 +25,7 @@ class Store extends EventBus {
     return this._state;
   }
 
-  public set(path: string, value: unknown) {
+  public set<K extends keyof IStoreState>(path: K, value: unknown) {
     set(this._state, path, value);
     this.emit(StoreEvents.Update);
   }

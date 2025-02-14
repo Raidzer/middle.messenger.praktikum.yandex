@@ -2,6 +2,7 @@ import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import messageCard from "./messageCard.hbs?raw";
 import "./messageCard.css";
+import store from "../../store/Store";
 
 interface IMessageCardProps extends IBlockProps {
   id?: number;
@@ -12,6 +13,16 @@ interface IMessageCardProps extends IBlockProps {
 
 export default class MessageCard extends Block<IMessageCardProps> {
   constructor(props: IMessageCardProps) {
+    props = {
+      events: {
+        click: {
+          cb: () => {
+            store.set("idSelectedChat", props.id);
+          },
+        },
+      },
+      ...props,
+    };
     super(props);
   }
 
