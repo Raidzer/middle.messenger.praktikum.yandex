@@ -164,6 +164,7 @@ class UserProfilePage extends Block<IBlockProps> {
       },
     };
     super(props);
+    AuthController.getUser();
   }
 
   async init(): Promise<void> {
@@ -190,7 +191,7 @@ class UserProfilePage extends Block<IBlockProps> {
     });
   }
 
-  componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+  componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {    
     if (isEqual(oldProps, newProps)) {
       return false;
     }

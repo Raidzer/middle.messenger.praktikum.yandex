@@ -1,10 +1,9 @@
+import { ButtonClass } from "./../../enums/Button";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
-import { UserSearchList } from "../../components/userSearchList/UserSearchList";
 import { ChatWindow } from "../../components/chatWindow/chatWindow";
 import "./messagePage.css";
 import messagePage from "./messagePage.hbs?raw";
-import MessageCard from "../../components/messageCard/messageCard";
 import Button from "../../components/button/Button";
 import { ButtonType } from "../../enums/Button";
 import FormInput from "../../components/formInput/FormInput";
@@ -14,32 +13,17 @@ import {
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
 import { IncomingMessage } from "../../components/chatMessage/ChatMessage";
-import Router from "../../router/Router";
-import { Routes } from "../../enums/Routes";
+import ChatsController from "../../controller/ChatsController";
+import ChatsAPI from "../../api/ChatsAPI/ChatsAPI";
+import  UserSearchList  from "../../components/userSearchList/UserSearchList";
 
 interface IMessageProps extends IBlockProps {
-  userSearchList?: UserSearchList;
   chatWindow?: ChatWindow;
 }
 
-const messageCard = new MessageCard({
-  countUnreadMessage: "2",
-  lastMessageDate: "22.01.2025",
-  lastMessageText: "тест тест тест тест тест",
-  name: "Иван",
-});
 
-const profile = new Button({
-  type: ButtonType.BUTTON,
-  label: "Профиль",
-  events: {
-    click: {
-      cb: () => Router.go(Routes.PROFILE),
-    },
-  },
-});
 
-const userSearchList = new UserSearchList({ messageCard, profile });
+const userSearchList = new UserSearchList({});
 
 const messages = [
   new IncomingMessage({ text: "Тест_1", isIncoming: true }),
@@ -57,8 +41,14 @@ const loadFile = new Button({
 });
 
 const chatMenu = new Button({
-  icon: "fa-solid fa-bars",
   type: ButtonType.BUTTON,
+  class: ButtonClass.PRIMARY,
+  label: "Добавить чат",
+  events: {
+    click: {
+      cb: () => ChatsAPI.createChat({ title: "Пробный" }),
+    },
+  },
 });
 
 const messageInput = new FormInput({
@@ -117,6 +107,7 @@ export class MessagePage extends Block<IMessageProps> {
       chatWindow,
     };
     super(props);
+    ChatsController.getChats();
   }
 
   render(): DocumentFragment {

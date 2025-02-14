@@ -4,10 +4,10 @@ import messageCard from "./messageCard.hbs?raw";
 import "./messageCard.css";
 
 interface IMessageCardProps extends IBlockProps {
-  name: string;
-  lastMessageText: string;
-  lastMessageDate: string;
-  countUnreadMessage: string;
+  id?: number;
+  title: string;
+  last_message: string;
+  unread_count: number;
 }
 
 export default class MessageCard extends Block<IMessageCardProps> {

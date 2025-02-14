@@ -10,7 +10,6 @@ export default function connect(mapStateToProps: (state: Indexed) => Indexed) {
       constructor(props: IBlockProps) {
         let state = mapStateToProps(store.getState());
         super({ ...props, ...state });
-
         store.on(StoreEvents.Update, () => {
           const newState = mapStateToProps(store.getState());
           if (!isEqual(state, newState)) {

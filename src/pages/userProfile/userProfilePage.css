@@ -1,7 +1,7 @@
 @import url("../../styles/colors.css");
 @import url("../../styles/styles.css");
 
-.container {
+.container-user-profile {
   display: flex;
   height: 100%;
   justify-content: space-between;

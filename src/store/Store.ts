@@ -2,9 +2,11 @@ import { IUserData } from "./../api/AuthAPI/IAuthAPI";
 import { StoreEvents } from "../enums/StoreEvents";
 import EventBus from "../utils/EventBus/EventBus";
 import { set } from "../utils/utils";
+import { IChatData } from "../api/ChatsAPI/IChatsAPI";
 
 interface IStoreState {
   user?: IUserData;
+  chats?: IChatData[];
 }
 
 class Store extends EventBus {
