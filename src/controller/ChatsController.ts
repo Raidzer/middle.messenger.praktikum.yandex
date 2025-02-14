@@ -1,4 +1,5 @@
 import ChatsAPI from "../api/ChatsAPI/ChatsAPI";
+import { IChatCreateData } from "../api/ChatsAPI/IChatsAPI";
 import store from "../store/Store";
 
 class ChatsController {
@@ -15,6 +16,20 @@ class ChatsController {
       }
     } catch (error) {
       console.warn(error);
+    }
+  }
+
+  public async createChat(data: IChatCreateData) {
+    try {
+      const response = await ChatsAPI.createChat(data);
+
+      if (response.status === 200) {
+        await this.getChats();
+      }
+      
+      return response;
+    } catch (error) {
+      console.log(error);
     }
   }
 }

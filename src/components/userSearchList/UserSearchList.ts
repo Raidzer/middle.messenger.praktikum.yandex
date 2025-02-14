@@ -9,7 +9,6 @@ import { ButtonClass, ButtonType } from "../../enums/Button";
 import Router from "../../router/Router";
 import { Routes } from "../../enums/Routes";
 import MessageCard from "../messageCard/messageCard";
-import ChatsAPI from "../../api/ChatsAPI/ChatsAPI";
 import AuthController from "../../controller/AuthController";
 import Modal from "../modal/Modal";
 import FormInput from "../formInput/FormInput";
@@ -18,6 +17,7 @@ import {
   ValidationMessageError,
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
+import ChatsController from "../../controller/ChatsController";
 
 interface IUserSearchList extends IBlockProps {
   children: {
@@ -32,7 +32,6 @@ const chatMenu = new Button({
   events: {
     click: {
       cb: () => {
-        //ChatsAPI.createChat({ title: "Пробный" })
         modal.setProps({ isOpen: true });
       },
     },
@@ -69,8 +68,7 @@ const addChat = new Button({
     click: {
       cb: async () => {
         if (nameChat.inputValidate()) {
-          await ChatsAPI.createChat({ title: nameChat.value });
-          await ChatsAPI.getChatsList();
+          await ChatsController.createChat({ title: nameChat.value });
           modal.setProps({ isOpen: false });
           nameChat.setProps({ value: "" });
         }
@@ -101,6 +99,7 @@ class UserSearchList extends Block<IUserSearchList> {
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
     const chats = newProps.chats as IChatData[];
     if (chats.length > 0) {
+      this.children.messagesCard = [];
       chats.forEach((chat) => {
         const messageCard = new MessageCard({
           title: chat.title,

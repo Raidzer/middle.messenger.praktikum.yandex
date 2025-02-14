@@ -155,6 +155,9 @@ class UserProfilePage extends Block<IBlockProps> {
               });
 
               UsersController.changeUserInfo(formValues);
+              input.forEach((el) => {
+                el.setProps({ isEditable: false });
+              });
               buttonSaveChange.hide();
               buttonChangePassword.show();
               buttonChangeUserInfo.show();
@@ -170,7 +173,7 @@ class UserProfilePage extends Block<IBlockProps> {
 
   async init(): Promise<void> {
     const { user } = store.getState();
-
+    console.log(user);
     (this.children.input as InfoRow[]).forEach((el) => {
       const inputName = el.props.name as keyof IUserData;
 
