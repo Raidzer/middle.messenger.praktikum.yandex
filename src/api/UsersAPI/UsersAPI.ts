@@ -1,7 +1,7 @@
 import { BaseAPI } from "../BaseAPI";
-import { IPasswordChangeData, IUserChangeData } from "./IUserApi";
+import { IPasswordChangeData, IUserChangeData } from "./IUsersApi";
 
-class UserAPI extends BaseAPI {
+class UsersAPI extends BaseAPI {
   constructor() {
     super("/user");
   }
@@ -25,4 +25,4 @@ class UserAPI extends BaseAPI {
   }
 }
 
-export default new UserAPI();
+export default new UsersAPI();

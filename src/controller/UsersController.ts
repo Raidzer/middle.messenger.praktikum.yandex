@@ -1,10 +1,13 @@
-import { IPasswordChangeData, IUserChangeData } from "../api/UserAPI/IUserApi";
-import UserAPI from "../api/UserAPI/UserAPI";
+import {
+  IPasswordChangeData,
+  IUserChangeData,
+} from "../api/UsersAPI/IUsersApi";
+import UserAPI from "../api/UsersAPI/UsersAPI";
 import { Routes } from "../enums/Routes";
 import Router from "../router/Router";
 import store from "../store/Store";
 
-class UserController {
+class UsersController {
   public async changeUserInfo(data: IUserChangeData) {
     try {
       const response = await UserAPI.changeUserProfile(data);
@@ -38,4 +41,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+export default new UsersController();

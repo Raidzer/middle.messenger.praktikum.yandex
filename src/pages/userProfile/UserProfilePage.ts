@@ -16,8 +16,8 @@ import {
   ValidationMessageError,
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
-import UserController from "../../controller/UserController";
-import { IUserChangeData } from "../../api/UserAPI/IUserApi";
+import UsersController from "../../controller/UsersController";
+import { IUserChangeData } from "../../api/UsersAPI/IUsersApi";
 
 const buttonChangePassword = new Button({
   type: ButtonType.BUTTON,
@@ -153,7 +153,7 @@ class UserProfilePage extends Block<IBlockProps> {
                 }
               });
 
-              UserController.changeUserInfo(formValues);
+              UsersController.changeUserInfo(formValues);
               buttonSaveChange.hide();
               buttonChangePassword.show();
               buttonChangeUserInfo.show();
