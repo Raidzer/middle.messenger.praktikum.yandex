@@ -37,8 +37,8 @@ const inputLogin = new FormInput({
   type: InputType.TEXT,
   placeholder: "Логин",
   validate: {
-    rule: ValidationRulesRegExp.Login,
-    errorMessage: ValidationMessageError.Login,
+    rule: ValidationRulesRegExp.login,
+    errorMessage: ValidationMessageError.login,
   },
 });
 
@@ -47,8 +47,8 @@ const inputPassword = new FormInput({
   type: InputType.PASSWORD,
   placeholder: "Пароль",
   validate: {
-    rule: ValidationRulesRegExp.Password,
-    errorMessage: ValidationMessageError.Password,
+    rule: ValidationRulesRegExp.password,
+    errorMessage: ValidationMessageError.password,
   },
 });
 

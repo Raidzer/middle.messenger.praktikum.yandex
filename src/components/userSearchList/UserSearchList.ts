@@ -11,6 +11,13 @@ import { Routes } from "../../enums/Routes";
 import MessageCard from "../messageCard/messageCard";
 import ChatsAPI from "../../api/ChatsAPI/ChatsAPI";
 import AuthController from "../../controller/AuthController";
+import Modal from "../modal/Modal";
+import FormInput from "../formInput/FormInput";
+import { InputType } from "../../enums/Input";
+import {
+  ValidationMessageError,
+  ValidationRulesRegExp,
+} from "../../utils/validationRules/validationRules";
 
 interface IUserSearchList extends IBlockProps {
   children: {
@@ -24,7 +31,10 @@ const chatMenu = new Button({
   label: "Добавить чат",
   events: {
     click: {
-      cb: () => ChatsAPI.createChat({ title: "Пробный" }),
+      cb: () => {
+        //ChatsAPI.createChat({ title: "Пробный" })
+        modal.setProps({ isOpen: true });
+      },
     },
   },
 });
@@ -42,11 +52,44 @@ const profile = new Button({
   },
 });
 
+const nameChat = new FormInput({
+  name: "nameChat",
+  type: InputType.TEXT,
+  placeholder: "Название чата",
+  validate: {
+    rule: ValidationRulesRegExp.NoEmpty,
+    errorMessage: ValidationMessageError.NoEmpty,
+  },
+});
+
+const addChat = new Button({
+  type: ButtonType.BUTTON,
+  label: "Создать чат",
+  events: {
+    click: {
+      cb: async () => {
+        if (nameChat.inputValidate()) {
+          await ChatsAPI.createChat({ title: nameChat.value });
+          await ChatsAPI.getChatsList();
+          modal.setProps({ isOpen: false });
+          nameChat.setProps({ value: "" });
+        }
+      },
+    },
+  },
+});
+
+const modal = new Modal({
+  input: [nameChat],
+  buttonSubmit: [addChat],
+});
+
 class UserSearchList extends Block<IUserSearchList> {
   constructor(props?: IUserSearchList) {
     props = {
       profile,
       chatMenu,
+      modal,
       children: {
         messagesCard: [],
       },

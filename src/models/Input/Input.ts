@@ -35,9 +35,8 @@ export default abstract class Input extends Block<IInputProps> {
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
     const value = newProps.value;
-    if (value) {
-      this._value = value as string;
-    }
+
+    this._value = value as string;
 
     return true;
   }

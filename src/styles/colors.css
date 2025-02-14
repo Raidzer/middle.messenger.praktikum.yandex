@@ -15,4 +15,6 @@
   --border-gray-color: #999;
   --avatar-container-color: #d3d3d3;
   --red-color: #f00;
+  --modal-overlay-color: #00000080;
+  --modal-content-box-shadow: #0000004d;
 }
