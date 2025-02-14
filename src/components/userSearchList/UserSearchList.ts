@@ -5,16 +5,28 @@ import userSearchList from "./userSearchList.hbs?raw";
 import "./userSearchList.css";
 import connect from "../../utils/HOC/connect";
 import Button from "../button/Button";
-import { ButtonType } from "../../enums/Button";
+import { ButtonClass, ButtonType } from "../../enums/Button";
 import Router from "../../router/Router";
 import { Routes } from "../../enums/Routes";
 import MessageCard from "../messageCard/messageCard";
+import ChatsAPI from "../../api/ChatsAPI/ChatsAPI";
 
 interface IUserSearchList extends IBlockProps {
   children: {
     messagesCard: MessageCard[];
   };
 }
+
+const chatMenu = new Button({
+  type: ButtonType.BUTTON,
+  class: ButtonClass.PRIMARY,
+  label: "Добавить чат",
+  events: {
+    click: {
+      cb: () => ChatsAPI.createChat({ title: "Пробный" }),
+    },
+  },
+});
 
 const profile = new Button({
   type: ButtonType.BUTTON,
@@ -30,6 +42,7 @@ class UserSearchList extends Block<IUserSearchList> {
   constructor(props?: IUserSearchList) {
     props = {
       profile,
+      chatMenu,
       children: {
         messagesCard: [],
       },
@@ -39,7 +52,6 @@ class UserSearchList extends Block<IUserSearchList> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
-    
     const chats = newProps.chats as IChatData[];
     if (chats.length > 0) {
       chats.forEach((chat) => {

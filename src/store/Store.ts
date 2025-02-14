@@ -8,8 +8,8 @@ import { IMessagesData } from "../controller/MessagesController/IMessagesControl
 interface IStoreState {
   user?: IUserData;
   chats?: IChatData[];
-  idSelectedChat: number | null;
-  messages?: IMessagesData[],
+  selectedChat: IChatData | null;
+  messages?: IMessagesData[];
 }
 
 class Store extends EventBus {
@@ -18,7 +18,7 @@ class Store extends EventBus {
   constructor() {
     super();
     this._state = {
-      idSelectedChat: null,
+      selectedChat: null,
     };
     this.on(StoreEvents.Update, () => {});
   }

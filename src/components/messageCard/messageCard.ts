@@ -18,17 +18,21 @@ export default class MessageCard extends Block<IMessageCardProps> {
       events: {
         click: {
           cb: async () => {
-            const chatId = props.id;
-            const { user } = store.getState();
+            const selectedChatId = props.id;
+            const { user, chats } = store.getState();
             const userId = user?.id;
 
-            if (chatId && userId) {
-              store.set("idSelectedChat", props.id);
+            if (selectedChatId && userId && chats) {
+              const selectedChat = chats.find(
+                (chat) => chat.id === selectedChatId
+              );
+
+              store.set("selectedChat", selectedChat);
               const token = await MessagesController.getChatMessageToken(
-                chatId
+                selectedChatId
               );
               if (token) {
-                MessagesController.connectChat(userId, chatId, token);
+                MessagesController.connectChat(userId, selectedChatId, token);
               }
             }
           },

@@ -84,6 +84,7 @@ class ChatWindow extends Block<IBlockProps> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    console.log(newProps);
     const messages = newProps.messages as IMessagesData[];
     if (messages) {
       this.children.messages = messages.map((message) => {
@@ -99,11 +100,11 @@ class ChatWindow extends Block<IBlockProps> {
   }
 
   render(): DocumentFragment {
-    return this.compile(chatWindow, this.props);
+    return this.compile(chatWindow, { ...this.props });
   }
 
   show(): void {
-    if (!this.element || !this.props.idSelectedChat) {
+    if (!this.element) {
       return;
     }
     this.element.style.display = "flex";
@@ -119,7 +120,7 @@ class ChatWindow extends Block<IBlockProps> {
 
 const withMessagesAndChatId = connect((state) => ({
   messages: state.messages,
-  idSelectedChat: state.idSelectedChat,
+  title: state.selectedChat?.title,
 }));
 
 export default withMessagesAndChatId(ChatWindow as typeof Block);

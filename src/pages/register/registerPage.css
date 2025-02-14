@@ -1,7 +1,7 @@
 @import url("../../styles/colors.css");
 @import url("../../styles/styles.css");
 
-.container-register {
+.container-register-page {
   display: flex;
   justify-content: center;
   align-items: center;
