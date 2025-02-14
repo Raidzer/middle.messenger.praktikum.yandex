@@ -52,7 +52,7 @@ export default abstract class Input extends Block<IInputProps> {
       return true;
     }
 
-    if (!rule.test(value)) {
+    if (!rule.test(value) || value === undefined) {
       if (this.props.error === errorMessage) {
         return false;
       }
