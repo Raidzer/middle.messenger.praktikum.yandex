@@ -11,13 +11,14 @@ import connect from "../../utils/HOC/connect";
 import "./userProfilePage.css";
 import userProfilePage from "./userProfilePage.hbs?raw";
 import { IUserData } from "../../api/AuthAPI/IAuthAPI";
-import { isEqual } from "../../utils/utils";
 import {
   ValidationMessageError,
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
 import UsersController from "../../controller/UsersController";
 import { IUserChangeData } from "../../api/UsersAPI/IUsersApi";
+import store from "../../store/Store";
+import { isEqual } from "../../utils/utils";
 
 const buttonChangePassword = new Button({
   type: ButtonType.BUTTON,
@@ -168,7 +169,7 @@ class UserProfilePage extends Block<IBlockProps> {
   }
 
   async init(): Promise<void> {
-    await AuthController.getUser();
+    const { user } = store.getState();
 
     (this.children.input as InfoRow[]).forEach((el) => {
       const inputName = el.props.name as keyof IUserData;
@@ -177,7 +178,7 @@ class UserProfilePage extends Block<IBlockProps> {
         return;
       }
 
-      const userInfo = this.props.user as IUserData;
+      const userInfo = user as IUserData;
 
       if (!userInfo) {
         return;
@@ -186,12 +187,11 @@ class UserProfilePage extends Block<IBlockProps> {
       if (inputName in userInfo) {
         el.setProps({ value: userInfo[inputName] as string });
       }
-
-      buttonSaveChange.hide();
     });
+    buttonSaveChange.hide();
   }
 
-  componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {    
+  componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
     if (isEqual(oldProps, newProps)) {
       return false;
     }

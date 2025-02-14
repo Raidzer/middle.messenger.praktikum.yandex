@@ -10,6 +10,7 @@ import Router from "../../router/Router";
 import { Routes } from "../../enums/Routes";
 import MessageCard from "../messageCard/messageCard";
 import ChatsAPI from "../../api/ChatsAPI/ChatsAPI";
+import AuthController from "../../controller/AuthController";
 
 interface IUserSearchList extends IBlockProps {
   children: {
@@ -33,7 +34,10 @@ const profile = new Button({
   label: "Профиль",
   events: {
     click: {
-      cb: () => Router.go(Routes.PROFILE),
+      cb: async () => {
+        await AuthController.getUser();
+        Router.go(Routes.PROFILE);
+      },
     },
   },
 });
