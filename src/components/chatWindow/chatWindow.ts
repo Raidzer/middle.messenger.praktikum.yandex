@@ -7,10 +7,6 @@ import { ButtonClass, ButtonType } from "../../enums/Button";
 import ChatsAPI from "../../api/ChatsAPI/ChatsAPI";
 import FormInput from "../formInput/FormInput";
 import { InputType } from "../../enums/Input";
-import {
-  ValidationMessageError,
-  ValidationRulesRegExp,
-} from "../../utils/validationRules/validationRules";
 import connect from "../../utils/HOC/connect";
 import {
   IMessagesData,
@@ -46,10 +42,6 @@ const messageInput = new FormInput({
   type: InputType.TEXT,
   placeholder: "Сообщение",
   class: true,
-  validate: {
-    rule: ValidationRulesRegExp.NoEmpty,
-    errorMessage: ValidationMessageError.NoEmpty,
-  },
 });
 
 class ChatWindow extends Block<IBlockProps> {
@@ -81,7 +73,7 @@ class ChatWindow extends Block<IBlockProps> {
             };
 
             console.log(formValues);
-            MessagesController.sendMessage(formValues)
+            MessagesController.sendMessage(formValues);
             messageInput.setProps({ value: "" });
           },
         },
