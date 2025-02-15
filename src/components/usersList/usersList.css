@@ -3,6 +3,7 @@
 
 .user-list-container {
   margin-top: 20px;
+  margin-bottom: 20px;
   max-width: 400px;
   background: var(--background-color);
   border-radius: 10px;
