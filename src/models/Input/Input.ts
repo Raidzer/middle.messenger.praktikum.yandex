@@ -35,6 +35,12 @@ export default abstract class Input extends Block<IInputProps> {
     return this._value;
   }
 
+  clearValue() {
+    this._value = "";
+    this.setProps({ value: "" });
+    this.render();
+  }
+
   private _validate(value: string): boolean {
     const rule = this.props.validate?.rule;
     const errorMessage = this.props.validate?.errorMessage;

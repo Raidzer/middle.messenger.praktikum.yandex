@@ -117,8 +117,9 @@ class ChatWindow extends Block<IBlockProps> {
               return;
             }
 
-            const dataValid = messageInput.inputValidate();
-            if (!dataValid) {
+            const message = messageInput.value;
+
+            if (message.trim().length === 0) {
               return;
             }
 
@@ -127,9 +128,8 @@ class ChatWindow extends Block<IBlockProps> {
               type: MessageType.Message,
             };
 
-            console.log(formValues);
             MessagesController.sendMessage(formValues);
-            messageInput.setProps({ value: "" });
+            messageInput.clearValue();
           },
         },
       },
@@ -173,23 +173,19 @@ class ChatWindow extends Block<IBlockProps> {
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
     const messages = newProps.messages as IMessagesData[];
-    console.log(messages);
-    if (messages) {
+    const userId = this.props.userId;
+
+    if (messages && userId) {
       this.children.messages = messages.map((message) => {
+        const isIncoming = message.user_id !== userId;
         const messageEl = new ChatMessage({
           content: message.content,
-          isIncoming: false,
+          isIncoming,
         }) as Block<IBlockProps>;
         return messageEl;
       });
       this.show();
     }
-
-    const userSearchList = newProps.userSearchList;
-    console.log(
-      "🚀 ~ ChatWindow ~ componentDidUpdate ~ userSearchList:",
-      userSearchList
-    );
 
     return true;
   }
@@ -217,6 +213,7 @@ const withMessagesAndChatId = connect((state) => ({
   messages: state.messages,
   title: state.selectedChat?.title,
   chatId: state.selectedChat?.id,
+  userId: state.user?.id,
 }));
 
 export default withMessagesAndChatId(ChatWindow as typeof Block);
