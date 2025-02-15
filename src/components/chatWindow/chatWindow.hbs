@@ -1,4 +1,5 @@
 <div class="chat-container">
+  {{#if isOpen}}
   <div class="options-chat-container">
     <div class="user">
       <div class="user-name">{{title}}</div>
@@ -26,4 +27,5 @@
     </form>
   </div>
   {{{modal}}}
+  {{/if}}
 </div>

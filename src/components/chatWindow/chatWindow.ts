@@ -240,7 +240,8 @@ class ChatWindow extends Block<IBlockProps> {
   }
 
   render(): DocumentFragment {
-    return this.compile(chatWindow, { ...this.props });
+    const isOpen = typeof this.props.chatId === "number";
+    return this.compile(chatWindow, { ...this.props, isOpen });
   }
 
   show(): void {
