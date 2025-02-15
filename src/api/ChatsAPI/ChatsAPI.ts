@@ -1,5 +1,5 @@
 import { BaseAPI } from "../BaseAPI";
-import { IChatCreateData, IChatDeleteData } from "./IChatsAPI";
+import { IChatAddUsers, IChatCreateData, IChatDeleteData } from "./IChatsAPI";
 
 class ChatsAPI extends BaseAPI {
   constructor() {
@@ -36,6 +36,16 @@ class ChatsAPI extends BaseAPI {
   async getChatToken(id: number) {
     try {
       const response = await this._fetch.post(`/token/${id}`);
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
+
+  async addUserToChat(data: IChatAddUsers) {
+    try {
+      const response = await this._fetch.put("/users", { data });
+
       return response;
     } catch (error) {
       throw new Error(`${error}`);

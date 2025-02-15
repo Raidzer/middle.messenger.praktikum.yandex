@@ -146,8 +146,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
 
   compile(template: string, props: IBlockProps) {
     const propsAndStubs = { ...props };
-    console.log(propsAndStubs);
-    console.log(this.children);
+    
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = [];
       child.forEach((el) => {
@@ -161,11 +160,11 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
         }
       });
     });
-    console.log(propsAndStubs);
+
     const compiledTemplate = Handlebars.compile(template);
     const fragment = document.createElement("template") as HTMLTemplateElement;
     fragment.innerHTML = compiledTemplate(propsAndStubs);
-    console.log(fragment);
+
     Object.values(this.children).forEach((children) => {
       children.forEach((child) => {
         const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);

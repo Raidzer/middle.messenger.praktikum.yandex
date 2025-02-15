@@ -1,5 +1,9 @@
 import ChatsAPI from "../api/ChatsAPI/ChatsAPI";
-import { IChatCreateData, IChatDeleteData } from "../api/ChatsAPI/IChatsAPI";
+import {
+  IChatAddUsers,
+  IChatCreateData,
+  IChatDeleteData,
+} from "../api/ChatsAPI/IChatsAPI";
 import store from "../store/Store";
 
 class ChatsController {
@@ -41,6 +45,16 @@ class ChatsController {
         await this.getChats();
         store.set("selectedChat", null);
       }
+
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  public async addUsersToChat(data: IChatAddUsers) {
+    try {
+      const response = await ChatsAPI.addUserToChat(data);
 
       return response;
     } catch (error) {

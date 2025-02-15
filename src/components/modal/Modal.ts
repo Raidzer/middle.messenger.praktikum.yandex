@@ -1,3 +1,4 @@
+import UsersController from "../../controller/UsersController";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import Button from "../button/Button";
@@ -18,7 +19,7 @@ class Modal extends Block<IBlockProps> {
             cb: () => {
               this.hide();
               const inputs = this.children.input;
-
+              UsersController.clearSearchUser();
               if (inputs) {
                 inputs.forEach((input) => input.setProps({ value: "" }));
               }

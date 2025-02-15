@@ -21,7 +21,9 @@ import {
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
 import UsersController from "../../controller/UsersController";
-import { isEqual } from "../../utils/utils";
+import UsersList from "../usersList/UsersList";
+import store from "../../store/Store";
+import { IChatAddUsers } from "../../api/ChatsAPI/IChatsAPI";
 
 const sendMessage = new Button({
   icon: "fa-solid fa-paper-plane",
@@ -66,9 +68,35 @@ const buttonSubmit = new Button({
   },
 });
 
+const usersList = new UsersList({});
+
+const buttonAddUser = new Button({
+  type: ButtonType.BUTTON,
+  label: "Добавить пользователя",
+  events: {
+    click: {
+      cb: async () => {
+        const idUser = store.getState().selectedUser?.id;
+        const chatId = store.getState().selectedChat?.id;
+
+        if (idUser && chatId) {
+          const data: IChatAddUsers = {
+            users: [idUser],
+            chatId,
+          };
+
+          ChatsController.addUsersToChat(data);
+        }
+      },
+    },
+  },
+});
+
 const modal = new Modal({
   input: [userSearch],
   buttonSubmit: [buttonSubmit],
+  content: [usersList],
+  buttonAction: [buttonAddUser],
 });
 
 class ChatWindow extends Block<IBlockProps> {
@@ -144,10 +172,8 @@ class ChatWindow extends Block<IBlockProps> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
-    if (isEqual(oldProps, newProps)) {
-      return true;
-    }
     const messages = newProps.messages as IMessagesData[];
+    console.log(messages);
     if (messages) {
       this.children.messages = messages.map((message) => {
         const messageEl = new ChatMessage({

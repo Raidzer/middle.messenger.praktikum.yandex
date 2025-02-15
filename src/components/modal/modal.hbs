@@ -1,20 +1,20 @@
 <div>
   {{#if isOpen}}
     <div class="modal-overlay">
-
       <div class="modal-content">
         <div class="modal-close">
           {{{buttonClose}}}
         </div>
-        <form class="modal-form">
+        <div class="modal-form">
           {{#each input}}
             {{{this}}}
           {{/each}}
           <div class="modal-button-submit">
             {{{buttonSubmit}}}
           </div>
-        </form>
+        </div>
         {{{content}}}
+        {{{buttonAction}}}
       </div>
     </div>
   {{/if}}

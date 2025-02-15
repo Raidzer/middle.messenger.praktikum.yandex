@@ -173,7 +173,6 @@ class UserProfilePage extends Block<IBlockProps> {
 
   async init(): Promise<void> {
     const { user } = store.getState();
-    console.log(user);
     (this.children.input as InfoRow[]).forEach((el) => {
       const inputName = el.props.name as keyof IUserData;
 

@@ -39,3 +39,8 @@ export interface IChatDeletedData {
     created_by: number;
   };
 }
+
+export interface IChatAddUsers {
+  users: number[];
+  chatId: number;
+}

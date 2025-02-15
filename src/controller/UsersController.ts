@@ -56,6 +56,10 @@ class UsersController {
       console.log(error);
     }
   }
+
+  public clearSearchUser() {
+    store.set("userSearchList", []);
+  }
 }
 
 export default new UsersController();

@@ -1,0 +1,17 @@
+@import url("../../styles/colors.css");
+@import url("../../styles/styles.css");
+
+.user-list-container {
+  margin-top: 20px;
+  max-width: 400px;
+  background: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px var(--modal-content-box-shadow);
+  overflow: hidden;
+
+  .user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
