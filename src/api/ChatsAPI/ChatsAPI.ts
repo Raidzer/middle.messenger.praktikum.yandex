@@ -51,6 +51,26 @@ class ChatsAPI extends BaseAPI {
       throw new Error(`${error}`);
     }
   }
+
+  async deleteUsersFromChat(data: IChatDeleteData) {
+    try {
+      const response = await this._fetch.delete("/users", { data });
+
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
+
+  async getChatUsers(idChat: number) {
+    try {
+      const response = await this._fetch.get(`/${idChat}/users`);
+
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
 }
 
 export default new ChatsAPI();

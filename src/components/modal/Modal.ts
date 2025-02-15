@@ -30,6 +30,19 @@ class Modal extends Block<IBlockProps> {
     ];
   }
 
+  componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    const newButtonAction = newProps.buttonAction;
+
+    if (
+      Array.isArray(newButtonAction) &&
+      newButtonAction.every((item) => item instanceof Button)
+    ) {
+      this.children.buttonAction = newButtonAction;
+    }
+
+    return true;
+  }
+
   show(): void {
     this.setProps({ isOpen: true });
   }

@@ -92,11 +92,33 @@ const buttonAddUser = new Button({
   },
 });
 
+const buttonDeleteUser = new Button({
+  type: ButtonType.BUTTON,
+  label: "Удалить пользователя",
+  events: {
+    click: {
+      cb: async () => {
+        const idUser = store.getState().selectedUser?.id;
+        const chatId = store.getState().selectedChat?.id;
+
+        if (idUser && chatId) {
+          const data: IChatAddUsers = {
+            users: [idUser],
+            chatId,
+          };
+
+          ChatsController.deleteChatUsers(data);
+        }
+      },
+    },
+  },
+});
+
 const modal = new Modal({
   input: [userSearch],
   buttonSubmit: [buttonSubmit],
   content: [usersList],
-  buttonAction: [buttonAddUser],
+  buttonAction: [],
 });
 
 class ChatWindow extends Block<IBlockProps> {
@@ -164,7 +186,34 @@ class ChatWindow extends Block<IBlockProps> {
         type: ButtonType.BUTTON,
         events: {
           click: {
-            cb: () => modal.show(),
+            cb: () => {
+              modal.setProps({ buttonAction: [buttonAddUser] });
+              modal.show();
+            },
+          },
+        },
+      }),
+    ];
+
+    this.children.buttonDeleteUser = [
+      new Button({
+        class: ButtonClass.SECONDARY,
+        label: "Удалить пользователя",
+        type: ButtonType.BUTTON,
+        events: {
+          click: {
+            cb: async () => {
+              const chatId = this.props.chatId;
+              if (typeof chatId === "number") {
+                const isReadyUsersList = await ChatsController.getChatUsers(
+                  chatId
+                );
+                if (isReadyUsersList) {
+                  modal.setProps({ buttonAction: [buttonDeleteUser] });
+                  modal.show();
+                }
+              }
+            },
           },
         },
       }),

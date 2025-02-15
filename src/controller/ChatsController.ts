@@ -61,6 +61,35 @@ class ChatsController {
       console.log(error);
     }
   }
+
+  public async getChatUsers(idChat: number): Promise<boolean> {
+    try {
+      const response = await ChatsAPI.getChatUsers(idChat);
+
+      if (response.status === 200) {
+        store.set("userSearchList", response.data);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  public clearSearchUser() {
+    store.set("userSearchList", []);
+  }
+
+  public async deleteChatUsers(data: IChatAddUsers) {
+    try {
+      const response = await ChatsAPI.deleteUsersFromChat(data);
+      await this.getChatUsers(data.chatId);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default new ChatsController();
