@@ -1,5 +1,4 @@
 import Block from "../Block/Block";
-import { IBlockProps } from "../Block/IBlock";
 import IInputProps from "./IInput";
 
 export default abstract class Input extends Block<IInputProps> {
@@ -24,21 +23,12 @@ export default abstract class Input extends Block<IInputProps> {
         ...this.props.events,
         blur: {
           cb: () => {
-            this.props.value = this._value;
             this.inputValidate();
           },
           option: true,
         },
       };
     }
-  }
-
-  componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
-    const value = newProps.value;
-
-    this._value = value as string;
-
-    return true;
   }
 
   get value(): string {
