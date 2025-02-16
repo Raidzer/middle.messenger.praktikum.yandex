@@ -101,11 +101,15 @@ class UserSearchList extends Block<IUserSearchList> {
     if (chats) {
       this.children.messagesCard = [];
       chats.forEach((chat) => {
+        const isSelectedChat =
+          this.props.selectChatId !== null &&
+          chat.id === this.props.selectChatId;
         const messageCard = new MessageCard({
           title: chat.title,
           last_message: chat.last_message?.content,
           id: chat.id,
           unread_count: chat.unread_count,
+          isSelect: isSelectedChat,
         }) as Block<IBlockProps>;
         this.children.messagesCard.push(messageCard);
       });
@@ -119,6 +123,9 @@ class UserSearchList extends Block<IUserSearchList> {
   }
 }
 
-const withChat = connect((state) => ({ chats: state.chats }));
+const withChat = connect((state) => ({
+  chats: state.chats,
+  selectChatId: state.selectedChat?.id,
+}));
 
 export default withChat(UserSearchList as typeof Block);

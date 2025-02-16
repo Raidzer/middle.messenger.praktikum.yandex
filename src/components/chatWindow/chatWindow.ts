@@ -50,13 +50,8 @@ const userSearch = new FormInput({
     rule: ValidationRulesRegExp.NoEmpty,
     errorMessage: ValidationMessageError.NoEmpty,
   },
-});
-
-const buttonSubmit = new Button({
-  type: ButtonType.BUTTON,
-  label: "Искать пользователя",
   events: {
-    click: {
+    change: {
       cb: async () => {
         const login = userSearch.value;
 
@@ -116,7 +111,6 @@ const buttonDeleteUser = new Button({
 
 const modal = new Modal({
   input: [userSearch],
-  buttonSubmit: [buttonSubmit],
   content: [usersList],
   buttonAction: [],
 });

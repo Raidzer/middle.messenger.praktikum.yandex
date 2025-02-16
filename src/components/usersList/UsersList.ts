@@ -17,7 +17,8 @@ class UsersList extends Block<IBlockProps> {
     if (usersList) {
       this.children.usersList = [];
       this.children.usersList = usersList.map((user) => {
-        return new UserRow({ user });
+        const userIsSelected = user.id === this.props?.selectedUserId;
+        return new UserRow({ user, isSelected: userIsSelected });
       });
     }
     return true;
@@ -30,6 +31,7 @@ class UsersList extends Block<IBlockProps> {
 
 const withUsersList = connect((state) => ({
   userSearchList: state.userSearchList,
+  selectedUserId: state.selectedUser?.id,
 }));
 
 export default withUsersList(UsersList as typeof Block);
