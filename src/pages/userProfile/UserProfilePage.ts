@@ -18,7 +18,6 @@ import {
 import UsersController from "../../controller/UsersController";
 import { IUserChangeData } from "../../api/UsersAPI/IUsersApi";
 import store from "../../store/Store";
-import { isEqual } from "../../utils/utils";
 
 const buttonChangePassword = new Button({
   type: ButtonType.BUTTON,
@@ -194,10 +193,6 @@ class UserProfilePage extends Block<IBlockProps> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
-    if (isEqual(oldProps, newProps)) {
-      return false;
-    }
-
     (this.children.input as InfoRow[]).forEach((el) => {
       const inputName = el.props.name as keyof IUserData;
 

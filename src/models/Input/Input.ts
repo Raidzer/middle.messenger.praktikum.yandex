@@ -65,4 +65,8 @@ export default abstract class Input extends Block<IInputProps> {
   inputValidate(): boolean {
     return this._validate(this._value);
   }
+
+  setValue(value: string) {
+    this._value = value;
+  }
 }
