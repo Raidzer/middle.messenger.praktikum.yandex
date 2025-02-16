@@ -73,7 +73,7 @@ export default class HTTPService {
     options: RequestOptions = {},
     timeout = 5000
   ): Promise<{ data: T; status: number }> {
-    const { headers = {}, method, data } = options;
+    const { method, data } = options;
     return new Promise<{ data: T; status: number }>((resolve, reject) => {
       if (!method) {
         reject(new Error("No method"));
@@ -90,14 +90,6 @@ export default class HTTPService {
           : url,
         true
       );
-
-      if (!headers["Content-Type"]) {
-        headers["Content-Type"] = "application/json";
-      }
-
-      Object.keys(headers).forEach((key) => {
-        xhr.setRequestHeader(key, headers[key]);
-      });
 
       xhr.onload = function () {
         const status = xhr.status;
@@ -130,9 +122,13 @@ export default class HTTPService {
 
       xhr.timeout = timeout;
       xhr.withCredentials = true;
+
       if (isGet || !data) {
         xhr.send();
+      } else if (data instanceof FormData) {
+        xhr.send(data);
       } else {
+        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(typeof data === "string" ? data : JSON.stringify(data));
       }
     });

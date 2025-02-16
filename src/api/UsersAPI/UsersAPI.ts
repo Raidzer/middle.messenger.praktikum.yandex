@@ -37,6 +37,20 @@ class UsersAPI extends BaseAPI {
       throw new Error(`${error}`);
     }
   }
+
+  async changeUserAvatar(data: File) {
+    try {
+      const formData = new FormData();
+      formData.append("avatar", data);
+      const response = await this._fetch.put("/profile/avatar", {
+        data: formData,
+      });
+
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
 }
 
 export default new UsersAPI();

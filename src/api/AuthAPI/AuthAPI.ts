@@ -8,8 +8,8 @@ class AuthAPI extends BaseAPI {
 
   async signin(data: ISigninData) {
     try {
-      const resp = await this._fetch.post("/signin", { data });
-      return resp;
+      const response = await this._fetch.post("/signin", { data });
+      return response;
     } catch (error) {
       throw new Error(`${error}`);
     }
@@ -17,9 +17,9 @@ class AuthAPI extends BaseAPI {
 
   async signup(data: ISignupData) {
     try {
-      const resp = await this._fetch.post("/signup", { data });
+      const response = await this._fetch.post("/signup", { data });
 
-      return resp;
+      return response;
     } catch (error) {
       throw new Error(`${error}`);
     }
@@ -27,8 +27,8 @@ class AuthAPI extends BaseAPI {
 
   async userInfo() {
     try {
-      const resp = await this._fetch.get("/user");
-      return resp;
+      const response = await this._fetch.get("/user");
+      return response;
     } catch (error) {
       throw new Error(`${error}`);
     }

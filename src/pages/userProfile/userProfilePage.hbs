@@ -5,15 +5,8 @@
     </div>
   </div>
   <div class="user-info-container">
-    <div class="user-avatar-container">
-      <div class="user-avatar">
-        <input
-          class="file-upload"
-          type="file"
-          id="file-upload"
-          onchange="handleFileUpload(event)"
-        />
-      </div>
+    <div>
+      {{{userAvatar}}}
     </div>
     <div class="form-container">
       <div class="user-name">{{userName}}</div>
@@ -32,4 +25,5 @@
       </form>
     </div>
   </div>
+  {{{modal}}}
 </div>

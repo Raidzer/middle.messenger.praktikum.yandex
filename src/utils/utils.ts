@@ -119,3 +119,8 @@ export function debounce<T extends (...args: unknown[]) => void>(
     timer = setTimeout(() => func(...args), delay);
   };
 }
+
+export function getAvatarUrl(path: string): string{
+  const baseUrl = "https://ya-praktikum.tech/api/v2/resources";
+  return baseUrl + path;
+}

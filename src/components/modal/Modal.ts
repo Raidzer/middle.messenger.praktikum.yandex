@@ -1,12 +1,18 @@
 import UsersController from "../../controller/UsersController";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
+import Input from "../../models/Input/Input";
 import Button from "../button/Button";
 import "./modal.css";
 import modal from "./modal.hbs?raw";
 
-class Modal extends Block<IBlockProps> {
-  constructor(props: IBlockProps) {
+interface IModalProps extends IBlockProps {
+  buttonAction?: Button[];
+  input?: Input[] | Block[];
+}
+
+class Modal extends Block<IModalProps> {
+  constructor(props: IModalProps) {
     super(props);
   }
 

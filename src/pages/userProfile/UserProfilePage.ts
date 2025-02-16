@@ -18,6 +18,9 @@ import {
 import UsersController from "../../controller/UsersController";
 import { IUserChangeData } from "../../api/UsersAPI/IUsersApi";
 import store from "../../store/Store";
+import UserAvatar from "../../components/userAvatar/UserAvatar";
+import Modal from "../../components/modal/Modal";
+import UploadFileInput from "../../components/uploadFileInput/UploadFileInput";
 
 const buttonChangePassword = new Button({
   type: ButtonType.BUTTON,
@@ -108,6 +111,39 @@ const buttonChangeUserInfo = new Button({
   },
 });
 
+const userAvatar = new UserAvatar({
+  events: {
+    click: {
+      cb: () => modal.show(),
+    },
+  },
+});
+
+const buttonChangeAvatar = new Button({
+  class: ButtonClass.PRIMARY,
+  label: "Изменить аватар",
+  type: ButtonType.BUTTON,
+  events: {
+    click: {
+      cb: async () => {
+        const avatar = inputAvatar.value;
+
+        if (avatar) {
+          await UsersController.changeUserAvatar(avatar);
+        }
+        modal.hide();
+      },
+    },
+  },
+});
+
+const inputAvatar = new UploadFileInput({});
+
+const modal = new Modal({
+  buttonAction: [buttonChangeAvatar],
+  input: [inputAvatar],
+});
+
 class UserProfilePage extends Block<IBlockProps> {
   constructor(props?: IBlockProps) {
     props = {
@@ -117,6 +153,8 @@ class UserProfilePage extends Block<IBlockProps> {
       buttonLogout,
       buttonBack,
       buttonSaveChange,
+      userAvatar,
+      modal,
       events: {
         submit: {
           cb: (event: SubmitEvent) => {

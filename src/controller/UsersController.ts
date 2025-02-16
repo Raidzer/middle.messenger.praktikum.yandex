@@ -60,6 +60,20 @@ class UsersController {
   public clearSearchUser() {
     store.set("userSearchList", []);
   }
+
+  public async changeUserAvatar(data: File) {
+    try {
+      const response = await UserAPI.changeUserAvatar(data);
+
+      if (response.status === 200) {
+        store.set("user", response.data);
+      }
+
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default new UsersController();

@@ -7,15 +7,15 @@ import store from "../store/Store";
 class AuthController {
   public async getUser() {
     try {
-      const resp = await AuthAPI.userInfo();
+      const response = await AuthAPI.userInfo();
 
-      if (!resp) {
+      if (!response) {
         return;
       }
 
-      if (resp.status === 200) {
-        store.set("user", resp.data);
-      } else if (resp.status === 401) {
+      if (response.status === 200) {
+        store.set("user", response.data);
+      } else if (response.status === 401) {
         Router.go(Routes.LOGIN);
       }
     } catch (error) {
