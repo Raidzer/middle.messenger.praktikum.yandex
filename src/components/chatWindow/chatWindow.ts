@@ -80,7 +80,8 @@ const buttonAddUser = new Button({
             chatId,
           };
 
-          ChatsController.addUsersToChat(data);
+          await ChatsController.addUsersToChat(data);
+          modal.hide();
         }
       },
     },
