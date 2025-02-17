@@ -9,6 +9,8 @@ export function render<T extends IBlockProps>(
   if (!root) {
     return;
   }
+  root.innerHTML = "";
+
   blocks.forEach((block: Block<T>) => {
     const content = block.getContent();
     if (content) {
@@ -120,7 +122,7 @@ export function debounce<T extends (...args: unknown[]) => void>(
   };
 }
 
-export function getAvatarUrl(path: string): string{
+export function getAvatarUrl(path: string): string {
   const baseUrl = "https://ya-praktikum.tech/api/v2/resources";
   return baseUrl + path;
 }

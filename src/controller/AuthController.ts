@@ -44,8 +44,7 @@ class AuthController {
   }
 
   public async logout() {
-    store.set("selectedChat", null);
-    store.set("user", null);
+    store.clearTemporaryData();
     await AuthAPI.logout();
   }
 
@@ -59,6 +58,7 @@ class AuthController {
 
     if (response.status === 200) {
       await ChatsController.getChats();
+      await this.getUser();
       Router.go(Routes.CHAT);
     }
   }

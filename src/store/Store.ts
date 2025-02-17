@@ -9,7 +9,7 @@ interface IStoreState {
   user: IUserData | null;
   chats?: IChatData[];
   selectedChat: IChatData | null;
-  messages?: IMessagesData[];
+  messages: IMessagesData[];
   userSearchList: IUserData[];
   selectedUser: IUserData | null;
 }
@@ -24,6 +24,7 @@ class Store extends EventBus {
       userSearchList: [],
       selectedUser: null,
       user: null,
+      messages: [],
     };
   }
 
@@ -34,6 +35,16 @@ class Store extends EventBus {
   public set<K extends keyof IStoreState>(path: K, value: unknown) {
     set(this._state, path, value);
     this.emit(StoreEvents.Update);
+  }
+
+  public clearTemporaryData() {
+    this._state = {
+      selectedChat: null,
+      userSearchList: [],
+      selectedUser: null,
+      user: null,
+      messages: [],
+    };
   }
 }
 
