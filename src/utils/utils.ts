@@ -37,6 +37,7 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
       } else {
         lhs[p] = rhs[p];
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       lhs[p] = rhs[p];
     }

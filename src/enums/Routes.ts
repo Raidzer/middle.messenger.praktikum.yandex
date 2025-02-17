@@ -1,10 +1,9 @@
 export enum Routes {
   LOGIN = "/",
-  REGISTER = "/register",
+  REGISTER = "/sign-up",
   ERROR404 = "/error404",
   ERROR500 = "/error500",
-  CHAT = "/message",
-  PROFILE = "/profile",
-  CHANGEPROFILE = "/change-profile",
+  CHAT = "/messenger",
+  PROFILE = "/settings",
   CHANGEPASSWORD = "/change-password",
 }

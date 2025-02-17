@@ -29,7 +29,7 @@ class Store extends EventBus {
   }
 
   public getState() {
-    return this._state;
+    return { ...this._state };
   }
 
   public set<K extends keyof IStoreState>(path: K, value: unknown) {

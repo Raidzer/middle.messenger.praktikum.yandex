@@ -23,16 +23,20 @@ export default class MessageCard extends Block<IMessageCardProps> {
             const userId = user?.id;
 
             if (selectedChatId && userId && chats) {
-              const selectedChat = {
-                ...chats.find((chat) => chat.id === selectedChatId),
-              };
+              const selectedChat = structuredClone(
+                chats.find((chat) => chat.id === selectedChatId)
+              );
 
               store.set("selectedChat", selectedChat);
               const token = await MessagesController.getChatMessageToken(
                 selectedChatId
               );
               if (token) {
-                MessagesController.connectChat(userId, selectedChatId, token);
+                await MessagesController.connectChat(
+                  userId,
+                  selectedChatId,
+                  token
+                );
               }
             }
           },

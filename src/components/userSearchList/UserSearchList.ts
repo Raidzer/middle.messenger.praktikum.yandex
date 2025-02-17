@@ -104,10 +104,12 @@ class UserSearchList extends Block<IUserSearchList> {
     const chats = newProps.chats as IChatData[];
     if (chats) {
       this.children.messagesCard = [];
-      chats.forEach((chat) => {
+      this.children.messagesCard = chats.map((chat) => {
         const isSelectedChat =
           this.props.selectChatId !== null &&
           chat.id === this.props.selectChatId;
+        console.log(this.props.selectChatId);
+        console.log(chat.last_message?.content);
         const messageCard = new MessageCard({
           title: chat.title,
           last_message: chat.last_message?.content,
@@ -115,7 +117,8 @@ class UserSearchList extends Block<IUserSearchList> {
           unread_count: chat.unread_count,
           isSelect: isSelectedChat,
         }) as Block<IBlockProps>;
-        this.children.messagesCard.push(messageCard);
+        return messageCard;
+        //this.children.messagesCard.push(messageCard);
       });
     }
 
