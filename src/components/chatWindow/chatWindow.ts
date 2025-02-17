@@ -24,6 +24,7 @@ import UsersController from "../../controller/UsersController";
 import UsersList from "../usersList/UsersList";
 import store from "../../store/Store";
 import { IChatAddUsers } from "../../api/ChatsAPI/IChatsAPI";
+import { isEqual } from "../../utils/utils";
 
 const sendMessage = new Button({
   icon: "fa-solid fa-paper-plane",
@@ -216,6 +217,9 @@ class ChatWindow extends Block<IBlockProps> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    if (isEqual(oldProps, newProps)) {
+      return false;
+    }
     const messages = newProps.messages as IMessagesData[];
     const userId = this.props.userId;
 

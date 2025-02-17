@@ -2,6 +2,7 @@ import UsersController from "../../controller/UsersController";
 import Block from "../../models/Block/Block";
 import { IBlockProps } from "../../models/Block/IBlock";
 import Input from "../../models/Input/Input";
+import { isEqual } from "../../utils/utils";
 import Button from "../button/Button";
 import "./modal.css";
 import modal from "./modal.hbs?raw";
@@ -37,6 +38,9 @@ class Modal extends Block<IModalProps> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    if (isEqual(oldProps, newProps)) {
+      return false;
+    }
     const newButtonAction = newProps.buttonAction;
 
     if (

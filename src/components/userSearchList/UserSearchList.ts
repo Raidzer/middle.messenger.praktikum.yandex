@@ -18,6 +18,7 @@ import {
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
 import ChatsController from "../../controller/ChatsController";
+import { isEqual } from "../../utils/utils";
 
 interface IUserSearchList extends IBlockProps {
   children: {
@@ -97,6 +98,9 @@ class UserSearchList extends Block<IUserSearchList> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    if (isEqual(oldProps, newProps)) {
+      return false;
+    }
     const chats = newProps.chats as IChatData[];
     if (chats) {
       this.children.messagesCard = [];

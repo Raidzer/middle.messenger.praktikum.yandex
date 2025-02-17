@@ -2,6 +2,7 @@ import Handlebars from "handlebars";
 import EventBus from "../../utils/EventBus/EventBus";
 import { IBlockProps } from "./IBlock";
 import { v4 as uuid } from "uuid";
+import { isEqual } from "../../utils/utils";
 
 export default abstract class Block<T extends IBlockProps = IBlockProps> {
   static EVENTS = {
@@ -78,10 +79,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidMount(oldProps?: IBlockProps): void {
-    // console.log("🚀 ~ Block<T ~ componentDidMount ~ oldProps:", oldProps);
-  }
+  componentDidMount(): void {}
 
   dispatchComponentDidMount(): void {
     this._eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -97,10 +95,11 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
-    //  console.log("🚀 ~ Block<T ~ componentDidUpdate ~ newProps:", newProps);
-    //  console.log("🚀 ~ Block<T ~ componentDidUpdate ~ oldProps:", oldProps);
+    if (isEqual(oldProps, newProps)) {
+      return false;
+    }
+
     return true;
   }
 
@@ -146,7 +145,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
 
   compile(template: string, props: IBlockProps) {
     const propsAndStubs = { ...props };
-    
+
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = [];
       child.forEach((el) => {
@@ -197,7 +196,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
         if (typeof prop === "symbol") {
           return false;
         }
-
+        const oldTarget = { ...target };
         if (prop === "events") {
           const existingEvents = (target[prop] as Partial<T>["events"]) || {};
           const newEvents = value as Partial<T>["events"];
@@ -208,7 +207,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
           (target as T)[prop as keyof T] = value;
         }
 
-        self._eventBus().emit(Block.EVENTS.FLOW_UPDATE, { ...target }, target);
+        self._eventBus().emit(Block.EVENTS.FLOW_UPDATE, oldTarget, target);
         return true;
       },
 

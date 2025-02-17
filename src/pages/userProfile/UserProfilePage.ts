@@ -22,6 +22,7 @@ import UserAvatar from "../../components/userAvatar/UserAvatar";
 import Modal from "../../components/modal/Modal";
 import UploadFileInput from "../../components/uploadFileInput/UploadFileInput";
 import ChatsController from "../../controller/ChatsController";
+import { isEqual } from "../../utils/utils";
 
 const buttonChangePassword = new Button({
   type: ButtonType.BUTTON,
@@ -237,6 +238,9 @@ class UserProfilePage extends Block<IBlockProps> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    if (isEqual(oldProps, newProps)) {
+      return false;
+    }
     (this.children.input as InfoRow[]).forEach((el) => {
       const inputName = el.props.name as keyof IUserData;
 
