@@ -257,15 +257,6 @@ class UserProfilePage extends Block<IBlockProps> {
     return true;
   }
 
-  show() {
-    if (!this.element) {
-      return;
-    }
-    const { user } = store.getState();
-    this.setProps({ user });
-    this.element.style.display = "flex";
-  }
-
   hide() {
     if (!this.element) {
       return;

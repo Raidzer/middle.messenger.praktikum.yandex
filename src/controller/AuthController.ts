@@ -44,6 +44,8 @@ class AuthController {
   }
 
   public async logout() {
+    store.set("selectedChat", null);
+    store.set("user", null);
     await AuthAPI.logout();
   }
 
