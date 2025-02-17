@@ -41,7 +41,7 @@ class MessagesController {
       this._openSocket.close();
       this._openSocket = null;
       store.set("messages", []);
-      
+
       const urlWs = `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`;
 
       const wsTransport = new WSTransport(urlWs);
@@ -74,13 +74,7 @@ class MessagesController {
       messages.push(data);
     }
 
-    const oldMessage = store.getState().messages;
-
-    if (oldMessage) {
-      store.set("messages", [...oldMessage, ...messages]);
-    } else {
-      store.set("messages", messages);
-    }
+    store.set("messages", messages);
   }
 }
 
