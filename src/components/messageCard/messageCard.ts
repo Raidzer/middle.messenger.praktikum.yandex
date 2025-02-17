@@ -19,10 +19,15 @@ export default class MessageCard extends Block<IMessageCardProps> {
         click: {
           cb: async () => {
             const selectedChatId = props.id;
-            const { user, chats } = store.getState();
+            const { user, chats, selectedChat } = store.getState();
             const userId = user?.id;
 
+            if (selectedChatId === selectedChat?.id) {
+              return;
+            }
+
             if (selectedChatId && userId && chats) {
+              store.set("messages", null);
               const selectedChat = structuredClone(
                 chats.find((chat) => chat.id === selectedChatId)
               );
