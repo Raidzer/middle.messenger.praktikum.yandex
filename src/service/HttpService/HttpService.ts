@@ -34,7 +34,7 @@ type HTTPMethod = (
 ) => Promise<{ data: unknown; status: number }>;
 export default class HTTPService {
   private _endpoint: string;
-  private _baseUrl: string = "https:/ya-praktikum.tech/api/v2";
+  private _baseUrl: string = "https://ya-praktikum.tech/api/v2";
 
   constructor(endpoint: string) {
     this._endpoint = this._baseUrl + endpoint;
