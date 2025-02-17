@@ -38,7 +38,6 @@ export default class HTTPService {
 
   constructor(endpoint: string) {
     this._endpoint = this._baseUrl + endpoint;
-    console.log(this._endpoint);
   }
 
   get: HTTPMethod = (url, options = {}) => {
@@ -91,7 +90,7 @@ export default class HTTPService {
           : url,
         true
       );
-      console.log(xhr)
+
       xhr.onload = function () {
         const status = xhr.status;
 
