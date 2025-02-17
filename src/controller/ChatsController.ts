@@ -90,6 +90,20 @@ class ChatsController {
       console.log(error);
     }
   }
+
+  public async changeChatAvatar(data: File, chatId: number) {
+    try {
+      const response = await ChatsAPI.changeChatAvatar(data, chatId);
+
+      if (response.status === 200) {
+        await this.getChats();
+      }
+
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default new ChatsController();

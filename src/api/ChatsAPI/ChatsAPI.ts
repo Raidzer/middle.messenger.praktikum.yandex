@@ -71,6 +71,21 @@ class ChatsAPI extends BaseAPI {
       throw new Error(`${error}`);
     }
   }
+
+  async changeChatAvatar(data: File, chatId: number) {
+    try {
+      const formData = new FormData();
+      formData.append("avatar", data);
+      formData.append("chatId", `${chatId}`);
+      const response = await this._fetch.put("/avatar", {
+        data: formData,
+      });
+
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
 }
 
 export default new ChatsAPI();

@@ -50,6 +50,15 @@ class Modal extends Block<IModalProps> {
       this.children.buttonAction = newButtonAction;
     }
 
+    const newInput = newProps.input;
+
+    if (
+      Array.isArray(newInput) &&
+      newInput.every((item) => item instanceof Input || Block)
+    ) {
+      this.children.input = newInput;
+    }
+
     return true;
   }
 

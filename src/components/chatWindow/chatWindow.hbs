@@ -1,31 +1,32 @@
 <div class="chat-container">
   {{#if isOpen}}
-  <div class="options-chat-container">
-    <div class="user">
-      <div class="user-name">{{title}}</div>
-    </div>
-    {{{buttonDeleteChat}}}
-    {{{buttonAddUser}}}
-    {{{buttonDeleteUser}}}
-  </div>
-  <div class="chat-message-container">
-    {{#each messages}}
-      {{{this}}}
-    {{/each}}
-  </div>
-  <div class="tools-chat-container">
-    <div class="load-file">
-      {{{loadFile}}}
-    </div>
-    <form class="text-message-form">
-      <div class="text-message">
-        {{{messageInput}}}
+    <div class="options-chat-container">
+      <div class="user">
+        <div class="user-name">{{title}}</div>
       </div>
-      <div class="send-message">
-        {{{sendMessage}}}
+      {{{buttonDeleteChat}}}
+      {{{buttonAddUser}}}
+      {{{buttonDeleteUser}}}
+      {{{buttonChangeChatAvatar}}}
+    </div>
+    <div class="chat-message-container">
+      {{#each messages}}
+        {{{this}}}
+      {{/each}}
+    </div>
+    <div class="tools-chat-container">
+      <div class="load-file">
+        {{{loadFile}}}
       </div>
-    </form>
-  </div>
-  {{{modal}}}
+      <form class="text-message-form">
+        <div class="text-message">
+          {{{messageInput}}}
+        </div>
+        <div class="send-message">
+          {{{sendMessage}}}
+        </div>
+      </form>
+    </div>
+    {{{modal}}}
   {{/if}}
 </div>

@@ -1,6 +1,10 @@
 <div class="message-container{{#if isSelect}} selected{{/if}}">
   <div class="avatar-container">
+      {{#if avatar}}
+    <img src="{{avatar}}" alt="Картинка чата" class="avatar" />
+  {{else}}
     <div class="avatar"></div>
+  {{/if}}
   </div>
   <div class="message-data-container">
     <div class="user-name">{{title}}</div>

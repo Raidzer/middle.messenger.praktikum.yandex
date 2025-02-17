@@ -37,7 +37,7 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
       } else {
         lhs[p] = rhs[p];
       }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       lhs[p] = rhs[p];
     }
@@ -124,6 +124,9 @@ export function debounce<T extends (...args: unknown[]) => void>(
 }
 
 export function getAvatarUrl(path: string): string {
+  if (!path) {
+    return "";
+  }
   const baseUrl = "https://ya-praktikum.tech/api/v2/resources";
   return baseUrl + path;
 }

@@ -18,7 +18,7 @@ import {
   ValidationRulesRegExp,
 } from "../../utils/validationRules/validationRules";
 import ChatsController from "../../controller/ChatsController";
-import { isEqual } from "../../utils/utils";
+import { getAvatarUrl, isEqual } from "../../utils/utils";
 
 interface IUserSearchList extends IBlockProps {
   children: {
@@ -108,17 +108,16 @@ class UserSearchList extends Block<IUserSearchList> {
         const isSelectedChat =
           this.props.selectChatId !== null &&
           chat.id === this.props.selectChatId;
-        console.log(this.props.selectChatId);
-        console.log(chat.last_message?.content);
+        const avatarUrl = getAvatarUrl(chat.avatar);
         const messageCard = new MessageCard({
           title: chat.title,
           last_message: chat.last_message?.content,
           id: chat.id,
           unread_count: chat.unread_count,
           isSelect: isSelectedChat,
+          avatar: avatarUrl,
         }) as Block<IBlockProps>;
         return messageCard;
-        //this.children.messagesCard.push(messageCard);
       });
     }
 

@@ -25,6 +25,7 @@ import UsersList from "../usersList/UsersList";
 import store from "../../store/Store";
 import { IChatAddUsers } from "../../api/ChatsAPI/IChatsAPI";
 import { isEqual } from "../../utils/utils";
+import UploadFileInput from "../uploadFileInput/UploadFileInput";
 
 const sendMessage = new Button({
   icon: "fa-solid fa-paper-plane",
@@ -111,8 +112,28 @@ const buttonDeleteUser = new Button({
   },
 });
 
+const inputAvatar = new UploadFileInput({});
+
+const buttonChangeChatAvatar = new Button({
+  type: ButtonType.BUTTON,
+  label: "Изменить аватар",
+  events: {
+    click: {
+      cb: async () => {
+        const avatar = inputAvatar.value;
+        const chatId = store.getState().selectedChat?.id;
+
+        if (avatar && chatId) {
+          await ChatsController.changeChatAvatar(avatar, chatId);
+        }
+        modal.hide();
+      },
+    },
+  },
+});
+
 const modal = new Modal({
-  input: [userSearch],
+  input: [],
   content: [usersList],
   buttonAction: [],
 });
@@ -183,7 +204,10 @@ class ChatWindow extends Block<IBlockProps> {
         events: {
           click: {
             cb: () => {
-              modal.setProps({ buttonAction: [buttonAddUser] });
+              modal.setProps({
+                buttonAction: [buttonAddUser],
+                input: [userSearch],
+              });
               modal.show();
             },
           },
@@ -205,10 +229,32 @@ class ChatWindow extends Block<IBlockProps> {
                   chatId
                 );
                 if (isReadyUsersList) {
-                  modal.setProps({ buttonAction: [buttonDeleteUser] });
+                  modal.setProps({
+                    buttonAction: [buttonDeleteUser],
+                    input: [],
+                  });
                   modal.show();
                 }
               }
+            },
+          },
+        },
+      }),
+    ];
+
+    this.children.buttonChangeChatAvatar = [
+      new Button({
+        class: ButtonClass.SECONDARY,
+        label: "Изменить картинку чата",
+        type: ButtonType.BUTTON,
+        events: {
+          click: {
+            cb: () => {
+              modal.setProps({
+                buttonAction: [buttonChangeChatAvatar],
+                input: [inputAvatar],
+              });
+              modal.show();
             },
           },
         },
