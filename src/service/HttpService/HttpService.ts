@@ -38,6 +38,7 @@ export default class HTTPService {
 
   constructor(endpoint: string) {
     this._endpoint = this._baseUrl + endpoint;
+    console.log(this._endpoint);
   }
 
   get: HTTPMethod = (url, options = {}) => {
