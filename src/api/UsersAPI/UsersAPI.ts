@@ -1,8 +1,8 @@
 import { BaseAPI } from "../BaseAPI";
 import {
-  IPasswordChangeData,
   ISearchUserByLogin,
   IUserChangeData,
+  IUserPasswordChangeData,
 } from "./IUsersApi";
 
 class UsersAPI extends BaseAPI {
@@ -19,7 +19,7 @@ class UsersAPI extends BaseAPI {
     }
   }
 
-  async changeUserPassword(data: IPasswordChangeData) {
+  async changeUserPassword(data: IUserPasswordChangeData) {
     try {
       const response = await this._fetch.put("/password", { data });
       return response;

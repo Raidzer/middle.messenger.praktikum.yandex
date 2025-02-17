@@ -37,7 +37,7 @@ export default abstract class Input extends Block<IInputProps> {
 
   clearValue() {
     this._value = "";
-    this.setProps({ value: "" });
+    this.setProps({ value: "", error: null });
     this.render();
   }
 

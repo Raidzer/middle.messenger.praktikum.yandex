@@ -1,7 +1,7 @@
 import {
-  IPasswordChangeData,
   ISearchUserByLogin,
   IUserChangeData,
+  IUserPasswordChangeData,
 } from "../api/UsersAPI/IUsersApi";
 import UserAPI from "../api/UsersAPI/UsersAPI";
 import { Routes } from "../enums/Routes";
@@ -25,7 +25,7 @@ class UsersController {
     }
   }
 
-  public async changeUserPassword(data: IPasswordChangeData) {
+  public async changeUserPassword(data: IUserPasswordChangeData) {
     try {
       const response = await UserAPI.changeUserPassword(data);
 

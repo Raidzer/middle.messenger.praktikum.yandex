@@ -59,7 +59,7 @@ const buttonBack = new Button({
     click: {
       cb: async () => {
         await ChatsController.getChats();
-        Router.go(Routes.CHAT);
+        Router.back();
       },
     },
   },
@@ -214,6 +214,7 @@ class UserProfilePage extends Block<IBlockProps> {
   }
 
   async init(): Promise<void> {
+    buttonSaveChange.hide();
     await AuthController.getUser();
     const { user } = store.getState();
     (this.children.input as InfoRow[]).forEach((el) => {
@@ -233,14 +234,9 @@ class UserProfilePage extends Block<IBlockProps> {
         el.setProps({ value: userInfo[inputName] as string });
       }
     });
-    buttonSaveChange.hide();
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
-    console.log(
-      "🚀 ~ UserProfilePage ~ componentDidUpdate ~ newProps:",
-      newProps
-    );
     (this.children.input as InfoRow[]).forEach((el) => {
       const inputName = el.props.name as keyof IUserData;
 

@@ -8,7 +8,7 @@ export interface IUserChangeData {
   email: string;
 }
 
-export interface IPasswordChangeData {
+export interface IUserPasswordChangeData {
   oldPassword: string;
   newPassword: string;
 }

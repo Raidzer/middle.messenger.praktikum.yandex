@@ -11,6 +11,10 @@ import {
 } from "../../utils/validationRules/validationRules";
 import changePasswordPage from "./changePasswordPage.hbs?raw";
 import "./changePasswordPage.css";
+import { IUserPasswordChangeData } from "../../api/UsersAPI/IUsersApi";
+import UsersController from "../../controller/UsersController";
+import Router from "../../router/Router";
+import UserAvatar from "../../components/userAvatar/UserAvatar";
 
 const buttonSave = new Button({
   type: ButtonType.SUBMIT,
@@ -26,8 +30,8 @@ const infoRowOldPassword = new InfoRow({
   name: "oldPassword",
   placeholder: "Пароль",
   validate: {
-    rule: ValidationRulesRegExp.Password,
-    errorMessage: ValidationMessageError.Password,
+    rule: ValidationRulesRegExp.password,
+    errorMessage: ValidationMessageError.password,
   },
 });
 
@@ -39,8 +43,8 @@ const infoRowNewPassword = new InfoRow({
   name: "newPassword",
   placeholder: "Новый пароль",
   validate: {
-    rule: ValidationRulesRegExp.Password,
-    errorMessage: ValidationMessageError.Password,
+    rule: ValidationRulesRegExp.password,
+    errorMessage: ValidationMessageError.password,
   },
 });
 
@@ -52,8 +56,23 @@ const infoRowNewPasswordRepeat = new InfoRow({
   name: "newPasswordRepeat",
   placeholder: "Новый пароль (еще раз)",
   validate: {
-    rule: ValidationRulesRegExp.Password,
-    errorMessage: ValidationMessageError.Password,
+    rule: ValidationRulesRegExp.password,
+    errorMessage: ValidationMessageError.password,
+  },
+});
+
+const buttonBack = new Button({
+  type: ButtonType.BUTTON,
+  icon: "fa-solid fa-arrow-left",
+  events: {
+    click: {
+      cb: () => {
+        Router.back();
+        infoRowOldPassword.clearValue();
+        infoRowNewPassword.clearValue();
+        infoRowNewPasswordRepeat.clearValue();
+      },
+    },
   },
 });
 
@@ -65,7 +84,7 @@ const changePasswordForm = new userInfoForm({
   userName: "Иван",
   events: {
     submit: {
-      cb: (event) => {
+      cb: async (event) => {
         event.preventDefault();
 
         const form = event.target;
@@ -76,7 +95,8 @@ const changePasswordForm = new userInfoForm({
         const dataValid =
           infoRowOldPassword.inputValidate() &&
           infoRowNewPassword.inputValidate() &&
-          infoRowNewPasswordRepeat.inputValidate();
+          infoRowNewPasswordRepeat.inputValidate() &&
+          infoRowNewPassword.value === infoRowNewPasswordRepeat.value;
 
         if (!dataValid) {
           return;
@@ -84,21 +104,34 @@ const changePasswordForm = new userInfoForm({
 
         const formData = new FormData(form);
 
-        const formDataObj: Record<string, string> = {};
+        const formValues: IUserPasswordChangeData = {
+          oldPassword: "",
+          newPassword: "",
+        };
+
         formData.forEach((value, key) => {
-          formDataObj[key] = value as string;
+          if (key in formValues) {
+            formValues[key as keyof IUserPasswordChangeData] = value as string;
+          }
         });
 
-        console.table(formDataObj);
+        await UsersController.changeUserPassword(formValues);
+        infoRowOldPassword.clearValue();
+        infoRowNewPassword.clearValue();
+        infoRowNewPasswordRepeat.clearValue();
       },
     },
   },
 });
 
+const userAvatar = new UserAvatar({});
+
 export class ChangePasswordPage extends Block<IBlockProps> {
   constructor(props?: IBlockProps) {
     props = {
       form: changePasswordForm,
+      buttonBack,
+      userAvatar,
     };
     super(props);
   }
