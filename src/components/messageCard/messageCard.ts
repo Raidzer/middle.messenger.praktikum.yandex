@@ -27,7 +27,7 @@ export default class MessageCard extends Block<IMessageCardProps> {
             }
 
             if (selectedChatId && userId && chats) {
-              store.set("messages", null);
+              store.set("messages", []);
               const selectedChat = structuredClone(
                 chats.find((chat) => chat.id === selectedChatId)
               );
