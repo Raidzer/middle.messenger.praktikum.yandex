@@ -81,7 +81,6 @@ const changePasswordForm = new userInfoForm({
   infoRowOldPassword,
   infoRowNewPassword,
   infoRowNewPasswordRepeat,
-  userName: "Иван",
   events: {
     submit: {
       cb: async (event) => {
