@@ -91,7 +91,7 @@ export default class HTTPService {
           : url,
         true
       );
-
+      console.log(xhr)
       xhr.onload = function () {
         const status = xhr.status;
 
