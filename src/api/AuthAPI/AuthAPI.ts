@@ -11,7 +11,16 @@ class AuthAPI extends BaseAPI {
       const response = await this._fetch.post("/signin", { data });
       return response;
     } catch (error) {
-      throw new Error(`${error}`);
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+
+      if (typeof error === "object" && error !== null && "data" in error) {
+        const err = error as { data: { reason: string } };
+        throw new Error(err.data.reason);
+      }
+
+      throw new Error("Unknown error occurred");
     }
   }
 

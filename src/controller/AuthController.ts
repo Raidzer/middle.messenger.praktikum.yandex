@@ -15,6 +15,7 @@ class AuthController {
 
       if (response.status === 200) {
         store.set("user", response.data);
+        return response;
       } else if (response.status === 401) {
         Router.go(Routes.LOGIN);
       }
@@ -25,19 +26,24 @@ class AuthController {
   }
 
   public async signin(data: ISigninData) {
-    const response = await AuthAPI.signin(data);
-
-    this._checkStatusResponse(response);
+    try {
+      await this.logout();
+      const response = await AuthAPI.signin(data);
+      this._checkStatusResponse(response);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   public async signup(data: ISignupData) {
+    await this.logout();
     const response = await AuthAPI.signup(data);
 
     this._checkStatusResponse(response);
   }
 
-  public logout() {
-    AuthAPI.logout();
+  public async logout() {
+    await AuthAPI.logout();
   }
 
   private _checkStatusResponse(response: {
