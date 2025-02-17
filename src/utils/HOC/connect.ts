@@ -14,8 +14,8 @@ export default function connect(mapStateToProps: (state: Indexed) => Indexed) {
           const newState = mapStateToProps(store.getState());
           if (!isEqual(state, newState)) {
             this.setProps({ ...newState });
+            state = newState;
           }
-          state = newState;
         });
       }
     };

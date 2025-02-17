@@ -3,6 +3,7 @@ import { ISigninData, ISignupData } from "../api/AuthAPI/IAuthAPI";
 import { Routes } from "../enums/Routes";
 import Router from "../router/Router";
 import store from "../store/Store";
+import ChatsController from "./ChatsController";
 
 class AuthController {
   public async getUser() {
@@ -46,15 +47,16 @@ class AuthController {
     await AuthAPI.logout();
   }
 
-  private _checkStatusResponse(response: {
+  private async _checkStatusResponse(response: {
     data: unknown;
     status: number;
-  }): void {
+  }): Promise<void> {
     if (response.status >= 500) {
       Router.go(Routes.ERROR500);
     }
 
     if (response.status === 200) {
+      await ChatsController.getChats();
       Router.go(Routes.CHAT);
     }
   }

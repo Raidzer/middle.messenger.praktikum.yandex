@@ -3,9 +3,8 @@ import { IBlockProps } from "../../models/Block/IBlock";
 import ChatWindow from "../../components/chatWindow/chatWindow";
 import "./messagePage.css";
 import messagePage from "./messagePage.hbs?raw";
-import ChatsController from "../../controller/ChatsController";
 import UserSearchList from "../../components/userSearchList/UserSearchList";
-import store from "../../store/Store";
+import ChatsController from "../../controller/ChatsController";
 
 const userSearchList = new UserSearchList({});
 const chatWindow = new ChatWindow({});
@@ -17,15 +16,18 @@ export class MessagePage extends Block<IBlockProps> {
       chatWindow,
     };
     super(props);
-    ChatsController.getChats();
   }
 
-  init(): void {
-    const { selectedChat } = store.getState();
+  async init(): Promise<void> {
+    await ChatsController.getChats();
+  }
 
-    if (!selectedChat) {
-      chatWindow.hide();
+  async show() {
+    if (!this.element) {
+      return;
     }
+    await ChatsController.getChats();
+    this.element.style.display = "flex";
   }
 
   render(): DocumentFragment {

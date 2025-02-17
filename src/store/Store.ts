@@ -6,7 +6,7 @@ import { IChatData } from "../api/ChatsAPI/IChatsAPI";
 import { IMessagesData } from "../controller/MessagesController/IMessagesController";
 
 interface IStoreState {
-  user?: IUserData;
+  user: IUserData | null;
   chats?: IChatData[];
   selectedChat: IChatData | null;
   messages?: IMessagesData[];
@@ -23,8 +23,8 @@ class Store extends EventBus {
       selectedChat: null,
       userSearchList: [],
       selectedUser: null,
+      user: null,
     };
-    this.on(StoreEvents.Update, () => {});
   }
 
   public getState() {

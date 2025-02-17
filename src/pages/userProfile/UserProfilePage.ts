@@ -21,6 +21,7 @@ import store from "../../store/Store";
 import UserAvatar from "../../components/userAvatar/UserAvatar";
 import Modal from "../../components/modal/Modal";
 import UploadFileInput from "../../components/uploadFileInput/UploadFileInput";
+import ChatsController from "../../controller/ChatsController";
 
 const buttonChangePassword = new Button({
   type: ButtonType.BUTTON,
@@ -56,7 +57,10 @@ const buttonBack = new Button({
   icon: "fa-solid fa-arrow-left",
   events: {
     click: {
-      cb: () => Router.go(Routes.CHAT),
+      cb: async () => {
+        await ChatsController.getChats();
+        Router.go(Routes.CHAT);
+      },
     },
   },
 });
@@ -157,7 +161,7 @@ class UserProfilePage extends Block<IBlockProps> {
       modal,
       events: {
         submit: {
-          cb: (event: SubmitEvent) => {
+          cb: async (event: SubmitEvent) => {
             event.preventDefault();
 
             let valid = true;
@@ -191,7 +195,9 @@ class UserProfilePage extends Block<IBlockProps> {
                 }
               });
 
-              UsersController.changeUserInfo(formValues);
+              await UsersController.changeUserInfo(formValues);
+              const { user } = store.getState();
+              this.setProps({ user });
               input.forEach((el) => {
                 el.setProps({ isEditable: false });
               });
@@ -205,10 +211,10 @@ class UserProfilePage extends Block<IBlockProps> {
       },
     };
     super(props);
-    AuthController.getUser();
   }
 
   async init(): Promise<void> {
+    await AuthController.getUser();
     const { user } = store.getState();
     (this.children.input as InfoRow[]).forEach((el) => {
       const inputName = el.props.name as keyof IUserData;
@@ -231,6 +237,10 @@ class UserProfilePage extends Block<IBlockProps> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
+    console.log(
+      "🚀 ~ UserProfilePage ~ componentDidUpdate ~ newProps:",
+      newProps
+    );
     (this.children.input as InfoRow[]).forEach((el) => {
       const inputName = el.props.name as keyof IUserData;
 
@@ -249,6 +259,29 @@ class UserProfilePage extends Block<IBlockProps> {
       }
     });
     return true;
+  }
+
+  show() {
+    if (!this.element) {
+      return;
+    }
+    const { user } = store.getState();
+    this.setProps({ user });
+    this.element.style.display = "flex";
+  }
+
+  hide() {
+    if (!this.element) {
+      return;
+    }
+    input.forEach((el) => {
+      el.setProps({ isEditable: false });
+    });
+    buttonSaveChange.hide();
+    buttonChangePassword.show();
+    buttonChangeUserInfo.show();
+    buttonLogout.show();
+    this.element.style.display = "none";
   }
 
   render(): DocumentFragment {

@@ -8,10 +8,13 @@ export class InfoRow extends Input {
     super(props);
   }
 
+  init(): void {}
+
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
     const value = newProps.value;
+    const isEditable = this.props.isEditable;
 
-    if (typeof value === "string") {
+    if (!isEditable && typeof value === "string") {
       this.setValue(value);
     }
 
@@ -19,6 +22,6 @@ export class InfoRow extends Input {
   }
 
   render(): DocumentFragment {
-    return this.compile(infoRow, this.props);
+    return this.compile(infoRow, { ...this.props, value: this.value });
   }
 }
