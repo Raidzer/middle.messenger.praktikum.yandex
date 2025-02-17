@@ -227,10 +227,22 @@ class ChatWindow extends Block<IBlockProps> {
         }) as Block<IBlockProps>;
         return messageEl;
       });
+
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 0);
+
       this.show();
     }
 
     return true;
+  }
+
+  scrollToBottom() {
+    const container = document.querySelector(".chat-message-container");
+    if (container) {
+      container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+    }
   }
 
   render(): DocumentFragment {

@@ -37,6 +37,7 @@
 
   .chat-message-container {
     height: 100%;
+    overflow: auto;
   }
 
   .tools-chat-container {
