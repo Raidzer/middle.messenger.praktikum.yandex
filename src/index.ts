@@ -1,4 +1,5 @@
 import AuthController from "./controller/AuthController.ts";
+import { HTTPStatus } from "./enums/HTTP.ts";
 import { Routes } from "./enums/Routes.ts";
 import { ChangePasswordPage } from "./pages/changePassword/ChangePasswordPage.ts";
 import { Error404Page } from "./pages/error404/Error404Page.ts";
@@ -10,6 +11,13 @@ import UserProfilePage from "./pages/userProfile/UserProfilePage.ts";
 import Router from "./router/Router.ts";
 
 window.addEventListener("DOMContentLoaded", async () => {
+  if (window.location.pathname === "/") {
+    const response = await AuthController.getUser();
+    if (response && response.status === HTTPStatus.OK) {
+      Router.go(Routes.CHAT);
+    }
+  }
+
   Router.use(Routes.LOGIN, LoginPage)
     .use(Routes.REGISTER, RegisterPage)
     .use(Routes.ERROR404, Error404Page)
@@ -18,6 +26,4 @@ window.addEventListener("DOMContentLoaded", async () => {
     .use(Routes.PROFILE, UserProfilePage)
     .use(Routes.CHANGEPASSWORD, ChangePasswordPage)
     .start();
-
-  await AuthController.getUser();
 });
