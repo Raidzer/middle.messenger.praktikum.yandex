@@ -1,0 +1,23 @@
+<div>
+  {{#if isOpen}}
+    <div class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-close">
+          {{{buttonClose}}}
+        </div>
+        <div class="modal-form">
+          {{#each input}}
+            {{{this}}}
+          {{/each}}
+          <div class="modal-button-submit">
+            {{{buttonSubmit}}}
+          </div>
+        </div>
+        <div class="modal-content-container">
+          {{{content}}}
+          {{{buttonAction}}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</div>

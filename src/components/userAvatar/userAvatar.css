@@ -1,0 +1,23 @@
+@import url("../../styles/colors.css");
+@import url("../../styles/styles.css");
+
+.user-avatar {
+  height: 150px;
+  width: 150px;
+  min-width: 150px;
+  min-height: 150px;
+  background-image: url("/images/avatar.png"); /* Заглушка */
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.has-avatar {
+    background-image: none;
+  }
+}

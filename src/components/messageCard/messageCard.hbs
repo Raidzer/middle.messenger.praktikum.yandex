@@ -1,15 +1,19 @@
-<div class="message-container">
+<div class="message-container{{#if isSelect}} selected{{/if}}">
   <div class="avatar-container">
+      {{#if avatar}}
+    <img src="{{avatar}}" alt="Картинка чата" class="avatar" />
+  {{else}}
     <div class="avatar"></div>
+  {{/if}}
   </div>
   <div class="message-data-container">
-    <div class="user-name">{{name}}</div>
+    <div class="user-name">{{title}}</div>
     <div class="user-message">
-      {{lastMessageText}}
+      {{last_message}}
     </div>
   </div>
   <div class="date-container">
     <div class="date-text">{{lastMessageDate}}</div>
-    <div class="message-count">{{countUnreadMessage}}</div>
+    <div class="message-count">{{unread_count}}</div>
   </div>
 </div>

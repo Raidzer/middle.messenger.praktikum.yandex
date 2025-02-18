@@ -33,18 +33,11 @@
         font-weight: bold;
       }
     }
-
-    .chat-menu {
-      height: 100%;
-
-      button {
-        height: 100%;
-      }
-    }
   }
 
   .chat-message-container {
     height: 100%;
+    overflow: auto;
   }
 
   .tools-chat-container {

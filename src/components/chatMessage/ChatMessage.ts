@@ -4,11 +4,11 @@ import incomingMessage from "./chatMessage.hbs?raw";
 import "./chatMessage.css";
 
 interface IMessageProps extends IBlockProps {
-  text: string;
+  content: string;
   isIncoming: boolean;
 }
 
-export class IncomingMessage extends Block<IMessageProps> {
+export class ChatMessage extends Block<IMessageProps> {
   constructor(props: IMessageProps) {
     super(props);
   }

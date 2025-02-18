@@ -1,0 +1,10 @@
+<div class="user-list-container">
+  {{#if usersList.length}}
+    <h3 class="user-list-title">Список пользователей:</h3>
+  {{/if}}
+  <ul class="user-list">
+    {{#each usersList}}
+      {{{this}}}
+    {{/each}}
+  </ul>
+</div>

@@ -2,6 +2,7 @@ import Handlebars from "handlebars";
 import EventBus from "../../utils/EventBus/EventBus";
 import { IBlockProps } from "./IBlock";
 import { v4 as uuid } from "uuid";
+import { isEqual } from "../../utils/utils";
 
 export default abstract class Block<T extends IBlockProps = IBlockProps> {
   static EVENTS = {
@@ -78,9 +79,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
     });
   }
 
-  componentDidMount(oldProps?: IBlockProps): void {
-    console.log("🚀 ~ Block<T ~ componentDidMount ~ oldProps:", oldProps);
-  }
+  componentDidMount(): void {}
 
   dispatchComponentDidMount(): void {
     this._eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -97,8 +96,10 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
   }
 
   componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): boolean {
-    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ newProps:", newProps);
-    console.log("🚀 ~ Block<T ~ componentDidUpdate ~ oldProps:", oldProps);
+    if (isEqual(oldProps, newProps)) {
+      return false;
+    }
+
     return true;
   }
 
@@ -139,6 +140,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
     this._element = newElement;
     this._deleteEvents();
     this._addEvents();
+    this._eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
   compile(template: string, props: IBlockProps) {
@@ -146,11 +148,14 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
 
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = [];
-      child.map((el) => {
+      child.forEach((el) => {
         if (el._id) {
           if (Array.isArray(propsAndStubs[key])) {
             propsAndStubs[key].push(`<div data-id="${el._id}"></div>`);
           }
+        } else {
+          propsAndStubs[key] = child;
+          return;
         }
       });
     });
@@ -191,7 +196,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
         if (typeof prop === "symbol") {
           return false;
         }
-
+        const oldTarget = { ...target };
         if (prop === "events") {
           const existingEvents = (target[prop] as Partial<T>["events"]) || {};
           const newEvents = value as Partial<T>["events"];
@@ -202,7 +207,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
           (target as T)[prop as keyof T] = value;
         }
 
-        self._eventBus().emit(Block.EVENTS.FLOW_UPDATE, { ...target }, target);
+        self._eventBus().emit(Block.EVENTS.FLOW_UPDATE, oldTarget, target);
         return true;
       },
 
@@ -248,7 +253,7 @@ export default abstract class Block<T extends IBlockProps = IBlockProps> {
     if (!this.element) {
       return;
     }
-    this.element.style.display = "block";
+    this.element.style.display = "flex";
   }
 
   hide() {

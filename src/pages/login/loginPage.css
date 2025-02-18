@@ -1,0 +1,31 @@
+@import url("../../styles/colors.css");
+@import url("../../styles/styles.css");
+
+.container-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  max-height: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: auto;
+  }
+}

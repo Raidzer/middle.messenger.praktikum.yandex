@@ -1,18 +1,14 @@
 <div class="list-chat-container">
   <div class="tools-container">
     <div class="profile-container">
-      <button>Профиль</button>
-    </div>
-    <div class="search-container">
-      <input
-        class="login-input"
-        name="search"
-        type="text"
-        placeholder="Поиск"
-      />
+      {{{chatMenu}}}
+      {{{profile}}}
     </div>
   </div>
   <div class="messages-container">
-    {{{messageCard}}}
+    {{#each messagesCard}}
+      {{{this}}}
+    {{/each}}
   </div>
+  {{{modal}}}
 </div>

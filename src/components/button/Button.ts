@@ -8,10 +8,10 @@ interface IButtonProps extends IBlockProps {
   type?: ButtonType;
   class?: ButtonClass;
   label?: string;
-  icon? : string;
+  icon?: string;
 }
 
-export default class Button extends Block<IButtonProps> {
+class Button extends Block<IButtonProps> {
   constructor(props: IButtonProps) {
     super(props);
   }
@@ -20,3 +20,5 @@ export default class Button extends Block<IButtonProps> {
     return this.compile(button, this.props);
   }
 }
+
+export default Button;

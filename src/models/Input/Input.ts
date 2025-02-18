@@ -35,15 +35,20 @@ export default abstract class Input extends Block<IInputProps> {
     return this._value;
   }
 
+  clearValue() {
+    this._value = "";
+    this.setProps({ value: "", error: null });
+    this.render();
+  }
+
   private _validate(value: string): boolean {
     const rule = this.props.validate?.rule;
     const errorMessage = this.props.validate?.errorMessage;
-
     if (!rule || !errorMessage) {
       return true;
     }
 
-    if (!rule.test(value)) {
+    if (!rule.test(value) || value === undefined) {
       if (this.props.error === errorMessage) {
         return false;
       }
@@ -59,5 +64,9 @@ export default abstract class Input extends Block<IInputProps> {
 
   inputValidate(): boolean {
     return this._validate(this._value);
+  }
+
+  setValue(value: string) {
+    this._value = value;
   }
 }

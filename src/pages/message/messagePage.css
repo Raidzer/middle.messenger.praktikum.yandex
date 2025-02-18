@@ -1,0 +1,9 @@
+@import url("../../styles/colors.css");
+@import url("../../styles/styles.css");
+
+.container-message-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}

@@ -28,21 +28,6 @@
         cursor: pointer;
       }
     }
-
-    .search-container {
-      width: 100%;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: center;
-
-      input {
-        width: 90%;
-        height: 30px;
-        border: 2px solid var(--border-gray-color);
-        border-radius: 4px;
-        text-align: center;
-      }
-    }
   }
 
   .messages-container {
