@@ -1,5 +1,6 @@
 import AuthAPI from "../api/AuthAPI/AuthAPI";
 import { ISigninData, ISignupData } from "../api/AuthAPI/IAuthAPI";
+import { HTTPStatus } from "../enums/HTTP";
 import { Routes } from "../enums/Routes";
 import Router from "../router/Router";
 import store from "../store/Store";
@@ -14,10 +15,10 @@ class AuthController {
         return;
       }
 
-      if (response.status === 200) {
+      if (response.status === HTTPStatus.OK) {
         store.set("user", response.data);
         return response;
-      } else if (response.status === 401) {
+      } else if (response.status === HTTPStatus.NOT_AUTH) {
         Router.go(Routes.LOGIN);
       }
     } catch (error) {
@@ -52,11 +53,11 @@ class AuthController {
     data: unknown;
     status: number;
   }): Promise<void> {
-    if (response.status >= 500) {
+    if (response.status >= HTTPStatus.SERVER_ERROR) {
       Router.go(Routes.ERROR500);
     }
 
-    if (response.status === 200) {
+    if (response.status === HTTPStatus.OK) {
       await ChatsController.getChats();
       await this.getUser();
       Router.go(Routes.CHAT);

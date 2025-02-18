@@ -1,4 +1,5 @@
 import ChatsAPI from "../../api/ChatsAPI/ChatsAPI";
+import { HTTPStatus } from "../../enums/HTTP";
 import { WSTransportEvents } from "../../enums/WSTransportEvents";
 import { WSTransport } from "../../service/WSTransport/WSTransport";
 import store from "../../store/Store";
@@ -16,7 +17,7 @@ class MessagesController {
       const response = await ChatsAPI.getChatToken(id);
       const data = response.data as { token?: string };
 
-      if (response.status === 200 && data.token) {
+      if (response.status === HTTPStatus.OK && data.token) {
         return data.token;
       }
       return null;
