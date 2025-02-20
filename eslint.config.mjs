@@ -12,6 +12,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ["**/build/*", "**/node_modules/*"],
+    ignores: ["**/build/*", "**/node_modules/*", "**/mochaSetup.js"],
   }
 );
