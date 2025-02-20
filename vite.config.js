@@ -1,18 +1,9 @@
 import { defineConfig } from "vite";
-import handlebars from "./vite-plugin-handlebars-precompile";
-import path from "path";
-
-const contextData = {
-  title: "Проект чат",
-};
 
 export default defineConfig({
   root: "src",
   plugins: [
-    handlebars({
-      partialDirectory: [path.resolve(__dirname, "components")],
-      context: contextData,
-    }),
+
   ],
   server: {
     port: 3000,
