@@ -130,3 +130,41 @@ export function getAvatarUrl(path: string): string {
   const baseUrl = "https://ya-praktikum.tech/api/v2/resources";
   return baseUrl + path;
 }
+
+export function omit<T extends object>(obj: T, fields: (keyof T)[]) {
+  const result: Record<string, unknown> = {};
+
+  Object.entries(obj).forEach(([key, value]) => {
+    if (!fields.includes(key as keyof T)) {
+      result[key] = value;
+    }
+  });
+
+  return result;
+}
+
+export function classNames(...args: unknown[]): string {
+  const resultClass: string[] = [];
+  args.forEach((arg) => {
+    if (Array.isArray(arg)) {
+      resultClass.push(classNames(...arg));
+    } else if (typeof arg === "string") {
+      resultClass.push(arg);
+    } else if (typeof arg === "object" && arg !== null && arg !== undefined) {
+      resultClass.push(
+        Object.entries(arg)
+          .reduce((acc, [key, value]) => {
+            if (value) {
+              acc.push(key as never);
+            }
+            return acc;
+          }, [])
+          .join(" ")
+      );
+    } else if (typeof arg === "number" && arg > 0) {
+      resultClass.push(`${arg}`);
+    }
+  });
+
+  return resultClass.join(" ");
+}
