@@ -17,7 +17,7 @@
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:cssfix": "stylelint \"src/**/*.css\" --fix",
     "test": "mocha",
-    "prepare": "husky"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@eslint/js": "9.18.0",
