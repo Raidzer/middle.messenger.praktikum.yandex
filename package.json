@@ -17,7 +17,7 @@
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:cssfix": "stylelint \"src/**/*.css\" --fix",
     "test": "mocha",
-    "prepare": "husky install",
+    "prepare": "husky",
     "pre-commit": "npm-run-all lint test"
   },
   "devDependencies": {
