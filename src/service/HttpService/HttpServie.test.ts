@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { expect } from "chai";
 import sinon from "sinon";
-import HTTPService from "./HttpService.ts"; // Предполагается, что код находится в HTTPService.ts
-
+import HTTPService from "./HttpService.ts";
 describe("HTTPService", () => {
   let http: HTTPService;
   let xhr: sinon.SinonFakeXMLHttpRequestStatic;
