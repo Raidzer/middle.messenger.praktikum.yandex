@@ -57,5 +57,3 @@ npm run start
 Страница изменения пароля: [changePassword](https://raidzermessenger.netlify.app/src/pages/changepassword/changepassword)
 
 # Демо: [Чат](https://raidzermessenger.netlify.app/)
-
-test
