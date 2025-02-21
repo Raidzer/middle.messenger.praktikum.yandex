@@ -1,8 +1,8 @@
-import { Routes } from "../enums/Routes";
-import Block from "../models/Block/Block";
-import Route from "./route";
+import { Routes } from "../enums/Routes.ts";
+import Block from "../models/Block/Block.ts";
+import Route from "./route.ts";
 
-class Router {
+export class Router {
   private static instance: Router;
 
   private _currentRoute: Route | null = null;

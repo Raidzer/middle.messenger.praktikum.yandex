@@ -1,5 +1,5 @@
-import Block from "../models/Block/Block";
-import { render } from "../utils/utils";
+import Block from "../models/Block/Block.ts";
+import { render } from "../utils/utils.ts";
 
 interface IRouteProps {
   rootQuery: string;

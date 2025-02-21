@@ -2,5 +2,5 @@
   "extension": ["ts"],
   "spec": "src/**/*.test.ts",
   "loader": ["ts-node/esm"],
-  "require": ["./mochaSetup.js"]
+  "require": "./mochaSetup.js"
 }
