@@ -11,11 +11,13 @@
     "dev": "vite",
     "start": "vite build  && vite preview",
     "build": "vite build",
-    "lint": "eslint .",
+    "lint": "npm run lint:eslint && npm run lint:css",
+    "lint:eslint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:cssfix": "stylelint \"src/**/*.css\" --fix",
-    "test": "mocha"
+    "test": "mocha",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@eslint/js": "9.18.0",
@@ -28,6 +30,7 @@
     "chai": "^5.2.0",
     "eslint": "9.18.0",
     "handlebars": "4.7.8",
+    "husky": "^9.1.7",
     "jsdom": "^26.0.0",
     "mocha": "^11.1.0",
     "normalize.css": "8.0.1",
