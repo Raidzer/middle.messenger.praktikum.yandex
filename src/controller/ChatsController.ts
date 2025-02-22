@@ -4,6 +4,7 @@ import {
   IChatCreateData,
   IChatDeleteData,
 } from "../api/ChatsAPI/IChatsAPI";
+import { HTTPStatus } from "../enums/HTTP";
 import store from "../store/Store";
 
 class ChatsController {
@@ -15,7 +16,7 @@ class ChatsController {
         return;
       }
 
-      if (response.status === 200) {
+      if (response.status === HTTPStatus.OK) {
         store.set("chats", response.data);
       }
     } catch (error) {
@@ -27,7 +28,7 @@ class ChatsController {
     try {
       const response = await ChatsAPI.createChat(data);
 
-      if (response.status === 200) {
+      if (response.status === HTTPStatus.OK) {
         await this.getChats();
       }
 
@@ -41,7 +42,7 @@ class ChatsController {
     try {
       const response = await ChatsAPI.deleteChat(data);
 
-      if (response.status === 200) {
+      if (response.status === HTTPStatus.OK) {
         await this.getChats();
         store.set("selectedChat", null);
       }
@@ -66,7 +67,7 @@ class ChatsController {
     try {
       const response = await ChatsAPI.getChatUsers(idChat);
 
-      if (response.status === 200) {
+      if (response.status === HTTPStatus.OK) {
         store.set("userSearchList", response.data);
         return true;
       }
@@ -95,7 +96,7 @@ class ChatsController {
     try {
       const response = await ChatsAPI.changeChatAvatar(data, chatId);
 
-      if (response.status === 200) {
+      if (response.status === HTTPStatus.OK) {
         await this.getChats();
       }
 

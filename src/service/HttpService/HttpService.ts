@@ -95,8 +95,8 @@ export default class HTTPService {
         const status = xhr.status;
 
         const contentType = xhr.getResponseHeader("Content-Type");
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        let responseData: any;
+
+        let responseData: T;
 
         if (contentType && contentType.includes("application/json")) {
           try {
@@ -106,7 +106,7 @@ export default class HTTPService {
             return e;
           }
         } else {
-          responseData = xhr.responseText;
+          responseData = xhr.responseText as T;
         }
 
         if (status >= 200 && status < 300) {

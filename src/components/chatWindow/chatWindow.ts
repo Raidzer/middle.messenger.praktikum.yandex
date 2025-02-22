@@ -97,16 +97,22 @@ const buttonDeleteUser = new Button({
     click: {
       cb: async () => {
         const idUser = store.getState().selectedUser?.id;
+
+        if (!idUser) {
+          return;
+        }
+
         const chatId = store.getState().selectedChat?.id;
 
-        if (idUser && chatId) {
-          const data: IChatAddUsers = {
-            users: [idUser],
-            chatId,
-          };
-
-          ChatsController.deleteChatUsers(data);
+        if (!chatId) {
+          return;
         }
+
+        const data: IChatAddUsers = {
+          users: [idUser],
+          chatId,
+        };
+        ChatsController.deleteChatUsers(data);
       },
     },
   },

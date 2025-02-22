@@ -9,28 +9,39 @@
 # Установка
 
 Клонирование репозитория:
+
 ```
 git clone https://github.com/Raidzer/middle.messenger.praktikum.yandex
 ```
+
 Переход в директорию проекта:
+
 ```
 cd middle.messenger.praktikum.yandex
 ```
+
 Установка зависимостей:
+
 ```
 npm run install
 ```
+
 ## Инструкция по запуску проекта
 
 Запуск проекта в режиме разработки:
+
 ```
 npm run dev
 ```
+
 Сборка и запуск проекта:
+
 ```
 npm run start
 ```
+
 # Страницы приложения
+
 Страница входа: [login](https://raidzermessenger.netlify.app/src/pages/login/login)
 
 Страница регистрации: [register](https://raidzermessenger.netlify.app/src/pages/register/register)

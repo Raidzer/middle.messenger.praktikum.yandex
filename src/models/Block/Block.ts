@@ -1,8 +1,8 @@
 import Handlebars from "handlebars";
-import EventBus from "../../utils/EventBus/EventBus";
-import { IBlockProps } from "./IBlock";
+import EventBus from "../../utils/EventBus/EventBus.ts";
+import { IBlockProps } from "./IBlock.ts";
 import { v4 as uuid } from "uuid";
-import { isEqual } from "../../utils/utils";
+import { isEqual } from "../../utils/utils.ts";
 
 export default abstract class Block<T extends IBlockProps = IBlockProps> {
   static EVENTS = {

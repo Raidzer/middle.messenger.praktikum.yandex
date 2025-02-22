@@ -4,6 +4,7 @@ import {
   IUserPasswordChangeData,
 } from "../api/UsersAPI/IUsersApi";
 import UserAPI from "../api/UsersAPI/UsersAPI";
+import { HTTPStatus } from "../enums/HTTP";
 import { Routes } from "../enums/Routes";
 import Router from "../router/Router";
 import store from "../store/Store";
@@ -17,7 +18,7 @@ class UsersController {
         return;
       }
 
-      if (response.status === 200) {
+      if (response.status === HTTPStatus.OK) {
         store.set("user", response.data);
       }
     } catch (error) {
@@ -33,7 +34,7 @@ class UsersController {
         return;
       }
 
-      if (response.status === 200) {
+      if (response.status === HTTPStatus.OK) {
         Router.go(Routes.PROFILE);
       }
     } catch (error) {
@@ -49,7 +50,7 @@ class UsersController {
         return;
       }
 
-      if (response.status === 200) {
+      if (response.status === HTTPStatus.OK) {
         store.set("userSearchList", response.data);
       }
     } catch (error) {
@@ -65,7 +66,7 @@ class UsersController {
     try {
       const response = await UserAPI.changeUserAvatar(data);
 
-      if (response.status === 200) {
+      if (response.status === HTTPStatus.OK) {
         store.set("user", response.data);
       }
 
